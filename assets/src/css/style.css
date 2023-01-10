@@ -1756,6 +1756,18 @@ figure:hover .option .fa-shopping-cart {
     margin-bottom: 25px;
     position: relative;
 }
+
+figure.post_img {
+    display: flex;
+    justify-content: center;
+}
+
+div.post_content p{
+    text-align: justify;
+    padding-right: 20px;
+
+}
+
 .blog_large .post_img img, .blog_single .post_img img {
     height: auto;
     max-width: 100%;
