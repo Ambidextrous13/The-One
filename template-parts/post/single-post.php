@@ -69,6 +69,7 @@
                                 </p>
                             </div>
                         </div>
+                        <div id="anchor-comments"></div>
                     </div>
                     
                     <?php

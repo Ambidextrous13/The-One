@@ -30,13 +30,23 @@
                     
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <ul class="pagination pull-left mrgt-0">
-                            <li><a href="#">&laquo;</a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">&raquo;</a></li>
+
+                        <?php
+                        $arg = [
+                            'type'  => 'array',
+                        ];  
+                            $posts_pagination = paginate_links( $arg );
+                            if ( ! empty( $posts_pagination ) ){
+                                foreach ($posts_pagination as $index => $link) {
+                                    $class = '';
+                                    if ( substr_count( $link, '<span',0, 5 ) === 1 ) {
+                                        $class = ' class="active"';
+                                    }
+                                    printf( '<li%1$s>%2$s</li>', $class, $link );
+                                }
+                            }
+                        ?>
+
                         </ul>
                     </div>
                 </div>
