@@ -1,0 +1,86 @@
+#cmb-slider{
+    position: relative;
+    box-shadow: inset 2px 2px 8px rgba(0, 0, 0, 0.25);
+}
+#cmb-slider, #cmb-toggle{
+    width: 80px;
+    height: 20px;
+    border-radius: 25px;
+    background-color: rgb(238, 238, 238);
+}
+#cmb-toggle{
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+#cmb-i-r{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    height: 10px;
+    width: 40px;
+    border-radius: 40px;
+    background-color: rgb(188, 188, 188);
+    animation-name: slider-move ;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0, 0.7, 0, 1);
+    animation-fill-mode: forwards;
+}
+
+.cmb-temp-off{
+    box-shadow: 2px 0 2px 2px rgba(80, 80, 80, 0.25);
+}
+
+.cmb-temp-on{
+    box-shadow: -2px 0 2px 2px rgba(80, 80, 80, 0.25);
+}
+
+@keyframes cmb-slider-on {
+    from{
+        left : 5px;
+        background-color: rgb(188, 188, 188);
+    }
+    to{
+        left : 35px;
+        background-color: green;
+    }
+}
+
+@keyframes cmb-slider-off {
+    from{
+        left : 35px;
+        background-color: green;
+    }
+    to{
+        left : 5px;
+        background-color: rgb(188, 188, 188);
+    }
+}
+
+.cmb-form{
+    display: flex;
+    flex-direction: column;
+}
+input, select{
+    width: 100px;
+    padding: 5px;
+}
+#cmb-color{
+    padding: 0;
+}
+.cmb-pair{
+    margin: 10px 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 250px;
+}
+
+.cmb-hidable{
+    display: none;
+}
+
+#cmb-pattern{
+    outline: none;
+}

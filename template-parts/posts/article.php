@@ -41,7 +41,7 @@
             </h2>
             <div class="metaInfo">
                 <span><i class="fa fa-calendar"></i> <a href="#"><?php the_time( 'M d, Y' ); ?></a> </span>
-                <span><i class="fa fa-user"></i> <?php _e( 'By', 'the-one' ); ?> <a href="#"><?php the_author( ); ?></a> </span>
+                <span><i class="fa fa-user"></i> <?php _e( 'By', 'the-one' ); ?> <a href="<?php echo esc_url(get_author_posts_url( get_the_author_meta( 'ID' ) ) ) ?>"><?php the_author( ); ?></a> </span>
                 
                 <span><i class="fa fa-tag"></i> <?php the_tags( '', ', ' ); ?> </span>
                 <span><i class="fa fa-comments"></i> <a href="<?php echo esc_url( $single_post_link ); ?>"><?php echo get_comments_number( ). ' ' . __( 'Comments','the-one' ); ?></a></span>
