@@ -1,0 +1,20 @@
+import './main.js';
+import './jquery-1.10.2.min.js';
+import './bootstrap.min.js';
+import './jquery.easing.1.3.js';
+import './retina-1.1.0.min.js';
+import './jquery.cookie.js';
+import './styleswitch.js';
+import './jquery.smartmenus.min.js';
+import './jquery.smartmenus.bootstrap.min.js';
+import './owl.carousel.min.js';
+import './jflickrfeed.js';
+import './jquery.magnific-popup.min.js';
+import './jquery.isotope.min.js';
+import './swipe.js';
+import './jquery.sticky.js';
+
+import '../css/bootstrap.min.css';
+import '../css/style.css';
+import '../css/layout/wide.css';
+import '../css/switcher.css';

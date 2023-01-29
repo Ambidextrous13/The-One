@@ -10,6 +10,7 @@
             $this-> setup_hooks();
 
             Assets::get_instance();
+            Sidebars::get_instance();
             Menus::get_instance();
             Meta_Boxes::get_instance();
 
@@ -24,7 +25,6 @@
         }
 
         public function theme_supports(){
-
             add_theme_support( 'title-tag' );
             
             add_theme_support(

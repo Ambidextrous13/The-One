@@ -75,6 +75,7 @@
                     <?php
                         endwhile;
                         endif;
+                        wp_reset_postdata();
                     ?>
                     <!--News Comments-->
                     <div class="news_comments">

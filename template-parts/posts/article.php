@@ -27,7 +27,7 @@
 <article class="post">
     <figure class="post_img">
         <a href="<?php echo esc_url( $single_post_link, 'the-one' ); ?>">
-            <img src="<?php esc_html_e( $src, 'the-one' ); ?>" alt="blog post" class="<?php $bordered ? esc_html_e( 'border-it', 'the-one' ) : '' ?>" data="<?php echo $serialized_data ?>">
+            <img src="<?php esc_html_e( $src, 'the-one' ); ?>" alt="blog post" class="<?php $bordered ? esc_attr_e( 'border-it', 'the-one' ) : '' ?>" data="<?php echo $serialized_data ?>">
         </a>
     </figure>
     <div class="post_date">

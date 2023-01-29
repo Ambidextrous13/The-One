@@ -1032,7 +1032,7 @@ ul.sm li *,ul.sm li *:before,ul.sm li *:after{-moz-box-sizing:content-box;-webki
 .sidebar .widget ul.list_style li{
     list-style:none;
     border-bottom:1px solid #f2f2f2;
-    font-size: 12px;
+    font-size: 13px;
     line-height: 20px;
     padding: 8px 2px 8px 12px;
 }

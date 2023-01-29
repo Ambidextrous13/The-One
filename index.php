@@ -23,6 +23,7 @@
                             
                         endwhile;
                     endif;
+                    wp_reset_postdata();
                         }
                     ?>
                     
@@ -52,7 +53,7 @@
                 </div>
                 <!--Sidebar Widget-->
                 <?php
-                get_template_part( 'template-parts/sidebar' )
+                get_sidebar();
                 ?>
             </div><!--/.row-->
         </div> <!--/.container-->
