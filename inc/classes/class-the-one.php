@@ -13,6 +13,7 @@
             Sidebars::get_instance();
             Menus::get_instance();
             Meta_Boxes::get_instance();
+            Block_Pattern::get_instance();
 
         }
 

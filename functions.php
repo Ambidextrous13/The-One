@@ -67,6 +67,7 @@ function the_one_post_paginator(){
 }
 
 function the_template_part( $slug, $name = '', $args = ''  ){
+    ob_start();
     if ('' === $name && '' === $args && '' !== $slug ) {
         get_template_part( $slug );
     }
@@ -77,9 +78,11 @@ function the_template_part( $slug, $name = '', $args = ''  ){
         get_template_part( $slug, $name, $args );
     }
     else {
-        return 0;
+        echo 0;
     }
-
+    $returnable = ob_get_contents();
+    ob_end_clean();
+    return $returnable;
 }
 
 ?>

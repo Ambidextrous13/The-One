@@ -29,31 +29,41 @@ class Widget_Tags extends WP_Widget{
     }
 
     public function form ( $instance ){
-        if ( isset( $instance[ 'title' ] ) ) {
-			$title = $instance[ 'title' ];
-		} else {
-            $title = __( '#_HASHTAGS', 'the-one' );
-        }
-
-        if ( isset( $instance[ 'max_items' ] ) ) {
-            $max_items = $instance[ 'max_items' ];
-        } else {
-            $max_items = __( '13', 'the-one' );
-        }
-        $ref_title_name = $this->get_field_name( 'title' );
-        $ref_title_id = $this->get_field_id( 'title' );
-        $ref_max_items_name = $this->get_field_name( 'max_items' );
-        $ref_max_items_id = $this->get_field_id( 'max_items' );
-        ?>
-        <p>
-            <label for="<?php echo $ref_title_name; ?>"><?php _e( 'Title:','the-one' ); ?></label>
-            <input class="widefat" id="<?php echo $ref_title_id; ?>" name="<?php echo $ref_title_name; ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
-        </p>
-        <p>
-            <label for="<?php echo $ref_max_items_name; ?>"><?php _e( 'Max Categories:','the-one' ); ?></label>
-            <input class="widefat" id="<?php echo $ref_max_items_id ?>" name="<?php echo $ref_max_items_name; ?>" type="number" value="<?php echo esc_attr( $max_items ); ?>" />
-        </p>
-        <?php
+        $html_metas = [
+			'title' => [
+				'label' 	=> 'Title:',
+				'input:type'=> 'text',
+				'name'		=> $this->get_field_name( 'title' ),
+				'attr'		=>[
+					'name'		=> $this->get_field_name( 'title' ),
+					'id'   		=> $this->get_field_id  ( 'title' ),
+					'value'		=>  isset( $instance[ 'title' ] ) ? $instance[ 'title' ] : '#_HASHTAGS:',
+				]
+			],
+			'tab1' =>[
+				'label' 	=> 'Max. Categories:',
+				'input:type'=> 'number',
+				'name'		=> $this->get_field_name( 'max_items' ),
+				'attr'		=> [
+					'name'		=> $this->get_field_name( 'max_items' ),
+					'id'   		=> $this->get_field_id  ( 'max_items' ),
+					'value'		=> isset( $instance[ 'max_items' ] ) ? $instance[ 'max_items' ] : 13,
+				]
+			],
+		];
+        foreach( $html_metas as $_ => $meta ){
+			$label = HTML::label_tag( $meta[ 'label' ], $meta[ 'name' ] );
+			$input = HTML::input_tag(
+				$meta[ 'input:type' ],
+				isset( $meta[ 'attr' ] ) ? ( $meta[ 'attr' ] ) : []
+			);
+			$pera = HTML::p_tag( 
+				$label . $input, 
+				[], 
+				true 
+			);
+			echo $pera;
+		};
     }
     
     public function update( $new_instance, $old_instance ) { // db config

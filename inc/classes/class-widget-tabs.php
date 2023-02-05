@@ -29,45 +29,52 @@ class Widget_Tabs extends WP_Widget{
     }
 
     public function form( $instance ) {  // widget form
-		if ( isset( $instance[ 'title' ] ) ) {
-			$title = $instance[ 'title' ];
-		} else {
-			$title = __( 'Pin Board', 'the-one' );
-		}
+		$html_metas = [
+			'title' => [
+				'label' 	=> 'Title:',
+				'input:type'=> 'text',
+				'name'		=> $this->get_field_name( 'title' ),
+				'attr'		=> [
+					'name'		=> $this->get_field_name( 'title' ),
+					'id'   		=> $this->get_field_id  ( 'title' ),
+					'value'		=>  isset( $instance[ 'title' ] ) ? $instance[ 'title' ] : 'Pin Board',
+				]
+			],
+			'tab1' =>[
+				'label' 	=> 'Tab-1 Title:',
+				'input:type'=> 'text',
+				'name'		=> $this->get_field_name( 'tab-1' ),
+				'attr'		=> [
+					'name'		=> $this->get_field_name( 'tab-1' ),
+					'id'   		=> $this->get_field_id  ( 'tab-1' ),
+					'value'		=> isset( $instance[ 'tab-1' ] ) ? $instance[ 'tab-1' ] : 'Pinned Notices',
+				]
+			],
+			'tab2' =>[
+				'label' 	=> 'Tab-2 Title:',
+				'input:type'=> 'text',
+				'name'		=> $this->get_field_name( 'tab-2' ),
+				'attr'		=> [
+					'name'		=> $this->get_field_name( 'tab-2' ),
+					'id'   		=> $this->get_field_id  ( 'tab-2' ),
+					'value'		=> isset( $instance[ 'tab-2' ] ) ? $instance[ 'tab-2' ] : 'Recent',
+				]
+			],
+		];
 
-		if ( isset( $instance[ 'tab-1' ] ) ) {
-			$tab_1 = $instance[ 'tab-1' ];
-		} else {
-			$tab_1 = __( 'Pinned Notices', 'the-one' );
-		}
-
-		if ( isset( $instance[ 'tab-2' ] ) ) {
-			$tab_2 = $instance[ 'tab-2' ];
-		} else {
-			$tab_2 = __( 'Recent', 'the-one' );
-		}
-
-		$ref_title_name = $this->get_field_name( 'title' );
-		$ref_title_id   = $this->get_field_id( 'title' );
-
-		$ref_tab_1_name = $this->get_field_name( 'tab-1' );
-		$ref_tab_1_id   = $this->get_field_id( 'tab-1' );
-		$ref_tab_2_name = $this->get_field_name( 'tab-2' );
-		$ref_tab_2_id   = $this->get_field_id( 'tab-2' );
-
-		?>
-		<p>
-			<label for="<?php echo $ref_title_name; ?>"><?php _e( 'Title:','the-one' ); ?></label>
-			<input class="widefat" id="<?php echo $ref_title_id; ?>" name="<?php echo $ref_title_name; ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
-		</p>
-		<p>
-			<label for="<?php echo $ref_tab_1_name; ?>"><?php _e( 'Tab-1 Title:','the-one' ); ?></label>
-			<input class="widefat" id="<?php echo $ref_tab_1_id; ?>" name="<?php echo $ref_tab_1_name; ?>" type="text" value="<?php echo esc_attr( $tab_1 ); ?>" />
-
-			<label for="<?php echo $ref_tab_2_name; ?>"><?php _e( 'Tab-2 Title:','the-one' ); ?></label>
-			<input class="widefat" id="<?php echo $ref_tab_2_id; ?>" name="<?php echo $ref_tab_2_name; ?>" type="text" value="<?php echo esc_attr( $tab_2 ); ?>" />
-		</p>
-		<?php
+		foreach( $html_metas as $_ => $meta ){
+			$label = HTML::label_tag( $meta[ 'label' ], $meta[ 'name' ] );
+			$input = HTML::input_tag(
+				$meta[ 'input:type' ],
+				isset( $meta[ 'attr' ] ) ? ( $meta[ 'attr' ] ) : []
+			);
+			$pera = HTML::p_tag( 
+				$label . $input, 
+				[], 
+				true 
+			);
+			echo $pera;
+		};
 	}
 
     public function update( $new_instance, $old_instance ) { // db config

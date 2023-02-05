@@ -32,37 +32,44 @@ class Widget_Search extends WP_Widget{
     }
 
     public function form( $instance ) {  // widget form
-		if ( isset( $instance[ 'title' ] ) ) {
-			$title = $instance[ 'title' ];
-		} else {
-			$title = __( 'Search Field', 'the-one' );
-		}
+		$html_metas = [
+			'title' => [
+				'label' 	=> 'Title:',
+				'name'		=> $this->get_field_name( 'title' ),
+				'input:type'=> 'text',
+				'attr'		=>[
+					'name'		=> $this->get_field_name( 'title' ),
+					'id'   		=> $this->get_field_id  ( 'title' ),
+					'value'		=>  isset( $instance[ 'title' ] ) ? $instance[ 'title' ] : 'Search Field',
+				]
+			],
+			'checkbox' =>[
+				'label' 	=> "Show title ?\t",
+				'name'		=> $this->get_field_name( 'checkbox' ),
+				'input:type'=> 'checkbox',
+				'attr'		=> [
+					'name'		=> $this->get_field_name( 'checkbox' ),
+					'id'   		=> $this->get_field_id  ( 'checkbox' ),
+					'attributes'=> [
+						( isset( $instance[ 'checkbox' ] ) && 'on' === $instance[ 'checkbox' ] ) ? 'Checked': '',
+						]
+				]	
+			],
+		];
 
-		if ( isset( $instance[ 'checkbox' ] ) ) {
-			$checkbox = $instance[ 'checkbox' ];
-		} else {
-			$checkbox = __( 'Search Field', 'the-one' );
-		}
-
-		$ref_title_name = $this->get_field_name( 'title' );
-		$ref_title_id   = $this->get_field_id( 'title' );
-
-		$ref_check_name = $this->get_field_name( 'checkbox' );
-		$ref_check_id   = $this->get_field_id( 'checkbox' );
-		
-
-		?>
-		<p>
-			<label for="<?php echo $ref_title_name; ?>"><?php _e( 'Title:','the-one' ); ?></label>
-			<input class="widefat" id="<?php echo $ref_title_id; ?>" name="<?php echo $ref_title_name; ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
-		</p>
-
-		<p>
-			<label for="<?php echo $ref_check_name; ?>"><?php _e( 'Title On:','the-one' ); ?></label>
-			<input class="widefat" id="<?php echo $ref_check_id; ?>" name="<?php echo $ref_check_name; ?>" type="checkbox" <?php echo  ( 'on' === $checkbox ) ? 'Checked': ''; ?> />
-		</p>
-
-		<?php
+		foreach( $html_metas as $_ => $meta ){
+			$label = HTML::label_tag( $meta[ 'label' ], $meta[ 'name' ] );
+			$input = HTML::input_tag(
+				$meta[ 'input:type' ],
+				isset( $meta[ 'attr' ] ) ? ( $meta[ 'attr' ] ) : []
+			);
+			$pera = HTML::p_tag( 
+				$label . $input, 
+				[], 
+				true 
+			);
+			echo $pera;
+		};
 	}
 
     public function update( $new_instance, $old_instance ) { // db config
