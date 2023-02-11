@@ -53,6 +53,7 @@
     $is_first_iteration = true;
     foreach ( $tabs as $tab => $params ) {
         $pinned_posts = new WP_Query( $params[ 'query_params' ] );
+        $GLOBALS[ 'the-one-tabs' ][ $tab ] = $pinned_posts;
         $class = ' ';
         if ( $is_first_iteration ) {
             $class = ' active in';

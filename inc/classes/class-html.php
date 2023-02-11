@@ -100,6 +100,14 @@
             return $html;
         }
 
+        public static function custom_tag( $tag, $text_content = '', $is_self_closing = false, $args = [] ){
+            $html = '<' . $tag;
+            $html .= HTML::set_class_id_params( $args, true, $is_self_closing );
+            $html .= esc_html__( $text_content, 'the-one' );
+            $html .= $is_self_closing ? '' : '</' . $tag . '>';
+            return $html;
+        }
+
     }
 ?>
 

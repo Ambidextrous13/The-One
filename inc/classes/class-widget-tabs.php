@@ -23,6 +23,7 @@ class Widget_Tabs extends WP_Widget{
 			echo $before_title . $title . $after_title;
 		}
         
+		
 		get_template_part( 'template-parts/widgets/widget', 'tabs', $instance );
 
 		echo $after_widget;
