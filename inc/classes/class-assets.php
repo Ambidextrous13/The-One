@@ -39,6 +39,7 @@
             wp_register_script( 'jquery-isotope-js',  THE_ONE_JS . 'jquery.isotope.min.js',              [], filemtime( ABS_THE_ONE_JS . 'jquery.isotope.min.js' ),              true );
             wp_register_script( 'jquery-sticky-js',   THE_ONE_JS . 'jquery.sticky.js',                   [], filemtime( ABS_THE_ONE_JS . 'jquery.sticky.js' ),                   true );
             wp_register_script( 'bordered-it-js',     THE_ONE_JS . 'meta-boxes/bordered-post-posts.js',  [], filemtime( ABS_THE_ONE_JS . 'meta-boxes/bordered-post-posts.js' ),  true );
+            wp_register_script( 'infinite-scroll-js', THE_ONE_JS . 'infinite-scroll.js',                 [], filemtime( ABS_THE_ONE_JS . 'infinite-scroll.js' ),                 true );
             //enrolling 
             wp_enqueue_script( 'bootstrap-js' );
             wp_enqueue_script( 'flicker-feed-js' );
@@ -57,6 +58,13 @@
             wp_enqueue_script( 'jquery-isotope-js' );
             wp_enqueue_script( 'jquery-sticky-js' );
             wp_enqueue_script( 'bordered-it-js' );
+            wp_enqueue_script( 'infinite-scroll-js' );
+
+            wp_localize_script( 'infinite-scroll-js', 'siteConfig', [
+                'ajax_url'    => admin_url( 'admin-ajax.php' ),
+                'ajax_nonce' => wp_create_nonce( 'infinite_scroll_nonce' ),
+            ] );
+
             
             // CSS File enqueuing
             wp_register_style( 'bootstrap-css',   THE_ONE_CSS . 'bootstrap.min.css',  [], filemtime( ABS_THE_ONE_CSS . 'bootstrap.min.css' ),  'all' );
@@ -74,7 +82,9 @@
 
         public function scripts_for_admin(){
             wp_register_script( 'custom-meta-box-js', THE_ONE_JS . 'meta-boxes/custom-meta-box.js', [], filemtime( ABS_THE_ONE_JS . 'meta-boxes/custom-meta-box.js' ), true );
+            wp_register_script( 'theme-settings-js', THE_ONE_JS . 'theme-settings.js',              [], filemtime( ABS_THE_ONE_JS . 'theme-settings.js' )            , true );
             wp_enqueue_script( 'custom-meta-box-js' );
+            wp_enqueue_script( 'theme-settings-js' );
 
             wp_register_style( 'custom-meta-box', THE_ONE_CSS . 'meta-boxes/custom-meta-box.css',[], filemtime( ABS_THE_ONE_CSS . 'meta-boxes/custom-meta-box.css' ), 'all' );
             wp_enqueue_style( 'custom-meta-box' );

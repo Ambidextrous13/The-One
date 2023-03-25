@@ -15,12 +15,12 @@
 <div class="widget_content">
     <ul class="tweet_list">
         <li class="tweet_content item">
-            <p class="tweet_link"><a href="<?php esc_attr_e( $tweet1[ 'link' ] ); ?>"><?php esc_attr_e( $tweet1[ 'author' ] ); ?> </a> <?php esc_attr_e( short_text( $tweet1[ 'text' ] ) ); ?></p>
             <span class="time"><?php esc_attr_e( $tweet1[ 'date' ] ); ?></span>
+            <p class="tweet_link"><a href="<?php esc_attr_e( $tweet1[ 'link' ] ); ?>"><?php esc_attr_e( $tweet1[ 'author' ] ); ?> </a> <?php esc_attr_e( short_text( $tweet1[ 'text' ] ) ); ?></p>
         </li>
         <li class="tweet_content item">
-            <p class="tweet_link"><a href="<?php esc_attr_e( $tweet2[ 'link' ] ); ?>"><?php esc_attr_e( $tweet2[ 'author' ] ); ?> </a> <?php esc_attr_e( short_text( $tweet2[ 'text' ] ) ); ?></p>
             <span class="time"><?php esc_attr_e( $tweet2[ 'date' ] ); ?></span>
+            <p class="tweet_link"><a href="<?php esc_attr_e( $tweet2[ 'link' ] ); ?>"><?php esc_attr_e( $tweet2[ 'author' ] ); ?> </a> <?php esc_attr_e( short_text( $tweet2[ 'text' ] ) ); ?></p>
         </li>
     </ul>
 </div>

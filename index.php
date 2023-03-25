@@ -5,62 +5,37 @@
  * @package The-One
  * @author Janak Patel <pateljanak830@gmail.com>
  */
+use THE_ONE\Inc\Classes\{ Infinite_Scroll , Settings };
 
- get_header( );
-?>  
-<!--start wrapper-->
-<section class="wrapper">
-    <section class="content blog">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-8 col-md-8 col-lg-8">
-                    <div class="blog_large">
+$infi_scroll = get_option( 'the_one_infinite_scroll' );
 
-                    <?php
-                        if( is_home(  ) ){
-                            if( have_posts(  ) ) : while( have_posts(  ) ) : the_post(  );
-                               get_template_part( '/template-parts/posts/article' );
-                            
-                        endwhile;
-                    endif;
-                    wp_reset_postdata();
-                        }
-                    ?>
-                    
-                    </div>
-                    
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <ul class="pagination pull-left mrgt-0">
+get_header( );
+if( is_home( ) ){
+    get_template_part( 'template-parts/posts/html', 'upper', $infi_scroll ? [ 'div_1_id' => 'id ="append_here"' ] : [] );
 
-                        <?php
-                        $arg = [
-                            'type'  => 'array',
-                        ];  
-                            $posts_pagination = paginate_links( $arg );
-                            if ( ! empty( $posts_pagination ) ){
-                                foreach ($posts_pagination as $index => $link) {
-                                    $class = '';
-                                    if ( substr_count( $link, '<span',0, 5 ) === 1 ) {
-                                        $class = ' class="active"';
-                                    }
-                                    printf( '<li%1$s>%2$s</li>', $class, $link );
-                                }
-                            }
-                        ?>
+    if( 'on' === $infi_scroll ){
+        $instance = THE_ONE\Inc\Classes\Infinite_Scroll::get_instance();
+        $instance->give_feeds();
+    }
+    else{
+        get_template_part( 'template-parts/posts/html', 'upper' );
+        if( have_posts( ) ){
+            while( have_posts( ) ) {
+                the_post( );
+                get_template_part( '/template-parts/posts/article' );
+            }
+        wp_reset_postdata();
+        }
+    }
 
-                        </ul>
-                    </div>
-                </div>
-                <!--Sidebar Widget-->
-                <?php
-                get_sidebar();
-                ?>
-            </div><!--/.row-->
-        </div> <!--/.container-->
-    </section>
-</section>
-<!--end wrapper-->
-<!--start footer-->
-<?php
-    get_footer( );
+    echo '</div>';
+    
+    get_template_part( 'template-parts/posts/paginator',null , $infi_scroll ? [ 'retro_reflective_panels' => 'on' ] : [] );
+    echo '</div>';
+    get_sidebar();
+    get_template_part( 'template-parts/posts/html', 'lower' );
+}
+
+                
+get_footer( );
 ?>

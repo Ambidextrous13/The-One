@@ -425,15 +425,15 @@ a:focus{
 }
 
 .page_title h2 {
-    color: #181818;
-    background: #fff;
+    color: #fff;
     float: left;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 600;
     margin: 0 0 -3px 0 ;
     padding: 7px 15px;
     text-transform: uppercase;
     border-bottom: 3px solid #727CB6;
+    cursor: default;
 }
 
 /* Breadcrumbs
@@ -885,7 +885,9 @@ ul.sm li *,ul.sm li *:before,ul.sm li *:after{-moz-box-sizing:content-box;-webki
     color: #fff;
     margin-bottom: 5px;
 }
-.tweet_list li::before {
+.tweet_list p::before {
+    position: relative;
+    left: 0px;
     font-family: fontawesome;
     content: "";
     font-size: 16px;
@@ -2085,7 +2087,7 @@ div.post_content p{
 
 /* Post Share Article
 ================================================== */
-.shares { background: #f2f2f2; list-style: none; overflow: hidden; margin: 50px 0 0;padding:0;}
+.shares { width: 100%; background: #f2f2f2; list-style: none; overflow: hidden; margin: 50px 0 0;padding:0;}
 .shares li { float: left; border-right: 1px solid #fff; }
 .shares li.shareslabel h3 {padding: 8px 20px; font-weight: 600; text-transform: uppercase; font-size: 18px;margin: 0;}
 .shares li a { display: block; width: 45px; height: 46px; background-repeat: no-repeat; background-position: 7px 7px; -webkit-transition: all 150ms ease-in-out;
@@ -2242,12 +2244,16 @@ h4.comment-author a{color:#555}
     overflow:hidden;
 }
 #comment-list li .comment-container:hover a{color:#727CB6;}
-#comment-list .comment-meta { margin-bottom:10px; }
+/* #comment-list .comment-meta { margin-bottom:10px; } */
 #comment-list .comment-date { font-size:12px; font-style:italic;color:#888;}
 #comment-list li .comment-container:hover .comment-date { color:#727CB6; }
 
 #comment-list li .comment-container:hover h4 { color:#727CB6; }
-.comment-reply-link {
+
+#comment-list .comment-controls {
+    margin-bottom:10px;
+    display: flex;
+    justify-content: space-between;
     color: inherit !important;
     font-size: 12px;
     font-weight: 700;
@@ -2257,6 +2263,21 @@ h4.comment-author a{color:#555}
     right:20px;
     top:20px;
 }
+
+#comment-list .comment-meta a{
+    margin: 0 10px;
+}
+
+/* .comment-reply-link {
+    color: inherit !important;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none !important;
+    text-transform: uppercase;
+    position:absolute;
+    right:20px;
+    top:20px;
+} */
 
 .comment_form > input {
     margin-bottom:20px;
@@ -4897,18 +4918,18 @@ blockquote.default {
     margin-right: 0;
     float: none;
 }
-.footbot_social li a.fb:hover            {background:#1964DA; border-radius: 5px; color:#fff;}
-.footbot_social li a.twtr:hover          {color: #fff; background:#3ABDD1; border-radius:5px;}
-.footbot_social li a.gmail:hover         {color: #fff;}
-.footbot_social li a.pinterest:hover     {color: #fff;}
+.footbot_social li a.facebook:hover      {color: #fff; background:#1964DA; border-radius:5px;}
+.footbot_social li a.twitter:hover       {color: #fff; background:#3ABDD1; border-radius:5px;}
+.footbot_social li a.gmail:hover         {color: #fff; background:#3ABDD1; border-radius:5px;}
+.footbot_social li a.pinterest:hover     {color: #fff; background:#3ABDD1; border-radius:5px;}
 .footbot_social li a.rss:hover           {color: #fff; background:#F15200; border-radius:5px;}
-.footbot_social li a.tumblr:hover        {color: #fff;}
-.footbot_social li a.flickr:hover        {color: #fff;}
-.footbot_social li a.instagram:hover     {color: #fff;}
-.footbot_social li a.linkedin:hover      {color: #fff;}
+.footbot_social li a.tumblr:hover        {color: #fff; background:#3ABDD1; border-radius:5px;}
+.footbot_social li a.flickr:hover        {color: #fff; background:#3ABDD1; border-radius:5px;}
+.footbot_social li a.instagram:hover     {color: #fff; background:#f00557; border-radius:5px;}
+.footbot_social li a.linkedin:hover      {color: #fff; background:#0b5fbb; border-radius:5px;}
 .footbot_social li a.skype:hover         {color: #fff; background:#00AAF1; border-radius:5px;}
-.footbot_social li a.youtube:hover       {color: #fff;}
-.footbot_social li a.dribbble:hover      { color: #fff; background:#F97193; border-radius:5px;}
+.footbot_social li a.youtube:hover       {color: #fff; background:#3ABDD1; border-radius:5px;}
+.footbot_social li a.dribbble:hover      {color: #fff; background:#F97193; border-radius:5px;}
 
 /* ===================================================== */
 /* 32. List & Bullets												 */

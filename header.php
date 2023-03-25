@@ -5,6 +5,11 @@
  * @package The-One 
  * @author Janak Patel <pateljanak830@gmail.com>
  */
+
+ $cc     = get_option( 'country_code' );
+ $phone  = get_option( 'contact_number' );
+ $email  = get_option( 'contact_email' );
+
 ?>
 <!DOCTYPE html>
 <html class="no-js" <?php language_attributes( ) ?>>
@@ -12,7 +17,8 @@
 	<meta http-equiv="content-type" content="text/html; charset=<?php bloginfo( 'charset' ) ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>ProBusiness Responsive Multipurpose Template</title>
+	<!-- <title>ProBusiness</title> -->
+	<title><?php wp_title() ?></title>
 	<meta name="description" content="">
     <?php
         wp_head( );
@@ -24,121 +30,14 @@
     <div class="container">
         <div class="row">
             <div class="hidden-xs col-lg-7 col-sm-5 top-info">
-                <span><i class="fa fa-phone"></i>Phone: (123) 456-7890</span>
-                <span class="hidden-sm"><i class="fa fa-envelope"></i>Email: mail@example.com</span>
-            </div>
-            <div class="col-lg-5">
-                <ul class="dropdown-items clearfix">
-                    <li>
-                        <div class="site-language">
-                            <div class="dropdown">
-                                <a class="language-dropdown" href="#" data-toggle="dropdown">
-                                    <img alt="English (US)" src="images/flags/United-States.png">
-                                    English (US)
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu pull-right" role="menu">
-                                    <li>
-                                        <a href="#">
-                                            <img alt="English (US)" src="images/flags/United-States.png">
-                                            English (US)
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <img alt="English (UK)" src="images/flags/United-Kingdom.png">
-                                            English (UK)
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <img alt="Spanish" src="images/flags/Spain.png">
-                                            Spanish
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="my-account">
-                            <div class="dropdown">
-                                <a class="account-dropdown" href="#" data-toggle="dropdown">
-                                    Hi, User
-
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu pull-right" role="menu">
-                                            <li>
-                                                <a href="#">My Account</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Checkout</a>
-                                            </li>
-                                            <li>
-                                                <a href="cart.html">Cart</a>
-                                            </li>
-                                            <li>
-                                                <a href="shop.html">Shop</a>
-                                            </li>
-                                        </ul>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="shope-cart">
-                            <div class="dropdown">
-                                <a class="cart-dropdown" href="#" data-toggle="dropdown">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    <span class="cart-items">2</span>
-                                </a>
-                                <ul class="dropdown-menu pull-right" role="menu">
-                                    <li class="cart-products">
-                                        <ul style="overflow: hidden;" tabindex="5000">
-                                            <li>
-                                                <div class="cart-product clearfix">
-                                                    <div class="left-data">
-                                                        <img alt="" src="images/cart-product.png">
-                                                    </div>
-                                                    <div class="right-data">
-                                                        <strong>
-                                                            <a href="#">Flying Ninja </a>
-                                                        </strong>
-                                                        <p>$45.00 x 1</p>
-                                                        <a class="remove-item" href="#">
-                                                            <i class="fa fa-trash-o"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="cart-product clearfix">
-                                                    <div class="left-data">
-                                                        <img alt="" src="images/cart-product2.png">
-                                                    </div>
-                                                    <div class="right-data">
-                                                        <strong>
-                                                            <a href="#">Flying Ninja </a>
-                                                        </strong>
-                                                        <p>$45.00 x 2</p>
-                                                        <a class="remove-item" href="#">
-                                                            <i class="fa fa-trash-o"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="cart-subtotal">Subtotal: $135.00</li>
-                                    <li class="cart-buttons clearfix">
-                                        <a class="btn btn-default grey" href="#" role="button">View Cart</a>
-                                        <a class="btn btn-default" href="#" role="button">Checkout</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                <?php
+                    if( $phone ){
+                        echo sprintf( '<span><i class="fa fa-phone"></i>Phone: <a href="tel:+%3$s%4$s" style="color: white">+%1$s %2$s</a></span>', $cc, substr_replace( $phone, '-', 5, 0), $cc, $phone );
+                    }
+                    if( $email ){
+                        echo sprintf( '<span class="hidden-sm"><i class="fa fa-envelope"></i>Email: <a href="mailto:%1$s" style="color: white">%2$s</span>', $email, $email );
+                    }
+                ?>
             </div>
         </div>
     </div>
@@ -158,9 +57,9 @@
                 </div>
             </div>
             <!-- Navigation================================================== -->
-
             <?php
-                require THE_BASE . 'template-parts/header/menu.php'
+                get_template_part( 'template-parts/header/menu' );
+                $page_title = get_the_value( $args, 'header_text', 'WELCOME', '', '[...]', 35, true );
             ?>
 
         </div>
@@ -170,15 +69,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <nav id="breadcrumbs">
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li>blog</li>
-                    </ul>
-                </nav>
-
                 <div class="page_title">
-                    <h2>Blog Large Images</h2>
+                    <h2><?php echo $page_title ?></h2>
                 </div>
             </div>
         </div>

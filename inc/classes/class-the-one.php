@@ -14,6 +14,8 @@
             Menus::get_instance();
             Meta_Boxes::get_instance();
             Block_Pattern::get_instance();
+            Infinite_Scroll::get_instance();
+            Settings::get_instance();
 
         }
 

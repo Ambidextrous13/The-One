@@ -90,40 +90,5 @@
 <?php
     };
 ?>	
-        <!-- <div class="tab-pane fade" id="Recent">
-            <ul class="recent_tab_list">
-                <li>
-                    <span><a href="#"><img src="images/content/recent_4.png" alt=""></a></span>
-                    <a href="#">Various versions has evolved over the years</a>
-                    <i>October 18, 2015</i>
-                </li>
-                <li>
-                    <span><a href="#"><img src="images/content/recent_5.png" alt=""></a></span>
-                    <a href="#">Rarious versions has evolve over the years</a>
-                    <i>October 17, 2015</i>
-                </li>
-                <li class="last-tab">
-                    <span><a href="#"><img src="images/content/recent_6.png" alt=""></a></span>
-                    <a href="#">Marious versions has evolven over the years</a>
-                    <i>October 16, 2015</i>
-                </li>
-            </ul>
-        </div>
-        <div class="tab-pane fade" id="Comment">
-            <ul class="comments">
-                <li class="comments_list clearfix">
-                    <a class="post-thumbnail" href="#"><img width="60" height="60" src="images/content/recent_3.png" alt="#"></a>
-                    <p><strong><a href="#">Prambose</a> <i>says: </i> </strong> Morbi augue velit, tempus mattis dignissim nec, porta sed risus. Donec eget magna eu lorem tristique pellentesque eget eu dui. Fusce lacinia tempor malesuada.</p>
-                </li>
-                <li class="comments_list clearfix">
-                    <a class="post-thumbnail" href="#"><img width="60" height="60" src="images/content/recent_1.png" alt="#"></a>
-                    <p><strong><a href="#">Makaroni</a> <i>says: </i> </strong> Tempus mattis dignissim nec, porta sed risus. Donec eget magna eu lorem tristique pellentesque eget eu dui. Fusce lacinia tempor malesuada.</p>
-                </li>
-                <li class="comments_list clearfix">
-                    <a class="post-thumbnail" href="#"><img width="60" height="60" src="images/content/recent_2.png" alt="#"></a>
-                    <p><strong><a href="#">Prambanan</a> <i>says: </i> </strong> Donec convallis, metus nec tempus aliquet, nunc metus adipiscing leo, a lobortis nisi dui ut odio. Nullam ultrices, eros accumsan vulputate faucibus, turpis tortor.</p>
-                </li>
-            </ul>
-        </div> -->
     </div>
 </div>

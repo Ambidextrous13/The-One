@@ -67,7 +67,8 @@ function the_one_post_paginator(){
 }
 
 function the_template_part( $slug, $name = '', $args = ''  ){
-    ob_start();
+    // ob_start();
+    suppress_the_echo();
     if ('' === $name && '' === $args && '' !== $slug ) {
         get_template_part( $slug );
     }
@@ -80,9 +81,53 @@ function the_template_part( $slug, $name = '', $args = ''  ){
     else {
         echo 0;
     }
+    // $returnable = ob_get_contents();
+    // ob_end_clean();
+    // return $returnable;
+   return echo_to_returnable();
+}
+
+function suppress_the_echo(){
+    ob_start();
+}
+
+function echo_to_returnable(){
     $returnable = ob_get_contents();
     ob_end_clean();
     return $returnable;
 }
 
+function get_the_value( $array, $key, $default_return = '', $prefix = '', $suffix = '', $char_limit = null, $full_last_word = false ){
+    $value = $default_return;
+	$cut = false;
+    if ( is_array( $array ) && ! empty( $array ) ) {    
+        $value = isset( $array[ $key ] ) ? $prefix . $array[ $key ] : $default_return;
+        if( ! is_null( $char_limit ) && strlen( $value ) > $char_limit ){
+            $value = $full_last_word ? substr( $value, 0, strpos( $value . ' ', ' ', $char_limit ) ): substr( $value, 0, $char_limit );
+        } 
+        $value .= $cut ? $suffix : '';
+    }
+    return $value;
+}
+
+add_filter( 'comment_form_fields', 'reorder_comment_form' );
+add_action( 'comment_form_before_fields', 'wrapper_div' );
+
+function reorder_comment_form( $comment_fields ){
+    $comment_box = get_the_value( $comment_fields, 'comment', false );
+    if( $comment_box ){
+        unset( $comment_fields['comment'] );
+    }
+
+    $cookies = get_the_value( $comment_fields, 'cookies', false );
+    if( $cookies ){
+        unset( $comment_fields['cookies'] );
+    }
+
+    return $comment_fields += [ 'comment' => $comment_box, 'cookies' => $cookies ];
+}
+
+function wrapper_div( ){
+    echo '<div class="row">';
+}
 ?>

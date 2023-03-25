@@ -7,6 +7,11 @@
  */
 get_sidebar( 'footer' );
 
+$link_1  = get_option( 'social_media_facebook', '' );
+$link_2  = get_option( 'social_media_twitter', '' );
+$link_3  = get_option( 'social_media_instagram', '' );
+$link_4  = get_option( 'social_media_skype', '' );
+$link_5  = get_option( 'social_media_linkedin', '' ); // instagram linkedin github wordpress custom
 ?>
 
 	<!--end footer-->
@@ -15,17 +20,46 @@ get_sidebar( 'footer' );
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-6">
-                    <p class="copyright">&copy; Copyright 2020 ProBusiness | Powered by  <a href="https://www.yahoobaba.net/">Yahoo Baba</a></p>
+                    <p class="copyright">&copy; Copyright 2020 ProBusiness</p>
 				</div>
 				
 				<div class="col-sm-6">
 					<div class="footer_social">
 						<ul class="footbot_social">
-							<li><a class="fb" href="#." data-placement="top" data-toggle="tooltip" title="Facbook"><i class="fa fa-facebook"></i></a></li>
-							<li><a class="twtr" href="#." data-placement="top" data-toggle="tooltip" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-							<li><a class="dribbble" href="#." data-placement="top" data-toggle="tooltip" title="Dribbble"><i class="fa fa-dribbble"></i></a></li>
-							<li><a class="skype" href="#." data-placement="top" data-toggle="tooltip" title="Skype"><i class="fa fa-skype"></i></a></li>
-							<li><a class="rss" href="#." data-placement="top" data-toggle="tooltip" title="RSS"><i class="fa fa-rss"></i></a></li>
+							<?php 
+								use THE_ONE\Inc\Classes\HTML;
+								use THE_ONE\Inc\Classes\Settings;
+								$metas = Settings::social_media_handles();
+								foreach ($metas as $_ => $meta) {
+									echo 
+									HTML::custom_tag(
+										'li',
+										HTML::custom_tag(
+											'a',
+											html::custom_tag(
+												'i',
+												'',
+												false,
+												[
+													'class' => $meta['icon']
+												]
+											),
+											false,
+											[
+												'class' 		 => $meta['class'],
+												'href'  	 	 => $meta['link'],
+												'data-placement' => 'top',
+												'data-toggle' 	 => 'tooltip',
+												'title' 		 => $meta['title'],
+											],
+											true
+										),
+										false,
+										[],
+										true
+									);
+								}
+							?>
 						</ul>
 					</div>
 				</div>
@@ -35,8 +69,6 @@ get_sidebar( 'footer' );
     <?php
         wp_footer(  )
     ?>
-    <!-- Start Style Switcher -->
-    <div class="switcher"></div>
-    <!-- End Style Switcher -->
+    <div class="switcher"></div> 
 </body>
 </html>

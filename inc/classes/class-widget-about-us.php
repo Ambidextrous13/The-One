@@ -65,6 +65,18 @@
                         'placeholder' => 'Your address goes here',
                     ],
                 ],
+                'country_code' =>[
+                    'label' 	=> 'Country Code',
+                    'input:type'=> 'tel',
+                    'name'		=> $this->get_field_name( 'country_code' ),
+                    'attr'		=> [
+                        'name'		  => $this->get_field_name( 'country_code' ),
+                        'id'   		  => $this->get_field_id  ( 'country_code' ),
+                        'value'		  => isset( $instance[ 'country_code' ] ) ? $instance[ 'country_code' ] : get_option( 'country_code', '' ),
+                        'placeholder' => 'Country Code For Contact Number',
+                        'pattern'     => '^\d{1,3}$',
+                    ],
+                ],
                 'phone' =>[
                     'label' 	=> 'Phone Number',
                     'input:type'=> 'tel',
@@ -72,8 +84,9 @@
                     'attr'		=> [
                         'name'		  => $this->get_field_name( 'phone_number' ),
                         'id'   		  => $this->get_field_id  ( 'phone_number' ),
-                        'value'		  => isset( $instance[ 'phone_number' ] ) ? $instance[ 'phone_number' ] : '',
+                        'value'		  => isset( $instance[ 'phone_number' ] ) ? $instance[ 'phone_number' ] : get_option( 'contact_number', '' ),
                         'placeholder' => 'Your phone/telephone number goes here',
+                        'pattern'     => '[6-9]{1}[0-9]{9}'
                     ],
                 ],
                 'email' =>[
@@ -83,7 +96,7 @@
                     'attr'		=> [
                         'name'		  => $this->get_field_name( 'email' ),
                         'id'   		  => $this->get_field_id  ( 'email' ),
-                        'value'		  => isset( $instance[ 'email' ] ) ? $instance[ 'email' ] : '',
+                        'value'		  => isset( $instance[ 'email' ] ) ? $instance[ 'email' ] : get_option( 'contact_email', '' ),
                         'placeholder' => 'Your email goes here'
                     ],
                 ],
@@ -119,6 +132,7 @@
             $instance[ 'title' ] 		    = ( ! empty( $new_instance['title'] ) ) 	    ? strip_tags( $new_instance['title'] ) 		    : '';
             $instance[ 'about_us_text' ] 	= ( ! empty( $new_instance['about_us_text'] ) ) ? strip_tags( $new_instance['about_us_text'] ) 	: '';
             $instance[ 'address' ] 	        = ( ! empty( $new_instance['address'] ) )       ? strip_tags( $new_instance['address'] ) 	    : '';
+            $instance[ 'country_code' ] 	= ( ! empty( $new_instance['country_code'] ) )  ? strip_tags( $new_instance['country_code'] ) 	: '';
             $instance[ 'phone_number' ] 	= ( ! empty( $new_instance['phone_number'] ) )  ? strip_tags( $new_instance['phone_number'] ) 	: '';
             $instance[ 'email' ] 	        = ( ! empty( $new_instance['email'] ) )         ? strip_tags( $new_instance['email'] ) 	        : '';
             return $instance;
