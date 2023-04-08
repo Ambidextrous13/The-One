@@ -9,7 +9,7 @@ use THE_ONE\Inc\Classes\{ Infinite_Scroll , Settings };
 
 $infi_scroll = get_option( 'the_one_infinite_scroll' );
 
-get_header( );
+get_header( null, [ 'header_text' => 'POSTS' ] );
 if( is_home( ) ){
     get_template_part( 'template-parts/posts/html', 'upper', $infi_scroll ? [ 'div_1_id' => 'id ="append_here"' ] : [] );
 
@@ -18,13 +18,12 @@ if( is_home( ) ){
         $instance->give_feeds();
     }
     else{
-        get_template_part( 'template-parts/posts/html', 'upper' );
         if( have_posts( ) ){
             while( have_posts( ) ) {
                 the_post( );
                 get_template_part( '/template-parts/posts/article' );
             }
-        wp_reset_postdata();
+            wp_reset_postdata();
         }
     }
 

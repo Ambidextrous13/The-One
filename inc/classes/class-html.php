@@ -32,6 +32,9 @@
                         }
                         continue;
                     }
+                    if ( 'href' === $key ) {
+                        $html .= ' ' . esc_attr( $key ) . '="' . esc_url_raw( $value ) . '"';
+                    }
                     $html .= ' ' . esc_attr( $key ) . '="' . esc_attr( $value ) . '"';
                 }
             }

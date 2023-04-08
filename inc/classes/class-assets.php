@@ -82,12 +82,16 @@
 
         public function scripts_for_admin(){
             wp_register_script( 'custom-meta-box-js', THE_ONE_JS . 'meta-boxes/custom-meta-box.js', [], filemtime( ABS_THE_ONE_JS . 'meta-boxes/custom-meta-box.js' ), true );
-            wp_register_script( 'theme-settings-js', THE_ONE_JS . 'theme-settings.js',              [], filemtime( ABS_THE_ONE_JS . 'theme-settings.js' )            , true );
+            wp_register_script( 'theme-settings-js' , THE_ONE_JS . 'theme-settings.js',             [], filemtime( ABS_THE_ONE_JS . 'theme-settings.js' )            , true );
+            wp_register_script( 'admin-aid-js'      , THE_ONE_JS . 'admin-aid.js',                  [], filemtime( ABS_THE_ONE_JS . 'admin-aid.js' )                 , true );
             wp_enqueue_script( 'custom-meta-box-js' );
-            wp_enqueue_script( 'theme-settings-js' );
+            wp_enqueue_script( 'theme-settings-js'  );
+            wp_enqueue_script( 'admin-aid-js'       );
 
             wp_register_style( 'custom-meta-box', THE_ONE_CSS . 'meta-boxes/custom-meta-box.css',[], filemtime( ABS_THE_ONE_CSS . 'meta-boxes/custom-meta-box.css' ), 'all' );
+            wp_register_style( 'admin-style'    , THE_ONE_CSS . 'admin.css'                     ,[], filemtime( ABS_THE_ONE_CSS . 'admin.css'                      ), 'all' );
             wp_enqueue_style( 'custom-meta-box' );
+            wp_enqueue_style( 'admin-style'     );
         }
     }
 ?>

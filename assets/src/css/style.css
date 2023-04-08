@@ -145,6 +145,28 @@ a:focus{
     background: #efefef;
 }
 
+.light-big{
+    color: #fff; 
+    font-size: 16px;
+}
+
+.light-small{
+    color: #e0e0e0; 
+    font-size: 12px;
+}
+
+.multi-column{
+    display: flex;
+    align-items:center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.svg-storage{
+    display: hidden;
+    height: 0px;
+    width: 0px;
+}
 /* =================================================================== */
 /* 2. HEADER
 ====================================================================== */
@@ -2088,22 +2110,50 @@ div.post_content p{
 /* Post Share Article
 ================================================== */
 .shares { width: 100%; background: #f2f2f2; list-style: none; overflow: hidden; margin: 50px 0 0;padding:0;}
-.shares li { float: left; border-right: 1px solid #fff; }
+.shares li { float: left; border-right: 1px solid #fff; height: 46px;}
 .shares li.shareslabel h3 {padding: 8px 20px; font-weight: 600; text-transform: uppercase; font-size: 18px;margin: 0;}
-.shares li a { display: block; width: 45px; height: 46px; background-repeat: no-repeat; background-position: 7px 7px; -webkit-transition: all 150ms ease-in-out;
-    -moz-transition: all 150ms ease-in-out;
-    -o-transition: all 150ms ease-in-out;
-    -ms-transition: all 150ms ease-in-out;
-    transition: all 150ms ease-in-out;}
-.shares li a:hover { background-position: 7px -58px; background-color: #727CB6; }
-.shares li a:active { background-color: #999; }
-.shares li a.twitter { background-image: url(../images/social/twitter.png); }
-.shares li a.facebook { background-image: url(../images/social/facebook.png); }
-.shares li a.gplus { background-image: url(../images/social/gplus.png); }
-.shares li a.pinterest { background-image: url(../images/social/pinterest.png); }
-.shares li a.yahoo { background-image: url(../images/social/yahoo.png); }
-.shares li a.linkedin { background-image: url(../images/social/linkedin.png); }
+.shares li a { 
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    width: 45px; 
+    height: 46px;
+}
 
+.shares li a .main-div{
+    height :46px;
+    width: 45px;
+}
+.shares li a .main-div .move .share-svg{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height :46px;
+    width: 45px;
+    padding: 13px;
+    margin-bottom: 0px;
+}
+.shares li a .main-div .move .upper-svg{
+    background-color: #f2f2f2;
+}
+.shares li a .main-div .move .lower-svg{
+    background-color: #727CB6;
+}
+.shares li a .main-div .move .upper-svg .filter-svg{
+    filter: invert(32%) sepia(4%) saturate(20%) hue-rotate(318deg) brightness(97%) contrast(92%);
+}
+.shares li a .main-div .move .lower-svg .filter-svg{
+    filter: invert(99%) sepia(2%) saturate(962%) hue-rotate(222deg) brightness(121%) contrast(100%);
+}
+.shares li a .main-div .move{
+    position: relative;
+    top: 0px;
+    left: 0px;
+    transition: top 150ms ease-in-out;
+}
+.shares li a .main-div .move:hover{
+    top: -46px;
+}
 
 /* About Author
 ====================================*/

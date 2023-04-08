@@ -7,68 +7,43 @@
  */
 get_sidebar( 'footer' );
 
-$link_1  = get_option( 'social_media_facebook', '' );
-$link_2  = get_option( 'social_media_twitter', '' );
-$link_3  = get_option( 'social_media_instagram', '' );
-$link_4  = get_option( 'social_media_skype', '' );
-$link_5  = get_option( 'social_media_linkedin', '' ); // instagram linkedin github wordpress custom
+$copyright_text = get_option( 'the_one_copyright_text', '' );
 ?>
-
-	<!--end footer-->
-	
-	<section class="footer_bottom">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-6">
-                    <p class="copyright">&copy; Copyright 2020 ProBusiness</p>
-				</div>
-				
-				<div class="col-sm-6">
-					<div class="footer_social">
-						<ul class="footbot_social">
-							<?php 
-								use THE_ONE\Inc\Classes\HTML;
-								use THE_ONE\Inc\Classes\Settings;
-								$metas = Settings::social_media_handles();
-								foreach ($metas as $_ => $meta) {
-									echo 
-									HTML::custom_tag(
-										'li',
-										HTML::custom_tag(
-											'a',
-											html::custom_tag(
-												'i',
-												'',
-												false,
-												[
-													'class' => $meta['icon']
-												]
-											),
-											false,
-											[
-												'class' 		 => $meta['class'],
-												'href'  	 	 => $meta['link'],
-												'data-placement' => 'top',
-												'data-toggle' 	 => 'tooltip',
-												'title' 		 => $meta['title'],
-											],
-											true
-										),
-										false,
-										[],
-										true
-									);
-								}
-							?>
-						</ul>
-					</div>
+<section class="footer_bottom">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6">
+				<p class="copyright">
+					<?php
+					if ( $copyright_text ) {
+						esc_html_e( $copyright_text, 'the-one' ); 
+					}else{
+						admin_note( 'Add copyright Text here', 'theme-settings', '.copyright_text' );
+					}
+					 ?>
+				</p>
+			</div>
+			
+			<div class="col-sm-6">
+				<div class="footer_social">
+					<ul class="footbot_social">
+						<?php 
+						get_template_part( 'template-parts/footer/footer', 'social-media' ); 
+						global $social_media_counts; 
+						if( 0 >= $social_media_counts ){
+							admin_note( 'Your Social Media goes here', 'theme-settings', '.social_media_facebook'  ); 
+						}
+						?>
+					</ul>
 				</div>
 			</div>
 		</div>
-	</section>
-    <?php
-        wp_footer(  )
-    ?>
-    <div class="switcher"></div> 
+	</div>
+</section>
+<?php
+	get_template_part( 'template-parts/footer/footer', 'svgs' );
+	wp_footer();
+?>
+<div class="switcher"></div> 
 </body>
 </html>

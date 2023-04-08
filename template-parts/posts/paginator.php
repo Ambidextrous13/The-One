@@ -11,11 +11,13 @@
         'type'  => 'array',
     ];  
         $posts_pagination = paginate_links( $arg );
+        $aoao = false; // AOAO is active only appears once
         if ( ! empty( $posts_pagination ) ){
             foreach ($posts_pagination as $index => $link) {
                 $class = '';
-                if ( substr_count( $link, '<span',0, 5 ) === 1 ) {
+                if ( substr_count( $link, '<span',0, 5 ) === 1 && ! $aoao ) {
                     $class = ' class="active"';
+                    $aoao  = true;
                 }
                 printf( '<li%1$s>%2$s</li>', $class, $link );
             }

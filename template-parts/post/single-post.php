@@ -1,15 +1,12 @@
 <?php 
     global $post;
 
+    $author_ID = $post->post_author;
+    $post_id   = $post->id;
+    
     if( have_posts(  ) ):
         while ( have_posts() ) : the_post();
 
-        $src = '__NEEDS_TO_FILL__'; 
-        if( has_post_thumbnail( ) ) {
-            $src = get_the_post_thumbnail_url( '', 'indexing-size' );
-        }
-
-        $author_ID = $post->post_author
 ?>
 
 <!--start wrapper-->
@@ -41,19 +38,30 @@
                                     the_one_post_paginator();
                                 ?>
                             </div>
+
+
                             <ul class="shares">
                                 <li class="shareslabel"><h3><?php _e( 'Share This Story', 'the-one' ); ?></h3></li>
-                                <li><a class="twitter" href="#" data-placement="bottom" data-toggle="tooltip" title="Twitter"></a></li>   <!-- https://twitter.com/share?url=https://themeisle.com/blog/add-social-share-buttons-to-wordpress/&text=3 Easy Ways to Add Social Share Buttons to WordPress -->
-                                <li><a class="facebook" href="#" data-placement="bottom" data-toggle="tooltip" title="Facebook"></a></li> <!-- https://www.facebook.com/sharer.php?u=https://themeisle.com/blog/add-social-share-buttons-to-wordpress/ -->
-                                <li><a class="gplus" href="#" data-placement="bottom" data-toggle="tooltip" title="Google Plus"></a></li>
-                                <li><a class="pinterest" href="#" data-placement="bottom" data-toggle="tooltip" title="Pinterest"></a></li>
-                                <li><a class="yahoo" href="#" data-placement="bottom" data-toggle="tooltip" title="Yahoo"></a></li>
-                                <li><a class="linkedin" href="#" data-placement="bottom" data-toggle="tooltip" title="LinkedIn"></a></li>
-                                
-                                <!-- https://www.youtube.com/channel/UCAQcBsP3h6p5yXgFap4LEGA?sub_confirmation=1 -->
+                                <?php  
+                                    $share_buttons = THE_ONE\Inc\Classes\Settings::give_selected_share_options();
+                                    $button_count  = 0;
+                                    $post_data     = get_post_data_for_share( $post_id, $author_ID ); 
 
+                                    foreach ( $share_buttons as $button => $is_on ) {
+                                        if( $is_on && 10 > $button_count){
+                                            echo get_share_button_html( $button, $post_data ); 
+                                            $button_count += 1;
+                                        }
+                                    }
+                                    if( 0 === $button_count ){
+                                        admin_note( 'Configure Share buttons', 'theme-setting', 'set-id' );
+                                    }
+
+                                    // echo '<pre/>';
+                                    // the_author_meta( 'nicename' );
+                                ?>
                             </ul>
-                    
+
                         </article>
                         <div class="about_author">
                             <div class="author_desc">

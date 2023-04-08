@@ -39,49 +39,91 @@
         }
 
         public function settings_builder(){ 
-            self::back_end_register();
-            self::sections_registration( $this );
-            self::fields_registration( $this );
-            self::settings_registration();
+            self::back_end_register(); // first time registration
+            self::sections_registration( $this ); // registers section of the page 
+            self::fields_registration( $this );   // registers fields inside the sections
+            self::settings_registration();        
             
         }
         
         public static function back_end_register(){
+
             add_option( 'the_one_infinite_scroll'     , 0  );
+
             add_option( 'company_address'             , '' );
             add_option( 'country_code'                , '' );
             add_option( 'contact_number'              , '' );
             add_option( 'contact_email'               , '' );
+
             add_option( 'social_media_facebook_check' , '' );
             add_option( 'social_media_twitter_check'  , '' );
             add_option( 'social_media_instagram_check', '' );
             add_option( 'social_media_skype_check'    , '' );
             add_option( 'social_media_linkedin_check' , '' );
+            add_option( 'the_one_copyright_text_check', '' );
+      
+            add_option( 'share_copy_link_check'       , '' );
+            add_option( 'share_facebook_check'        , '' );
+            add_option( 'share_twitter_check'         , '' );
+            add_option( 'share_google+_check'         , '' );
+            add_option( 'share_pinterest_check'       , '' );
+            add_option( 'share_linkedin_check'        , '' );
+            add_option( 'share_buffer_check'          , '' );
+            add_option( 'share_tumblr_check'          , '' );
+            add_option( 'share_reddit_check'          , '' );
+            add_option( 'share_stumble_upon_check'    , '' );
+            add_option( 'share_delicious_check'       , '' );
+            add_option( 'share_evernote_check'        , '' );
+            add_option( 'share_email_check'           , '' );
+            add_option( 'share_wordpress_check'       , '' );
+            add_option( 'share_pocket_check'          , '' );
+            
             add_option( 'social_media_facebook'       , 'https://www.facebook.com/'  );
             add_option( 'social_media_twitter'        , 'https://www.twitter.com/'   );
             add_option( 'social_media_instagram'      , 'https://www.instagram.com/' );
             add_option( 'social_media_skype'          , 'https://www.skype.com/'     );
             add_option( 'social_media_linkedin'       , 'https://www.linkedin.com/'  );
+            add_option( 'the_one_copyright_text'      , 'Copyright 2023 The One'     );
             
         }
         
         public static function sections_registration( $instance ){
-            add_settings_section( 'general_settings'    , 'General Settings', [ $instance, 'general_section_html' ],'the_one_settings' );
-            add_settings_section( 'social_media_handles', 'Social Media'    , [ $instance, 'general_section_html' ],'the_one_settings' );
+            add_settings_section( 'general_settings'    , 'General Settings', [ $instance, 'null_return_fxn' ],'the_one_settings' );
+            add_settings_section( 'social_media_handles', 'Social Media'    , [ $instance, 'null_return_fxn' ],'the_one_settings' );
+            add_settings_section( 'share_options'       , 'Share Buttons'   , [ $instance, 'null_return_fxn' ],'the_one_settings' );
             
         }
         
         public static function fields_registration( $instance ){
-            add_settings_field( 'infinite_scroll' , 'Infinite Scroll', [ $instance, 'infinite_scroll_html' ], 'the_one_settings', 'general_settings' );
-            add_settings_field( 'e_mail'          , 'Contact Email'  , [ $instance, 'contact_email_html'   ], 'the_one_settings', 'general_settings' );
-            add_settings_field( 'contact_number'  , 'Contact Number' , [ $instance, 'contact_number_html'  ], 'the_one_settings', 'general_settings' );
-            add_settings_field( 'address_field'   , 'Company Address', [ $instance, 'company_address_html' ], 'the_one_settings', 'general_settings' );
+
+            add_settings_field( 'infinite_scroll'       , 'Infinite Scroll', [ $instance, 'infiscroll_html'     ], 'the_one_settings', 'general_settings', [ 'class' => 'infinite_scroll' ] );
+            add_settings_field( 'e_mail'                , 'Contact Email'  , [ $instance, 'public_email_html'   ], 'the_one_settings', 'general_settings', [ 'class' => 'e_mail'          ] );
+            add_settings_field( 'contact_number'        , 'Contact Number' , [ $instance, 'public_number_html'  ], 'the_one_settings', 'general_settings', [ 'class' => 'contact_number'  ] );
+            add_settings_field( 'address_field'         , 'Company Address', [ $instance, 'public_address_html' ], 'the_one_settings', 'general_settings', [ 'class' => 'address_field'   ] );
             
-            add_settings_field( 'social_media_facebook' , 'Facebook Handle'    , [ $instance, 'facebook_input'  ], 'the_one_settings', 'social_media_handles' );
-            add_settings_field( 'social_media_twitter'  , 'Twitter Handle'     , [ $instance, 'twitter_input'   ], 'the_one_settings', 'social_media_handles' );
-            add_settings_field( 'social_media_instagram', 'instagram Link'     , [ $instance, 'instagram_input' ], 'the_one_settings', 'social_media_handles' );
-            add_settings_field( 'social_media_skype'    , 'Skype Group/ Handle', [ $instance, 'skype_input'     ], 'the_one_settings', 'social_media_handles' );
-            add_settings_field( 'social_media_linkedin' , 'linkedin Link'      , [ $instance, 'linkedin_input'  ], 'the_one_settings', 'social_media_handles' );
+            add_settings_field( 'share_to_copy_link'    , 'Copy Link'      , [ $instance, 'share_button_html'   ], 'the_one_settings', 'share_options', [ 'key' => 'share_copy_link_check'    ] );
+            add_settings_field( 'share_to_facebook'     , 'Facebook'       , [ $instance, 'share_button_html'   ], 'the_one_settings', 'share_options', [ 'key' => 'share_facebook_check'     ] );
+            add_settings_field( 'share_to_twitter'      , 'Twitter'        , [ $instance, 'share_button_html'   ], 'the_one_settings', 'share_options', [ 'key' => 'share_twitter_check'      ] );
+            add_settings_field( 'share_to_google+'      , 'Google Plus'    , [ $instance, 'share_button_html'   ], 'the_one_settings', 'share_options', [ 'key' => 'share_google+_check'      ] );
+            add_settings_field( 'share_to_pinterest'    , 'Pinterest'      , [ $instance, 'share_button_html'   ], 'the_one_settings', 'share_options', [ 'key' => 'share_pinterest_check'    ] );
+            add_settings_field( 'share_to_linkedin'     , 'Linkedin'       , [ $instance, 'share_button_html'   ], 'the_one_settings', 'share_options', [ 'key' => 'share_linkedin_check'     ] );
+            add_settings_field( 'share_to_buffer'       , 'Buffer'         , [ $instance, 'share_button_html'   ], 'the_one_settings', 'share_options', [ 'key' => 'share_buffer_check'       ] );
+            add_settings_field( 'share_to_tumblr'       , 'Tumblr'         , [ $instance, 'share_button_html'   ], 'the_one_settings', 'share_options', [ 'key' => 'share_tumblr_check'       ] );
+            add_settings_field( 'share_to_reddit'       , 'Reddit'         , [ $instance, 'share_button_html'   ], 'the_one_settings', 'share_options', [ 'key' => 'share_reddit_check'       ] );
+            add_settings_field( 'share_to_stumble_upon' , 'StumbleUpon'    , [ $instance, 'share_button_html'   ], 'the_one_settings', 'share_options', [ 'key' => 'share_stumble_upon_check' ] );
+            add_settings_field( 'share_to_delicious'    , 'Delicious'      , [ $instance, 'share_button_html'   ], 'the_one_settings', 'share_options', [ 'key' => 'share_delicious_check'    ] );
+            add_settings_field( 'share_to_evernote'     , 'Evernote'       , [ $instance, 'share_button_html'   ], 'the_one_settings', 'share_options', [ 'key' => 'share_evernote_check'     ] );
+            add_settings_field( 'share_to_email'        , 'Email'          , [ $instance, 'share_button_html'   ], 'the_one_settings', 'share_options', [ 'key' => 'share_email_check'        ] );
+            add_settings_field( 'share_to_wordpress'    , 'WordPress'      , [ $instance, 'share_button_html'   ], 'the_one_settings', 'share_options', [ 'key' => 'share_wordpress_check'    ] );
+            add_settings_field( 'share_to_pocket'       , 'Pocket'         , [ $instance, 'share_button_html'   ], 'the_one_settings', 'share_options', [ 'key' => 'share_pocket_check'       ] );
+
+            add_settings_field( 'social_media_facebook' , 'Facebook Handle', [ $instance, 'conditional_input'   ], 'the_one_settings', 'social_media_handles', [ 'class' => 'social_media_facebook' , 'key' => 'facebook'          ] );
+            add_settings_field( 'social_media_twitter'  , 'Twitter Handle' , [ $instance, 'conditional_input'   ], 'the_one_settings', 'social_media_handles', [ 'class' => 'social_media_twitter'  , 'key' => 'twitter'           ] );
+            add_settings_field( 'social_media_instagram', 'instagram Link' , [ $instance, 'conditional_input'   ], 'the_one_settings', 'social_media_handles', [ 'class' => 'social_media_instagram', 'key' => 'instagram'         ] );
+            add_settings_field( 'social_media_skype'    , 'Skype Link'     , [ $instance, 'conditional_input'   ], 'the_one_settings', 'social_media_handles', [ 'class' => 'social_media_skype'    , 'key' => 'skype'             ] );
+            add_settings_field( 'social_media_linkedin' , 'linkedin Link'  , [ $instance, 'conditional_input'   ], 'the_one_settings', 'social_media_handles', [ 'class' => 'social_media_linkedin' , 'key' => 'linkedin'          ] );
+            add_settings_field( 'copyright_text'        , 'Copyright Text' , [ $instance, 'copyright_input'     ], 'the_one_settings', 'social_media_handles', [ 'class' => 'copyright_text'        , 'key' => 'the_one_copyright_text' ] );
+
             
             
         }
@@ -92,25 +134,43 @@
             register_setting( 'settings', 'contact_number'          );
             register_setting( 'settings', 'company_address'         );   
 
-            register_setting( 'settings', 'social_media_facebook'       );
-            register_setting( 'settings', 'social_media_facebook_check' );
-            register_setting( 'settings', 'social_media_twitter'        );
-            register_setting( 'settings', 'social_media_twitter_check'  );
-            register_setting( 'settings', 'social_media_instagram'      );
-            register_setting( 'settings', 'social_media_instagram_check');
-            register_setting( 'settings', 'social_media_skype'          );
-            register_setting( 'settings', 'social_media_skype_check'    );
-            register_setting( 'settings', 'social_media_linkedin'       );
-            register_setting( 'settings', 'social_media_linkedin_check' );
+            register_setting( 'settings', 'social_media_facebook'   );
+            register_setting( 'settings', 'social_media_twitter'    );
+            register_setting( 'settings', 'social_media_instagram'  );
+            register_setting( 'settings', 'social_media_skype'      );
+            register_setting( 'settings', 'social_media_linkedin'   );
+            register_setting( 'settings', 'the_one_copyright_text'  );
             
+            register_setting( 'settings', 'social_media_facebook_check'  );
+            register_setting( 'settings', 'social_media_twitter_check'   );
+            register_setting( 'settings', 'social_media_instagram_check' );
+            register_setting( 'settings', 'social_media_skype_check'     );
+            register_setting( 'settings', 'social_media_linkedin_check'  );
+            register_setting( 'settings', 'the_one_copyright_text_check' );
+            
+            register_setting( 'settings', 'share_copy_link_check'    );
+            register_setting( 'settings', 'share_facebook_check'     );
+            register_setting( 'settings', 'share_twitter_check'      );
+            register_setting( 'settings', 'share_google+_check'      );
+            register_setting( 'settings', 'share_pinterest_check'    );
+            register_setting( 'settings', 'share_linkedin_check'     );
+            register_setting( 'settings', 'share_buffer_check'       );
+            register_setting( 'settings', 'share_tumblr_check'       );
+            register_setting( 'settings', 'share_reddit_check'       );
+            register_setting( 'settings', 'share_stumble_upon_check' );
+            register_setting( 'settings', 'share_delicious_check'    );
+            register_setting( 'settings', 'share_evernote_check'     );
+            register_setting( 'settings', 'share_email_check'        );
+            register_setting( 'settings', 'share_wordpress_check'    );
+            register_setting( 'settings', 'share_pocket_check'       );
             
         }
 
-        public function general_section_html(){  // section html
+        public function null_return_fxn(){  // section html
             return null;
         }
 
-        public function infinite_scroll_html(){  // filed html 
+        public function infiscroll_html(){  // filed html 
             $the_key = 'the_one_infinite_scroll';
             $option_value = get_option( $the_key );
             $args_for_checkbox = [
@@ -132,7 +192,7 @@
             }
         }
 
-        public function contact_email_html(){  // filed html 
+        public function public_email_html(){  // filed html 
             $the_key = 'contact_email';
             $option_value = get_option( $the_key );
             $args_for_email = [
@@ -153,7 +213,7 @@
             }
         }
 
-        public function contact_number_html(){  // filed html 
+        public function public_number_html(){  // filed html 
             $the_key_0 = 'country_code';
             $the_key_1 = 'contact_number';
             $option_value_0 = get_option( $the_key_0 );
@@ -177,25 +237,21 @@
                 'style'      => 'width : 250px'
             ];
 
-            if ( $option_value_0 && $option_value_1  ) {
-                echo    HTML::div_tag(
-                            HTML::label_tag( 'Contact Number(Numbers Only)', $the_key_1 ) .
-                            html::div_tag(
-                                html::div_tag(  
-                                    HTML::span_tag( '+' ) . 
-                                    html::input_tag( 'tel', $args_for_country_code ), 
-                                    true 
-                                )  .
-                                HTML::input_tag( 'tel', $args_for_number ), 
-                                true , ['style' => 'display: flex; justify-content: space-between' ]
-                            )
-                            , true, [ 'style' => 'max-width: 700px; display: flex; justify-content: space-between' ]
-                        );
-            }else {
-                echo 'error please contact the developer';
-            }
+            echo    HTML::div_tag(
+                        HTML::label_tag( 'Contact Number(Numbers Only)', $the_key_1 ) .
+                        html::div_tag(
+                            html::div_tag(  
+                                HTML::span_tag( '+' ) . 
+                                html::input_tag( 'tel', $args_for_country_code ), 
+                                true 
+                            )  .
+                            HTML::input_tag( 'tel', $args_for_number ), 
+                            true , ['style' => 'display: flex; justify-content: space-between' ]
+                        )
+                        , true, [ 'style' => 'max-width: 700px; display: flex; justify-content: space-between' ]
+                    );
         }
-        public function company_address_html(){
+        public function public_address_html(){
             $the_key = 'company_address';
             $option_value = get_option( $the_key );
             $args_for_email = [
@@ -214,6 +270,10 @@
             }else {
                 echo 'error please contact the developer';
             }
+        }
+
+        public function share_option_html( $args ){
+            echo $args[ 'key' ];
         }
 
         public function text_input( $the_key, $label ){
@@ -277,23 +337,39 @@
             }
         }
 
-        public function facebook_input(){
-            $this->text_input_with_select( 'social_media_facebook', 'social_media_facebook_check', 'your facebook page/ profile link', 'facebook_links' );
+        public function conditional_input( $args ){
+            $field_key    = 'social_media_' . $args[ 'key' ];
+            $checkbox_key = $field_key . '_check';
+            $label        = 'Enter the link of your ' . $args[ 'key' ] . ' page/account here';
+            $controls     = $args[ 'key' ] . '_links';
+            $this->text_input_with_select( $field_key, $checkbox_key, $label, $controls );
         }
-        public function twitter_input(){
-            $this->text_input_with_select( 'social_media_twitter', 'social_media_twitter_check', 'your twitter page/ profile link', 'twitter_link' );
-        }
-        public function instagram_input(){
-            $this->text_input_with_select( 'social_media_instagram', 'social_media_instagram_check', 'your instagram page/ profile link', 'dribble_link' );
-        }
-        public function skype_input(){
-            $this->text_input_with_select( 'social_media_skype', 'social_media_skype_check', 'your skype page/ profile link', 'skype_link' );
-        }
-        public function linkedin_input(){
-            $this->text_input_with_select( 'social_media_linkedin', 'social_media_linkedin_check', 'your linkedin page/ profile link', 'linkedin_link' );
+        public function copyright_input(){
+            $this->text_input_with_select( 'the_one_copyright_text' , 'the_one_copyright_text_check', 'Copyright Text(Appears at bottom of the footer)' , 'copyright_text' );
         }
 
-        public static function social_media_handles(){
+        public function share_button_html( $args ){
+            $the_key = $args[ 'key' ];
+            $option_value = get_option( $the_key );
+            $args_for_checkbox = [
+                'class'      => 'fields',
+                'name'       => $the_key,
+                'id'         => $the_key,
+                'attributes' => [
+                    checked( 'on', $option_value, false )
+                ]
+            ];
+
+            if ( false !== $option_value ) {
+                echo    HTML::div_tag(
+                            HTML::input_tag( 'checkbox', $args_for_checkbox ), true, [ 'style' => 'max-width: 700px; display: flex; justify-content: space-between' ]
+                        );
+            }else {
+                echo 'error please contact the developer';
+            }
+        }
+
+        public static function give_selected_social_media_handles(){
             $social_links =  [ 
                 'facebook' => [ 
                     'enable' => get_option( 'social_media_facebook_check' ),
@@ -332,6 +408,25 @@
 
         }
 
+        public static function give_selected_share_options(){
+            return [
+                'copy_link'    => get_option( 'share_copy_link_check'    ),
+                'facebook'     => get_option( 'share_facebook_check'     ),
+                'twitter'      => get_option( 'share_twitter_check'      ),
+                'google_plus'  => get_option( 'share_google+_check'      ),
+                'pinterest'    => get_option( 'share_pinterest_check'    ),
+                'linkedin'     => get_option( 'share_linkedin_check'     ),
+                'buffer'       => get_option( 'share_buffer_check'       ),
+                'tumblr'       => get_option( 'share_tumblr_check'       ),
+                'reddit'       => get_option( 'share_reddit_check'       ),
+                'stumble_upon' => get_option( 'share_stumble_upon_check' ),
+                'delicious'    => get_option( 'share_delicious_check'    ),
+                'evernote'     => get_option( 'share_evernote_check'     ),
+                'email'        => get_option( 'share_email_check'        ),
+                'wordpress'    => get_option( 'share_wordpress_check'    ),
+                'pocket'       => get_option( 'share_pocket_check'       ),
+            ];
+        }
     }
 
 ?>
