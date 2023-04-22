@@ -1,58 +1,78 @@
 <?php
-    
-    namespace THE_ONE\Inc\Classes;
-    use THE_ONE\Inc\Traits\Singleton;
+/**
+ * Class File: Block Pattern Manager.
+ *
+ * @package The-One
+ * @author Janak Patel <pateljanak830@gmail.com>
+ */
 
-    class Block_Pattern {
-        use Singleton;
+namespace THE_ONE\Inc\Classes;
 
-        private function __construct(){
-            $this -> setup_hooks();
-        }
+use THE_ONE\Inc\Traits\Singleton;
+/**
+ * Handles the block patterns.
+ */
+class Block_Pattern {
+	use Singleton;
 
-        private function setup_hooks(){
-            add_action( 'init', [$this, 'registrar'] );
-        }
+	/**
+	 * Block pattern initializer.
+	 */
+	private function __construct() {
+		$this->setup_hooks();
+	}
 
-        public function registrar(){
+	/**
+	 * Hooks in the block patterns.
+	 *
+	 * @return void
+	 */
+	private function setup_hooks() {
+		add_action( 'init', [ $this, 'registrar' ] );
+	}
 
-            $register = [
-                'about-us-pattern' => [
-                    'title' => __('About Us', 'the-one' ),
-                    'description' => __( 'Brief about your company or business. Contact information and address', 'the-one' ),
-                    'content' => the_template_part( 'template-parts\block-patterns\about-us' ),
-                    'categories' => 'footer-stuff'
-                ],
+	/**
+	 * Registers the block pattern
+	 *
+	 * @return void
+	 */
+	public function registrar() {
 
-                'recent-posts-pattern' => [
-                    'title' => __('Recent Posts', 'the-one' ),
-                    'description' => __( 'Shows recent posts', 'the-one' ),
-                    'content' => the_template_part( 'template-parts\block-patterns\recent-posts' ),
-                    'categories' => 'footer-stuff'
-                ],
+		$register = [
+			'about-us-pattern'      => [
+				'title'       => __( 'About Us', 'the-one' ),
+				'description' => __( 'Brief about your company or business. Contact information and address', 'the-one' ),
+				'content'     => the_template_part( 'template-parts\block-patterns\about-us' ),
+				'categories'  => 'footer-stuff',
+			],
 
-                'twitter-feeds-pattern' => [
-                    'title' => __('Twitter Feeds', 'the-one' ),
-                    'description' => __( 'Your twitter feed', 'the-one' ),
-                    'content' => the_template_part( 'template-parts\block-patterns\twitter-feeds' ),
-                    'categories' => 'footer-stuff'
-                ],
+			'recent-posts-pattern'  => [
+				'title'       => __( 'Recent Posts', 'the-one' ),
+				'description' => __( 'Shows recent posts', 'the-one' ),
+				'content'     => the_template_part( 'template-parts\block-patterns\recent-posts' ),
+				'categories'  => 'footer-stuff',
+			],
 
-                'gallery-pattern' => [
-                    'title' => __('Gallery', 'the-one' ),
-                    'description' => __( '3x3 photos gallery', 'the-one' ),
-                    'content' => the_template_part( 'template-parts\block-patterns\gallery' ),
-                    'categories' => 'footer-stuff'
-                ]
+			'twitter-feeds-pattern' => [
+				'title'       => __( 'Twitter Feeds', 'the-one' ),
+				'description' => __( 'Your twitter feed', 'the-one' ),
+				'content'     => the_template_part( 'template-parts\block-patterns\twitter-feeds' ),
+				'categories'  => 'footer-stuff',
+			],
 
-                
-            ];
+			'gallery-pattern'       => [
+				'title'       => __( 'Gallery', 'the-one' ),
+				'description' => __( '3x3 photos gallery', 'the-one' ),
+				'content'     => the_template_part( 'template-parts\block-patterns\gallery' ),
+				'categories'  => 'footer-stuff',
+			],
 
-            foreach ($register as $index => $entry) {
-                register_block_pattern( $index, $entry );
-            };
-        }
+		];
 
-    }
+		foreach ( $register as $index => $entry ) {
+			register_block_pattern( $index, $entry );
+		};
+	}
+}
 
-?>
+

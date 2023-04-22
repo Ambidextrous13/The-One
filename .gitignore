@@ -1,2 +1,10 @@
 experiments
 contribution
+composer.json
+composer.lock
+phpcs.xml
+assets/package-lock.json
+assets/package.json
+assets/webpack.config.js
+assets/node_modules
+vendor

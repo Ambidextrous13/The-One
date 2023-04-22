@@ -1,8 +1,14 @@
 <?php
-    
-    get_header( null, [ 'header_text' => 'POST' ] );
+/**
+ * Single post page handler.
+ *
+ * @package The-One
+ * @author Janak Patel <pateljanak830@gmail.com>
+ */
 
-    get_template_part( 'template-parts/post/single-post' );
+	get_header( null, [ 'header_text' => 'POST' ] );
 
-    get_footer( );
-?>
+	get_template_part( 'template-parts/post/single-post' );
+
+	get_footer();
+

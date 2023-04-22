@@ -47,8 +47,6 @@ apply_toggle();
 apply_border();
 
 
-// const a = ()=> console.log(toggle.checked);
-
 toggle?.addEventListener( 'click', event => {
     event.stopPropagation();
     apply_toggle();

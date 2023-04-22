@@ -6,7 +6,6 @@
         if( query.indexOf( '&' ) ){
             params = query.split( '&' );
         }
-        console.log( params );
         for( let i = 0; i < params.length; i++ ){
             let param = params[i];
             let local_split = param.split( '=' );
@@ -21,7 +20,6 @@
     function highlighter( target_query ){
         if( target_query && '' !== target_query ){
             let target_element = document.querySelector( target_query );
-            console.log( target_element );
             if ( target_element ) {
                 set_visibility( target_element );
                 setup_overlay ( target_element );

@@ -1,46 +1,57 @@
 <?php
-    use THE_ONE\Inc\Classes\Menus;
-    $menu_instance = Menus::get_instance();
-    $menu_location = 'the-one-header-menu';
-    
-    $menu =  $menu_instance -> get_one_step_minimized_menu( $menu_location );
+/**
+ * Template Part:  Main Menu.
+ *
+ * @package The-One
+ * @author Janak Patel <pateljanak830@gmail.com>
+ */
 
-    if( is_array( $menu ) && ! empty( $menu ) ){
-?>
+use THE_ONE\Inc\Classes\Menus;
+$menu_instance = Menus::get_instance();
+$menu_location = 'the-one-header-menu';
+
+$menus = $menu_instance->get_one_step_minimized_menu( $menu_location );
+
+if ( is_array( $menus ) && ! empty( $menus ) ) {
+	?>
 
 
 <div class="col-lg-9 col-sm-9 navbar navbar-default navbar-static-top container" role="navigation">
-    <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
+	<div class="navbar-collapse collapse">
+		<ul class="nav navbar-nav">
 
-    <?php   foreach ($menu as $id => $element) { ?>
+	<?php
+	foreach ( $menus as $id_ => $element ) {
+		?>
 
-            <li><a href="<?php esc_url( $element[ 'url' ] ) ?>"><span class="data-hover"data-hover="<?php esc_html_e( $element[ 'title' ], 'the-one' ) ?>"><?php esc_html_e( $element[ 'title' ], 'the-one' ) ?></span></a>
-        
-    <?php       if( $element[ 'has_child' ] ){ ?>
+			<li><a href="<?php echo esc_url( $element['url'] ); ?>"><span class="data-hover"data-hover="<?php echo esc_html( $element['title'] ); ?>"><?php echo esc_html( $element['title'] ); ?></span></a>	
+		<?php
+		if ( $element['has_child'] ) {
+			?>
 
-                <ul class="dropdown-menu">
+				<ul class="dropdown-menu">
 
-    <?php           foreach ($element[ 'children' ] as $id => $child) { ?>
-            
-                    <li><a href="<?php esc_url( $child[ 'url' ] ) ?>"><?php esc_html_e( $child[ 'title' ], 'the-one' ) ?></a></li>
-       
-    <?php           } ?>
+			<?php
+			foreach ( $element['children'] as $id_ => $child ) {
+				?>
+				<li><a href="<?php echo esc_url( $child['url'] ); ?>"><?php echo esc_html( $child['title'] ); ?></a></li>
+	   
+				<?php
+			}
+			?>
+				</ul>
 
-                </ul>
+			<?php
+		}
+		?>
+			</li>
 
-    <?php       }  ?>
-
-            </li>
-
-    <?php   } ?>
-    
-    <?php 
-    }else{
-        admin_note( 'Here goes your Nav Menu', 'nav-menu', '#nav-menus-frame' );
-    } 
-    ?>
-            
-        </ul>
-    </div>
+		<?php
+	}
+} else {
+		admin_note( 'Here goes your Nav Menu', 'nav-menu', '#nav-menus-frame' );
+}
+?>
+		</ul>
+	</div>
 </div>

@@ -10,7 +10,6 @@
         
         function check_for_trigger_push( trigger ){
             if ( trigger ) {
-                console.log( trigger );
                 const location = trigger.getBoundingClientRect();
                 const clientHeight = window.innerHeight || document.documentElement.clientHeight;
                 return (
@@ -24,16 +23,11 @@
         }
 
         function ajax_caller( trigger ) {
-            console.log( 'calling....' );
             safetyLock = true;
             const url   = siteConfig?.ajax_url   ?? '';
             const nonce = siteConfig?.ajax_nonce ?? '';
     
             if( url && nonce ){
-                console.log( 'if passed' );
-                console.log( url );
-                console.log( nonce );
-
                 let ajax = new XMLHttpRequest();
                 ajax.onreadystatechange = function () {
                     if( this.readyState == 4 && this.status == 200 ) {

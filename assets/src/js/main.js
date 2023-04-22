@@ -1,49 +1,8 @@
-(
-    function(){
+const jQuery = require("jquery");
 
-        function set_clipboard( text, element ) {
-            const type = "text/plain";
-            const blob = new Blob([text], { type });
-            const data = [new ClipboardItem({ [type]: blob })];
-            const original_bg = element.style.backgroundColor; 
-          
-            navigator.clipboard.write(data).then(
-              () => {
-                if( null !== original_bg || '' !== original_bg ){
-                    element.style.backgroundColor = '#82AF53';
-                    setTimeout(() => {
-                        element.style.backgroundColor = original_bg;
-                    }, 2500);
-                }
-                return 'Copied';
-              },
-              () => {
-                
-                if( null !== original_bg || '' !== original_bg ){
-                    element.style.backgroundColor = '#fc1e1e';
-                    setTimeout(() => {
-                        element.style.backgroundColor = original_bg;
-                    }, 2500);
-                }
-                return 'Unable to copy';
-              }
-            );
-          }
-
-        const copy_element = document.getElementById( 'copy-it' );
-        if( copy_element ){     
-            copy_element.addEventListener( 'click', event => {
-                event.preventDefault();
-                const copy_string = copy_element.getAttribute( 'copy' );
-                console.log( copy_string );
-                set_clipboard( copy_string, event.target );
-            } );
-        }
-    }
-)();
 
 (function($){
-    $(document).ready(function(){
+    jQuery(document).ready(function($){
 
 
         (function() {
@@ -74,7 +33,7 @@
         /*----------------------------------------------------*/
         /*	Sticky Header
          /*----------------------------------------------------*/
-        if(jQuery.isFunction(jQuery.fn.sticky)){
+        if( 'function' === typeof jQuery.fn.sticky ){
             $(window).load(function(){
                 $("#menu-bar").sticky({ topSpacing: 0 });
             });
@@ -82,7 +41,7 @@
         /*----------------------------------------------------*/
         /*	Same Height Div's
          /*----------------------------------------------------*/
-        if(jQuery.isFunction(jQuery.fn.matchHeight)){
+        if( 'function' === typeof jQuery.fn.matchHeight ){
             $('.same-height').matchHeight();
         }
 
@@ -106,7 +65,7 @@
         /*----------------------------------------------------*/
         /*	FlexSlider
          /*----------------------------------------------------*/
-        if(jQuery.isFunction(jQuery.fn.fractionSlider)){
+        if('function' === typeof jQuery.fn.fractionSlider){
             $('.flexslider.top_slider').flexslider({
                 animation: "fade",
                 controlNav: false,
@@ -117,49 +76,9 @@
         }
 
         /*----------------------------------------------------*/
-        /*	EasyPie Chart Effects
-         /*----------------------------------------------------*/
-        if(jQuery.isFunction(jQuery.fn.easyPieChart)){
-
-            // Big EasyPie Chart Effects;
-            $('.circular-chart-big').easyPieChart({
-                animate : 2000,
-                barColor: "#727CB6",
-                trackColor : '#f9f9f9',
-                scaleColor: false,
-                lineWidth: 11,
-                size: 180,
-                onStep: function(from, to, percent) {
-                    $(this.el).find('.percent').text(Math.round(percent)+'%');
-                }
-            });
-
-            // Small EasyPie Chart Effects;
-            $('.circular-chart-small').easyPieChart({
-                size : 120,
-                animate : 2000,
-                lineWidth : 7,
-                lineCap : 'square',
-                barColor : '#727CB6',
-                trackColor : '#f9f9f9',
-                scaleColor : false,
-                onStep: function(from, to, percent) {
-                    $(this.el).find('.percent').text(Math.round(percent)+'%');
-                }
-            });
-        }
-
-        /*----------------------------------------------------*/
-        /*	CountTo
-         /*----------------------------------------------------*/
-        if(jQuery.isFunction(jQuery.fn.countTo)){
-            $('.timer').countTo();
-        }
-
-        /*----------------------------------------------------*/
         /*	Owl Carousel
          /*----------------------------------------------------*/
-        if(jQuery.isFunction(jQuery.fn.owlCarousel)){
+        if('function' === typeof jQuery.fn.owlCarousel){
 
             // Recent Work Slider
             $("#recent-work-slider").owlCarousel({
@@ -184,10 +103,11 @@
                 navigationText : ["",""]
             });
         }
-
-        $("body").tooltip({
-            selector: '[data-toggle="tooltip"]'
-        });
+        if ('function' === typeof jQuery.fn.tooltip) {     
+            $("body").tooltip({
+                selector: '[data-toggle="tooltip"]'
+            });
+        }
 
 
         //  ============================
@@ -236,7 +156,7 @@
         /*===========================================================*/
         /*	Isotope Posrtfolio
          /*===========================================================*/
-        if(jQuery.isFunction(jQuery.fn.isotope)){
+        if('function' === typeof jQuery.fn.isotope){
             jQuery('.portfolio_list').isotope({
                 itemSelector : '.list_item',
                 layoutMode : 'fitRows',
@@ -244,7 +164,7 @@
             });
 
             /* ---- Filtering ----- */
-            jQuery('#filter li').click(function(){
+            jQuery('#filter li').on('click',function(){
                 var $this = jQuery(this);
                 if ( $this.hasClass('selected') ) {
                     return false;
@@ -257,60 +177,6 @@
                 }
             });
         }
-
-
-        /*----------------------------------------------------*/
-        /*	Magnific Popup
-         /*----------------------------------------------------*/
-        $('body').magnificPopup({
-            type: 'image',
-            delegate: 'a.mfp-gallery',
-            fixedContentPos: true,
-            fixedBgPos: true,
-            overflowY: 'auto',
-            closeBtnInside: true,
-            preloader: true,
-            removalDelay: 0,
-            mainClass: 'mfp-fade',
-            gallery:{enabled:true},
-            callbacks: {
-                buildControls: function() {
-                    console.log('inside'); this.contentContainer.append(this.arrowLeft.add(this.arrowRight));
-                }
-            }
-        });
-
-        $('.mfp-image').magnificPopup({
-            type: 'image',
-            closeOnContentClick: true,
-            mainClass: 'mfp-fade',
-            image: {
-                verticalFit: true
-            }
-        });
-
-        $('.mfp-youtube, .mfp-vimeo, .mfp-gmaps').magnificPopup({
-            disableOn: 700,
-            type: 'iframe',
-            mainClass: 'mfp-fade',
-            removalDelay: 0,
-            preloader: false,
-            fixedContentPos: false
-        });
-
-        /*----------------------------------------------------*/
-        /*	Swipe Slider
-         /*----------------------------------------------------*/
-        window.mySwipe = new Swipe(document.getElementById('slider'), {
-            startSlide: 2,
-            speed: 400,
-            auto: 3000,
-            continuous: true,
-            disableScroll: false,
-            stopPropagation: false,
-            callback: function(index, elem) {},
-            transitionEnd: function(index, elem) {}
-        });
 
         /*----------------------------------------------------*/
         /*	Accordians
@@ -344,79 +210,6 @@
         /* ------------------ End Document ------------------ */
     });
 })(this.jQuery);
-
-$(document).ready(function() {
-
-    /*=================
-     *	Contact Form
-     * #contact
-     ===================*/
-
-    try{
-        jQuery('#contact').validate({
-            submitHandler: function(form) {
-                jQuery('#contact .message').hide();
-                var ajaxurl = 'contact.php';
-                var data = {
-                    action: 'contact_us',
-                    datas: jQuery(form).serialize()
-                };
-
-                jQuery.ajax({
-                    type: 'POST',
-                    url: ajaxurl,
-                    data: data,
-                    success: function(response){
-                        jQuery('#contact .message').text(response.error).css({'display' : 'inline-block'});
-                    },
-                    dataType: 'json'
-                });
-                return false;
-            },
-            rules: {
-                c_name: {
-                    required: true,
-                    minlength: 3
-                },
-                c_mail: {
-                    required: true,
-                    email: true
-                },
-                c_subject: {
-                    required: true,
-                    minlength: 6
-                },
-                c_message:{
-                    required: true,
-                    minlength: 20
-                }
-            }
-        });
-    }catch(e){
-
-    }
-
-
-    /*============
-     BUTTON UP
-     * ===========*/
-    var btnUp = $('<div/>', {'class':'btntoTop'});
-    btnUp.appendTo('body');
-    $(document)
-        .on('click', '.btntoTop', function() {
-            $('html, body').animate({
-                scrollTop: 0
-            }, 700);
-        });
-
-    $(window)
-        .on('scroll', function() {
-            if ($(this).scrollTop() > 200)
-                $('.btntoTop').addClass('active');
-            else
-                $('.btntoTop').removeClass('active');
-        });
-});
 
 
 /**
