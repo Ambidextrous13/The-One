@@ -1,0 +1,8 @@
+Message : 
+header text bug fix
+infi scroll race around fix
+added unfi scroll failure refresh
+fixed border issue
+fixed footer admin note issue
+comment empty filed submition prevetion
+added 'end_of_post' custom hook

@@ -75,7 +75,7 @@ $args      = [
 		'url'    => sprintf( '<div class="col-sm-4"><input class="col-lg-4 col-md-4 form-control" placeholder="Link to you" id="url" name="url" type="url" value="%s" size="30" maxlength="200" autocomplete="url" /></div>', esc_attr( $commenter['comment_author_url'] ) ),
 		'</div>',
 	],
-	'comment_field' => '</div><div class="comment-box row"><div class="col-sm-12"><p><textarea name="comment" class="form-control" rows="6" cols="40" id="comment" onfocus="if(this.value == \'Message\') { this.value = \'\'; }" onblur="if(this.value == \'\') { this.value = \'Message\'; }" placeholder="Message">Message</textarea></p></div></div>',
+	'comment_field' => sprintf( '</div><div class="comment-box row"><div class="col-sm-12"><p><textarea name="comment" class="form-control" rows="6" cols="40" id="comment" placeholder="Message" %s></textarea></p></div></div>', ( $req ? '*' : '' ) ),
 	'title_reply'   => '',
 	'class_form'    => 'comment_form',
 	'class_submit'  => 'btn btn-lg btn-default',

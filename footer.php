@@ -30,7 +30,7 @@ $copyright_text = get_option( 'the_one_copyright_text', '' );
 						<?php
 						get_template_part( 'template-parts/footer/footer', 'social-media' );
 						global $social_media_counts;
-						if ( 0 >= $social_media_counts ) {
+						if ( 0 === $social_media_counts ) {
 							admin_note( 'Your Social Media goes here', 'theme-settings', '.social_media_facebook' );
 						}
 						?>

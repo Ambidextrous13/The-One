@@ -24,6 +24,12 @@ class Infinite_Scroll {
 	 */
 	private static $reading_page = 1;
 	/**
+	 * Represents current pages number served to the front-end.
+	 *
+	 * @var integer
+	 */
+	private static $posts_per_page = 3;
+	/**
 	 * Represents the maximum number of pages available to serve.
 	 *
 	 * @var integer
@@ -62,7 +68,8 @@ class Infinite_Scroll {
 	private function book_length_setter() {
 		$max_pages = wp_count_posts();
 		if ( $max_pages ) {
-			self::$book_length = intval( ceil( ( $max_pages->publish ) / 4 ) );
+			$ppp               = self::$posts_per_page;
+			self::$book_length = intval( ceil( ( $max_pages->publish ) / $ppp ) );
 		}
 	}
 
@@ -91,24 +98,48 @@ class Infinite_Scroll {
 	 * @return void
 	 */
 	public function ajax_feeder() {
+		$success = false;
+		$data    = '';
+		$page    = self::$reading_page;
+		$is_end  = false;
 		if ( ! check_ajax_referer( 'infinite_scroll_nonce', 'ajax_nonce', false ) ) {
 			wp_send_json_error( __( 'Invalid security token.', 'the-one' ) );
 			wp_die( '0', 400 );
 		}
 
+		$success = true;
+
+		$page               = ! empty( $_POST['page'] ) ? filter_var( $_POST['page'], FILTER_VALIDATE_INT ) + 1 : 1;
+		self::$reading_page = $page;
+
 		if ( ! self::$end_of_book ) {
 
-			$this->next_page();
-			$this->give_feeds( self::$reading_page );
+			$data = $this->give_feeds( self::$reading_page, false );
 
-			if ( self::$reading_page === self::$book_length ) {
+			if ( self::$reading_page === self::$book_length || false === $data ) {
 				self::$end_of_book = true;
-				wp_die( 'END_OF_BOOK' );
+				$is_end            = true;
 			}
+			echo wp_json_encode(
+				[
+					'success' => $success,
+					'data'    => $data,
+					'page'    => $page,
+					'isEnd'   => $is_end,
+				]
+			);
 			wp_die();
 		}
-
-		wp_die( 'END_OF_BOOK' );
+		$is_end = true;
+		echo wp_json_encode(
+			[
+				'success' => $success,
+				'data'    => $data,
+				'page'    => $page,
+				'isEnd'   => $is_end,
+			]
+		);
+		wp_die();
 
 	}
 
@@ -116,33 +147,53 @@ class Infinite_Scroll {
 	 * Serves the post data of the given page number
 	 *
 	 * @param integer $page_no : page number of which posts to be served.
-	 * @return void
+	 * @param boolean $echo : true, prints out the feed while false returns the string.
+	 * @return void|string|boolean
 	 */
-	public function give_feeds( $page_no = 1 ) {
+	public function give_feeds( $page_no = 1, $echo = true ) {
 		$index = 1;
 
 		if ( 1 <= $page_no && self::$book_length >= $page_no ) {
 			$index = $page_no;
+		} else {
+			if ( $echo ) {
+				echo false;
+			} else {
+				return false;
+			}
 		}
+
+		if ( self::$reading_page !== $index ) {
+			self::$reading_page = $index;
+		}
+
+		$ppp = self::$posts_per_page;
 
 		$args = [
 			'post_type'      => 'post',
 			'post_status'    => 'publish',
-			'posts_per_page' => 3,
+			'posts_per_page' => $ppp,
 			'paged'          => $index,
 		];
 
 		$query = new WP_Query( $args );
+		$data  = '';
 		if ( $query->have_posts() ) {
+			if ( ! $echo ) {
+				suppress_the_echo();
+			}
 			while ( $query->have_posts() ) {
 				$query->the_post();
 				get_template_part( 'template-parts\posts\article' );
 			}
-			echo '<div id="load-trigger"></div>';
+			if ( self::$book_length > $index ) {
+				echo '<div id="load-trigger"></div>';
+			}
 			wp_reset_postdata();
-		}
-		if ( self::$reading_page !== $index ) {
-			self::$reading_page = $index;
+			if ( ! $echo ) {
+				$data = echo_to_returnable();
+				return $data;
+			}
 		}
 	}
 }

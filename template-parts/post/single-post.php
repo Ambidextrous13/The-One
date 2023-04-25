@@ -68,30 +68,9 @@ if ( have_posts() ) :
 							</ul>
 
 						</article>
-						<div class="about_author">
-							<div class="author_desc">
-							<svg class="author-svg">
-								<use href="#author-svg" />
-							</svg>
-							<p class="author-text"><?php esc_html_e( 'Author', 'the-one' ); ?></p>
-								<ul class="author_social">
-									<li><a class="fb" href="#." data-placement="top" data-toggle="tooltip" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-									<li><a class="twtr" href="#." data-placement="top" data-toggle="tooltip" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-									<li><a class="skype" href="#." data-placement="top" data-toggle="tooltip" title="Skype"><i class="fa fa-skype"></i></a></li>
-								</ul>
-							</div>
-							<div class="author_bio">
-								<h3 class="author_name"><a href="<?php echo esc_url( get_author_posts_url( $author_id ) ); ?>"><?php echo esc_html( ucfirst( get_the_author_meta( 'display_name', $author_id ) ) ); ?></a></h3>
-								<h5>CEO at <a href="#">Yahoo Baba</a></h5>
-								<p class="author_det">
-									Lorem ipsum dolor sit amet, consectetur adip, sed do eiusmod tempor incididunt  ut aut reiciendise voluptat maiores alias consequaturs aut perferendis doloribus omnis saperet docendi nec, eos ea alii molestiae aliquand.
-								</p>
-							</div>
-						</div>
-						<div id="anchor-comments"></div>
-					</div>
 
 					<?php
+						do_action( 'end_of_post', $current_post_id );
 						endwhile;
 						endif;
 						wp_reset_postdata();

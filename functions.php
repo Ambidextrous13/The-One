@@ -241,6 +241,11 @@ function admin_note( $note, $page, $highlight_query, $is_link = false, $tag_o = 
 		} else {
 			$redirection_link = admin_url( $page . '?' );
 		}
+		if ( '#' === substr( $highlight_query, 0, 1 ) ) {
+			$highlight_query = substr( $highlight_query, 1 ) . '&type=id';
+		} elseif ( '#' === substr( $highlight_query, 0, 1 ) ) {
+			$highlight_query = substr( $highlight_query, 1 ) . '&type=class';
+		}
 		$redirection_link .= 'highlight=' . $highlight_query;
 
 		$html = sprintf(

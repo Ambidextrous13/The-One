@@ -76,7 +76,18 @@ $email = get_option( 'contact_email' );
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12">
 					<div class="page_title">
-						<h2><?php echo esc_html( $page_title ); ?></h2>
+						<h2>
+							<?php
+							echo wp_kses(
+								$page_title,
+								[
+									'p'    => [],
+									'span' => [],
+									'div'  => [],
+								]
+							);
+							?>
+						</h2>
 					</div>
 				</div>
 			</div>

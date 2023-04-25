@@ -1,4 +1,4 @@
-(function (){
+function painter () {
     const feature_imgs = document.querySelectorAll( 'img.border-it' );
     feature_imgs.forEach( img => {
         let data = img.getAttribute( 'data' );
@@ -6,4 +6,6 @@
         img.style.border = data[ 1 ];
         img.style.padding = data[ 2 ];
     });
-})();
+}
+
+export default painter;

@@ -1,7 +1,10 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 198:
+/***/ "./src/js/admin-aid.js":
+/*!*****************************!*\
+  !*** ./src/js/admin-aid.js ***!
+  \*****************************/
 /***/ (function() {
 
 (function(){
@@ -45,7 +48,16 @@
     
     setTimeout(() => {
         const target_query = get_query_vars( 'highlight' );
-        target_query ? highlighter( target_query ) : null;
+        const target_type  = get_query_vars( 'type' );
+        let type           = '';
+        if ( 'class' === target_type ) {
+            type = '.';
+        } else if ( 'id' === target_type ) {
+            type = '#';
+        } 
+        const query = type + target_query;
+        console.log( 'searching for '+ query );
+        target_query ? highlighter( query ) : null;
         
     }, 200);
 
@@ -88,7 +100,10 @@
 
 /***/ }),
 
-/***/ 961:
+/***/ "./src/js/meta-boxes/custom-meta-box.js":
+/*!**********************************************!*\
+  !*** ./src/js/meta-boxes/custom-meta-box.js ***!
+  \**********************************************/
 /***/ (function() {
 
 const toggle = document.getElementById( 'cmb-toggle' );
@@ -171,7 +186,10 @@ border_pattern?.addEventListener( 'change', event => {
 
 /***/ }),
 
-/***/ 365:
+/***/ "./src/js/theme-settings.js":
+/*!**********************************!*\
+  !*** ./src/js/theme-settings.js ***!
+  \**********************************/
 /***/ (function() {
 
 (function () {
@@ -266,16 +284,31 @@ border_pattern?.addEventListener( 'change', event => {
 /******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
 /******/ 	}();
 /******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 !function() {
 "use strict";
-/* harmony import */ var _admin_aid_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(198);
+/*!************************************!*\
+  !*** ./src/js/load/admin/index.js ***!
+  \************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _admin_aid_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../admin-aid.js */ "./src/js/admin-aid.js");
 /* harmony import */ var _admin_aid_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_admin_aid_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _theme_settings_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(365);
+/* harmony import */ var _theme_settings_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../theme-settings.js */ "./src/js/theme-settings.js");
 /* harmony import */ var _theme_settings_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_theme_settings_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _meta_boxes_custom_meta_box_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(961);
+/* harmony import */ var _meta_boxes_custom_meta_box_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../meta-boxes/custom-meta-box.js */ "./src/js/meta-boxes/custom-meta-box.js");
 /* harmony import */ var _meta_boxes_custom_meta_box_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_meta_boxes_custom_meta_box_js__WEBPACK_IMPORTED_MODULE_2__);
 
 

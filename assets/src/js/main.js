@@ -1,6 +1,5 @@
 const jQuery = require("jquery");
 
-
 (function($){
     jQuery(document).ready(function($){
 

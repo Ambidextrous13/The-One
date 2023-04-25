@@ -1,7 +1,8 @@
+import painter from  './meta-boxes/bordered-post-posts';
 (   
     function infinite_scroll() {
-        let safetyLock = false;
-        
+		let safetyLock           = false;
+        let current_reading_page = 1;
         document.addEventListener( 'scroll', event=>{
             const trigger = document.getElementById( 'load-trigger' );
             check_for_trigger_push( trigger ) && ! safetyLock ? ajax_caller( trigger ) : '';
@@ -34,17 +35,36 @@
                         trigger.remove();
                         safetyLock = false;
                         let response = this.response;
-                        if( 'END_OF_BOOK' === response.slice( -11, ) ){
-                            safetyLock = true; 
-                            response = response.slice( 0, -11 );
-                        }
-                        document.getElementById( 'append_here' ).innerHTML += response;
+						let suspect = JSON.parse(response);
+						if ( ! suspect.success ) {
+							location.reload()
+						} else {
+							if ( suspect.hasOwnProperty( 'data' ) && suspect.hasOwnProperty( 'page' ) ) {
+								response = suspect.data;
+								current_reading_page = suspect.page;
+								let access_point = document.getElementById( 'append_here' );
+								if( access_point && response ){
+									response = response.replace( '<article class="post">', '' );
+									response = response.replace( '</article>', '' );
+									const article = document.createElement( 'article' );
+									article.innerHTML = response;
+									article.classList.add( 'post' )
+									access_point.append( article );
+									painter();
+								}
+								if ( suspect.hasOwnProperty( 'isEnd' ) ) {
+									if ( suspect.isEnd ) {
+										safetyLock = true;
+									}
+								}
+							}
+						}
                     } 
                 }
                 ajax.open( 'POST', url, true );
                 ajax.setRequestHeader( 'Content-type', 'application/x-www-form-urlencoded' );
-                ajax.send( 'action=infiscroll&ajax_nonce='+nonce )
-            }
+                ajax.send( 'action=infiscroll&ajax_nonce=' + nonce + '&page=' + current_reading_page );
+			}
         }
     }
 )();

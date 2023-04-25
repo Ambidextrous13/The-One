@@ -39,7 +39,16 @@
     
     setTimeout(() => {
         const target_query = get_query_vars( 'highlight' );
-        target_query ? highlighter( target_query ) : null;
+        const target_type  = get_query_vars( 'type' );
+        let type           = '';
+        if ( 'class' === target_type ) {
+            type = '.';
+        } else if ( 'id' === target_type ) {
+            type = '#';
+        } 
+        const query = type + target_query;
+        console.log( 'searching for '+ query );
+        target_query ? highlighter( query ) : null;
         
     }, 200);
 

@@ -57,7 +57,7 @@ class Assets {
 	 */
 	public function scripts_for_admin() {
 		// JS file enqueuing.
-		wp_register_script( 'the-one-js', THE_ONE_JS . 'admin.js', [ 'jquery' ], filemtime( ABS_THE_ONE_JS . 'admin.js' ), true );
+		wp_register_script( 'the-one-admin-js', THE_ONE_JS . 'admin.js', [], filemtime( ABS_THE_ONE_JS . 'admin.js' ), true );
 		// Enrolling.
 		wp_enqueue_script( 'the-one-admin-js' );
 
