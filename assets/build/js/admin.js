@@ -1,230 +1,251 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/js/admin-aid.js":
-/*!*****************************!*\
-  !*** ./src/js/admin-aid.js ***!
-  \*****************************/
+/***/ 198:
 /***/ (function() {
 
-(function(){
-    function get_query_vars( q_param ) {
-        const url__ = window.location.href;
-        const query  = url__.substring( url__.lastIndexOf( '?' )+1 );
-        let params = [ query ];
-        if( query.indexOf( '&' ) ){
-            params = query.split( '&' );
-        }
-        for( let i = 0; i < params.length; i++ ){
-            let param = params[i];
-            let local_split = param.split( '=' );
-            if( q_param == local_split[ 0 ] ){
+( function() {
+	/**
+	 * Extracts the given parameter from the current URL. returns false if not found.
+	 *
+	 * @param {string} qParam query parameter or query which you are looking for.
+	 * @return {string|boolean} either extracted value or false if not found.
+	 */
+	function getQueryVars( qParam ) {
+		const url__ = window.location.href;
+		const query = url__.substring( url__.lastIndexOf( '?' ) + 1 );
+		let params = [ query ];
+		if ( query.indexOf( '&' ) ) {
+			params = query.split( '&' );
+		}
+		for ( let i = 0; i < params.length; i++ ) {
+			const param = params[ i ];
+			const localSplit = param.split( '=' );
+			if ( qParam === localSplit[ 0 ] ) {
 
-                return local_split[ 1 ];
-            }
-        };
-        return false;
-    }
+				return localSplit[ 1 ];
+			}
+		}
+		return false;
+	}
 
-    function highlighter( target_query ){
-        if( target_query && '' !== target_query ){
-            let target_element = document.querySelector( target_query );
-            if ( target_element ) {
-                set_visibility( target_element );
-                setup_overlay ( target_element );
-            }
-            else{
-               const watcher = setInterval(() => {
-                target_element = document.querySelector( target_query );
-                if( target_element ){
-                    set_visibility( target_element );
-                    setup_overlay ( target_element );
-                    clearInterval( watcher );
-                }
-               }, 1000);
-            }
-        }
-    }
-    
-    setTimeout(() => {
-        const target_query = get_query_vars( 'highlight' );
-        const target_type  = get_query_vars( 'type' );
-        let type           = '';
-        if ( 'class' === target_type ) {
-            type = '.';
-        } else if ( 'id' === target_type ) {
-            type = '#';
-        } 
-        const query = type + target_query;
-        console.log( 'searching for '+ query );
-        target_query ? highlighter( query ) : null;
-        
-    }, 200);
+	/**
+	 * Selects the element based on passed 'query selector' and give it a blinking border.
+	 *
+	 * @param {string} targetQuery Query Selector that will be highlighted.
+	 */
+	function highlighter( targetQuery ) {
+		if ( targetQuery && '' !== targetQuery ) {
+			let targetElement = document.querySelector( targetQuery );
+			if ( targetElement ) {
+				setVisibility( targetElement );
+				setupOverlay( targetElement );
+			} else {
+				const watcher = setInterval( () => {
+					targetElement = document.querySelector( targetQuery );
+					if ( targetElement ) {
+						setVisibility( targetElement );
+						setupOverlay( targetElement );
+						clearInterval( watcher );
+					}
+				}, 1000 );
+			}
+		}
+	}
 
+	setTimeout( () => {
+		const targetQuery = getQueryVars( 'highlight' );
+		const targetType = getQueryVars( 'type' );
+		let type = '';
+		if ( 'class' === targetType ) {
+			type = '.';
+		} else if ( 'id' === targetType ) {
+			type = '#';
+		}
+		const query = type + targetQuery;
+		// eslint-disable-next-line no-unused-expressions
+		targetQuery ? highlighter( query ) : null;
 
+	}, 200 );
 
+	/**
+	 * Make sure given HTML Element is within the viewport.
+	 *
+	 * @param {HTMLElement} targetElement HTML Element which get scrolled to the viewport.
+	 */
+	function setVisibility( targetElement ) {
+		targetElement.scrollIntoView( {
+			behavior: 'smooth',
+			block: 'center',
 
+		} );
+	}
+	/**
+	 * Creates an overlay around the given HTML Element.
+	 *
+	 * @param {HTMLElement} targetElement HTML Element around which overlay ges created.
+	 */
+	function setupOverlay( targetElement ) {
+		const body = document.getElementsByTagName( 'body' )[ 0 ];
+		const overlay = document.createElement( 'div' );
+		const geography = targetElement.getBoundingClientRect( );
+		const posses = [
+			window.scrollX + geography.left - 10,
+			window.scrollY + geography.top - 10,
+		];
 
+		overlay.style.position = 'absolute';
+		overlay.style.left = posses[ 0 ] + 'px';
+		overlay.style.top = posses[ 1 ] + 'px';
+		overlay.style.width = geography.width + 20 + 'px';
+		overlay.style.height = geography.height + 20 + 'px';
+		overlay.style.zIndex = '2147483647';
 
-    function set_visibility( target_element ){
-        target_element.scrollIntoView({
-            'behavior' : 'smooth',
-            'block'    : 'center',
+		overlay.classList.add( 'highlighter' );
+		body.append( overlay );
 
-        });
-    }
-    function setup_overlay( target_element ) {
-        const body      = document.getElementsByTagName( 'body' )[0];
-        const overlay   = document.createElement ( 'div'        );
-        const geography = target_element.getBoundingClientRect(        );
-        let   posses    = [ 
-            window.scrollX + geography.left - 10, 
-            window.scrollY + geography.top  - 10, 
-        ];         
+		setTimeout( () => {
+			overlay.remove();
+		}, 5500 );
+	}
+}() );
 
-        overlay.style.position = 'absolute';
-        overlay.style.left     = posses[0] + 'px';
-        overlay.style.top      = posses[1] + 'px';
-        overlay.style.width    = geography.width  + 20 + 'px';
-        overlay.style.height   = geography.height + 20 + 'px';
-        overlay.style.zIndex   = '2147483647';
-        
-        overlay.classList.add( 'highlighter' );
-        body.append( overlay );
-        
-        setTimeout(() => {
-            overlay.remove();
-        }, 5500);
-    }
-})()
 
 /***/ }),
 
-/***/ "./src/js/meta-boxes/custom-meta-box.js":
-/*!**********************************************!*\
-  !*** ./src/js/meta-boxes/custom-meta-box.js ***!
-  \**********************************************/
+/***/ 961:
 /***/ (function() {
 
 const toggle = document.getElementById( 'cmb-toggle' );
 const runner = document.getElementById( 'cmb-i-r' );
-const hidable = document.getElementById( 'cmb-hidable' )
+const hidable = document.getElementById( 'cmb-hidable' );
 const thickness = document.getElementById( 'cmb-thickness' );
 const color = document.getElementById( 'cmb-color' );
 const padding = document.getElementById( 'cmb-padding' );
-const border_pattern = document.getElementById( 'cmb-pattern' );
+const borderPattern = document.getElementById( 'cmb-pattern' );
 
-let infos = {
-    'bordered?' : false,
-    'thickness' : 5,
-    'color' : '#7a7a7a',
-    'padding' : 10,
-    'border_pattern' : 'none'
-}
-const set_thickness = () => infos[ 'thickness' ] = thickness?.value ?? '' ;
-const set_color = () => infos[ 'color' ] = color?.value ?? '' ;
-const set_padding = () => infos[ 'padding' ] = padding?.value ?? '' ;
-const set_pattern = () => infos[ 'border_pattern' ] = border_pattern?.value ?? '' ;
+const infos = {
+	'bordered?': false,
+	thickness: 5,
+	color: '#7a7a7a',
+	padding: 10,
+	borderPattern: 'none',
+};
 
-const apply_toggle = () => {
-    if( toggle && runner && hidable ){
-        if( toggle.checked ){
-            hidable.classList.remove( 'cmb-hidable' );
-            runner.classList.remove( 'cmb-temp-off' );
-            runner.classList.add( 'cmb-temp-on' );
-            runner.style.animationName = 'cmb-slider-on';
-            infos[ 'bordered?' ] = true;
-        }
-        else{
-            toggle.removeAttribute( 'checked','' )
-            hidable.classList.add( 'cmb-hidable' );      
-            runner.classList.remove( 'cmb-temp-on' );
-            runner.classList.add( 'cmb-temp-off' );
-            runner.style.animationName = 'cmb-slider-off';
-            infos[ 'bordered?' ] = false;  
-        }
-    }
-}
-const apply_border = () => border_pattern ? border_pattern.style.border = '4px ' + infos['border_pattern'] + ' ' + infos['color'] : null;
+/* eslint-disable require-jsdoc */
+const setThickness = () => infos.thickness = thickness?.value ?? '';
+const setColor = () => infos.color = color?.value ?? '';
+const setPadding = () => infos.padding = padding?.value ?? '';
+const setPattern = () => infos.borderPattern = borderPattern?.value ?? '';
+/* eslint-enable */
 
-set_thickness();
-set_color();
-set_padding();
-set_pattern();
-apply_toggle();
-apply_border();
+/**
+ * Custom Meta Box: Border maker.
+ */
+const applyToggle = () => {
+	if ( toggle && runner && hidable ) {
+		if ( toggle.checked ) {
+			hidable.classList.remove( 'cmb-hidable' );
+			runner.classList.remove( 'cmb-temp-off' );
+			runner.classList.add( 'cmb-temp-on' );
+			runner.style.animationName = 'cmb-slider-on';
+			infos[ 'bordered?' ] = true;
+		} else {
+			toggle.removeAttribute( 'checked', '' );
+			hidable.classList.add( 'cmb-hidable' );
+			runner.classList.remove( 'cmb-temp-on' );
+			runner.classList.add( 'cmb-temp-off' );
+			runner.style.animationName = 'cmb-slider-off';
+			infos[ 'bordered?' ] = false;
+		}
+	}
+};
+// eslint-disable-next-line require-jsdoc
+const applyBorder = () => borderPattern ? borderPattern.style.border = '4px ' + infos.borderPattern + ' ' + infos.color : null;
 
+setThickness();
+setColor();
+setPadding();
+setPattern();
+applyToggle();
+applyBorder();
 
-toggle?.addEventListener( 'click', event => {
-    event.stopPropagation();
-    apply_toggle();
-} )
+toggle?.addEventListener( 'click', ( event ) => {
+	event.stopPropagation();
+	applyToggle();
+} );
 
-thickness?.addEventListener( 'keyup', event => {
-    event.stopPropagation();
-    set_thickness();
-} )
+thickness?.addEventListener( 'keyup', ( event ) => {
+	event.stopPropagation();
+	setThickness();
+} );
 
-color?.addEventListener( 'change', event => {
-    event.stopPropagation();
-    set_color();
-    apply_border();
-} )
+color?.addEventListener( 'change', ( event ) => {
+	event.stopPropagation();
+	setColor();
+	applyBorder();
+} );
 
-padding?.addEventListener( 'keyup', event => {
-    event.stopPropagation();
-    set_padding();
-} )
+padding?.addEventListener( 'keyup', ( event ) => {
+	event.stopPropagation();
+	setPadding();
+} );
 
-border_pattern?.addEventListener( 'change', event => {
-    event.stopPropagation();
-    set_pattern();
-    apply_border();
-} )
+borderPattern?.addEventListener( 'change', ( event ) => {
+	event.stopPropagation();
+	setPattern();
+	applyBorder();
+} );
 
 
 
 /***/ }),
 
-/***/ "./src/js/theme-settings.js":
-/*!**********************************!*\
-  !*** ./src/js/theme-settings.js ***!
-  \**********************************/
+/***/ 365:
 /***/ (function() {
 
-(function () {
-    const control_checkboxes = document.querySelectorAll( '[controls]' );
+(
+	function () {
+		const controlCheckboxes = document.querySelectorAll( '[controls]' );
 
-    const care_taker = ( checkbox, is_clicked = false ) => {
-        const controlled_div = document.getElementById( checkbox.getAttribute( 'controls' ) );
-        const input_div = controlled_div.getElementsByTagName( 'INPUT' );
-        if (  checkbox.checked ) {
-            controlled_div.style.display = 'flex';
-            if( input_div.length > 0 && is_clicked ){
-                input_div[0].focus();
-            }
-        }else{
-            controlled_div.style.display = 'none';
-            input_div[0].value = null;
-        }
-    }
+		/**
+		 * Controls the visibility of input field base on checkbox's tick.
+		 *
+		 * @param {HTMLElement} checkbox  checkbox which controls the visibility i input fields.
+		 * @param {Boolean}     isClicked is true, input fields appears else fields remain hidden.
+		 */
+		const careTaker = ( checkbox, isClicked = false ) => {
+			const controlledDiv = document.getElementById( checkbox.getAttribute( 'controls' ) );
+			const inputDiv = controlledDiv.getElementsByTagName( 'INPUT' );
+			if ( checkbox.checked ) {
+				controlledDiv.style.display = 'flex';
+				if ( 0 < inputDiv.length && isClicked ) {
+					inputDiv[ 0 ].focus();
+				}
+			} else {
+				controlledDiv.style.display = 'none';
+				inputDiv[ 0 ].value = null;
+			}
+		};
 
-    control_checkboxes.forEach( checkbox => {
-        if( checkbox.tagName === 'INPUT' && checkbox.getAttribute( 'type' ) === 'checkbox' ){
-            care_taker( checkbox );
-            checkbox.addEventListener( 'click', event => {
-                const checkbox = event.target; 
-                care_taker( checkbox, true );
-            } )
-        }
-    });
+		controlCheckboxes.forEach( ( checkbox ) => {
+			if ( 'INPUT' === checkbox.tagName && 'checkbox' === checkbox.getAttribute( 'type' ) ) {
+				careTaker( checkbox );
+				checkbox.addEventListener( 'click', ( event ) => {
+					const checkbox_ = event.target;
+					careTaker( checkbox_, true );
+				} );
+			}
+		} );
 
-    const copyright_text = document.getElementById( 'the_one_copyright_text' );
-    if( copyright_text ){
-        copyright_text.value = copyright_text.value === '' ? '\u00A9 ' : copyright_text.value;
-    }
+		const copyrightText = document.getElementById( 'the_one_copyright_text' );
+		if ( copyrightText ) {
+			copyrightText.value = '' === copyrightText.value ? '\u00A9 ' : copyrightText.value;
+		}
 
-})()
+	}()
+);
+
 
 /***/ })
 
@@ -284,31 +305,16 @@ border_pattern?.addEventListener( 'change', event => {
 /******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
 /******/ 	}();
 /******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	!function() {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = function(exports) {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	}();
-/******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 !function() {
 "use strict";
-/*!************************************!*\
-  !*** ./src/js/load/admin/index.js ***!
-  \************************************/
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _admin_aid_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../admin-aid.js */ "./src/js/admin-aid.js");
+/* harmony import */ var _admin_aid_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(198);
 /* harmony import */ var _admin_aid_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_admin_aid_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _theme_settings_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../theme-settings.js */ "./src/js/theme-settings.js");
+/* harmony import */ var _theme_settings_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(365);
 /* harmony import */ var _theme_settings_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_theme_settings_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _meta_boxes_custom_meta_box_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../meta-boxes/custom-meta-box.js */ "./src/js/meta-boxes/custom-meta-box.js");
+/* harmony import */ var _meta_boxes_custom_meta_box_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(961);
 /* harmony import */ var _meta_boxes_custom_meta_box_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_meta_boxes_custom_meta_box_js__WEBPACK_IMPORTED_MODULE_2__);
 
 

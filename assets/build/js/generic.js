@@ -1,66 +1,7 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/js/add-on.js":
-/*!**************************!*\
-  !*** ./src/js/add-on.js ***!
-  \**************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _meta_boxes_bordered_post_posts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./meta-boxes/bordered-post-posts */ "./src/js/meta-boxes/bordered-post-posts.js");
-
-(
-    function(){
-
-        function set_clipboard( text, element ) {
-            const type = "text/plain";
-            const blob = new Blob([text], { type });
-            const data = [new ClipboardItem({ [type]: blob })];
-            const original_bg = element.style.backgroundColor; 
-          
-				navigator.clipboard.write(data).then(
-				() => {
-					if( null !== original_bg || '' !== original_bg ){
-						element.style.backgroundColor = '#82AF53';
-						setTimeout(() => {
-							element.style.backgroundColor = original_bg;
-						}, 2500);
-					}
-					return 'Copied';
-				},
-				() => {
-					
-					if( null !== original_bg || '' !== original_bg ){
-						element.style.backgroundColor = '#fc1e1e';
-						setTimeout(() => {
-							element.style.backgroundColor = original_bg;
-						}, 2500);
-					}
-					return 'Unable to copy';
-				}
-				);
-			}
-		(0,_meta_boxes_bordered_post_posts__WEBPACK_IMPORTED_MODULE_0__["default"])();
-        const copy_element = document.getElementById( 'copy-it' );
-        if( copy_element ){     
-            copy_element.addEventListener( 'click', event => {
-                event.preventDefault();
-                const copy_string = copy_element.getAttribute( 'copy' );
-                set_clipboard( copy_string, event.target );
-            } );
-        }
-    }
-)();
-
-
-/***/ }),
-
-/***/ "./src/js/bootstrap.min.js":
-/*!*********************************!*\
-  !*** ./src/js/bootstrap.min.js ***!
-  \*********************************/
+/***/ 932:
 /***/ (function() {
 
 /*!
@@ -72,92 +13,7 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
 
 /***/ }),
 
-/***/ "./src/js/infinite-scroll.js":
-/*!***********************************!*\
-  !*** ./src/js/infinite-scroll.js ***!
-  \***********************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _meta_boxes_bordered_post_posts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./meta-boxes/bordered-post-posts */ "./src/js/meta-boxes/bordered-post-posts.js");
-
-(   
-    function infinite_scroll() {
-		let safetyLock           = false;
-        let current_reading_page = 1;
-        document.addEventListener( 'scroll', event=>{
-            const trigger = document.getElementById( 'load-trigger' );
-            check_for_trigger_push( trigger ) && ! safetyLock ? ajax_caller( trigger ) : '';
-            return '';
-        } )
-        
-        function check_for_trigger_push( trigger ){
-            if ( trigger ) {
-                const location = trigger.getBoundingClientRect();
-                const clientHeight = window.innerHeight || document.documentElement.clientHeight;
-                return (
-                    location.top >= 0 &&
-                    location.left >= 0 &&
-                    location.bottom <= 1.5 * parseInt( clientHeight )  &&
-                    location.right <= ( window.innerWidth || document.documentElement.clientWidth )
-                );
-            }
-            return false;
-        }
-
-        function ajax_caller( trigger ) {
-            safetyLock = true;
-            const url   = siteConfig?.ajax_url   ?? '';
-            const nonce = siteConfig?.ajax_nonce ?? '';
-    
-            if( url && nonce ){
-                let ajax = new XMLHttpRequest();
-                ajax.onreadystatechange = function () {
-                    if( this.readyState == 4 && this.status == 200 ) {
-                        trigger.remove();
-                        safetyLock = false;
-                        let response = this.response;
-						let suspect = JSON.parse(response);
-						if ( ! suspect.success ) {
-							location.reload()
-						} else {
-							if ( suspect.hasOwnProperty( 'data' ) && suspect.hasOwnProperty( 'page' ) ) {
-								response = suspect.data;
-								current_reading_page = suspect.page;
-								let access_point = document.getElementById( 'append_here' );
-								if( access_point && response ){
-									response = response.replace( '<article class="post">', '' );
-									response = response.replace( '</article>', '' );
-									const article = document.createElement( 'article' );
-									article.innerHTML = response;
-									article.classList.add( 'post' )
-									access_point.append( article );
-									(0,_meta_boxes_bordered_post_posts__WEBPACK_IMPORTED_MODULE_0__["default"])();
-								}
-								if ( suspect.hasOwnProperty( 'isEnd' ) ) {
-									if ( suspect.isEnd ) {
-										safetyLock = true;
-									}
-								}
-							}
-						}
-                    } 
-                }
-                ajax.open( 'POST', url, true );
-                ajax.setRequestHeader( 'Content-type', 'application/x-www-form-urlencoded' );
-                ajax.send( 'action=infiscroll&ajax_nonce=' + nonce + '&page=' + current_reading_page );
-			}
-        }
-    }
-)();
-
-/***/ }),
-
-/***/ "./src/js/jflickrfeed.js":
-/*!*******************************!*\
-  !*** ./src/js/jflickrfeed.js ***!
-  \*******************************/
+/***/ 856:
 /***/ (function() {
 
 /*
@@ -246,10 +102,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/js/jquery.cookie.js":
-/*!*********************************!*\
-  !*** ./src/js/jquery.cookie.js ***!
-  \*********************************/
+/***/ 278:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -262,7 +115,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 (function (factory) {
 	if (true) {
 		// AMD. Register as anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "jquery")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(311)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 		__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 		(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -374,10 +227,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ "./src/js/jquery.easing.1.3.js":
-/*!*************************************!*\
-  !*** ./src/js/jquery.easing.1.3.js ***!
-  \*************************************/
+/***/ 423:
 /***/ (function() {
 
 /*
@@ -588,10 +438,7 @@ jQuery.extend( jQuery.easing,
 
 /***/ }),
 
-/***/ "./src/js/jquery.isotope.min.js":
-/*!**************************************!*\
-  !*** ./src/js/jquery.isotope.min.js ***!
-  \**************************************/
+/***/ 754:
 /***/ (function() {
 
 /**
@@ -608,10 +455,7 @@ jQuery.extend( jQuery.easing,
 
 /***/ }),
 
-/***/ "./src/js/jquery.smartmenus.bootstrap.min.js":
-/*!***************************************************!*\
-  !*** ./src/js/jquery.smartmenus.bootstrap.min.js ***!
-  \***************************************************/
+/***/ 783:
 /***/ (function() {
 
 /*! SmartMenus jQuery Plugin Bootstrap Addon - v0.1.0 - March 27, 2014
@@ -620,10 +464,7 @@ jQuery.extend( jQuery.easing,
 
 /***/ }),
 
-/***/ "./src/js/jquery.smartmenus.min.js":
-/*!*****************************************!*\
-  !*** ./src/js/jquery.smartmenus.min.js ***!
-  \*****************************************/
+/***/ 666:
 /***/ (function() {
 
 /*! SmartMenus jQuery Plugin - v0.9.6 - March 27, 2014
@@ -632,351 +473,389 @@ jQuery.extend( jQuery.easing,
 
 /***/ }),
 
-/***/ "./src/js/main.js":
-/*!************************!*\
-  !*** ./src/js/main.js ***!
-  \************************/
+/***/ 693:
 /***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
 
-const jQuery = __webpack_require__(/*! jquery */ "jquery");
+const jQuery = __webpack_require__( 311 );
 
-(function($){
-    jQuery(document).ready(function($){
+( function( ) {
+	jQuery( document ).ready( function( $ ) {
 
+		( function() {
+			// Fixed Navigation Bar
+			// $('#menu-bar').scrollToFixed();
 
-        (function() {
-            // Fixed Navigation Bar
-           // $('#menu-bar').scrollToFixed();
+			// Moving Logo from Logo-Bar to Navbar-header on Tab size of 768px or Minimum
+			$( window ).on( 'load resize orientationchange', function() {
+				if ( 768 > $( window ).width() ) {
+					$( '#logo' ).detach().appendTo( $( '.navbar-static-top' ) );
+				} else {
+					$( '#logo' ).detach().appendTo( '#menu-bar .container .col-sm-3' );
+				}
 
-           // Moving Logo from Logo-Bar to Navbar-header on Tab size of 768px or Minimum
-           $(window).on("load resize orientationchange",function(e){
-                if($(window).width() < 768){
-                    $("#logo").detach().appendTo($(".navbar-static-top"));
-                }
-                else{
-                    $("#logo").detach().appendTo('#menu-bar .container .col-sm-3')
-                }
+				// Dynamic Header Height Set in Home Page
+				$( '.home #header' ).height( $( '#header-top' ).height() + $( '.slider_block' ).height() );
 
-               // Dynamic Header Height Set in Home Page
-              $(".home #header").height($("#header-top").height() +  $(".slider_block").height());
+			} );
 
-            });
+		}() );
 
+		const abc = $( '.vertical-tab  .nav-tabs' ).width();
+		$( '.vertical-tab  .tab-content' ).css( 'margin-left', abc - 1 );
 
-
-         })();
-
-        var abc = $('.vertical-tab  .nav-tabs').width();
-        $('.vertical-tab  .tab-content').css("margin-left", abc-1);
-
-        /*----------------------------------------------------*/
-        /*	Sticky Header
+		/*----------------------------------------------------*/
+		/*	Sticky Header
          /*----------------------------------------------------*/
-        if( 'function' === typeof jQuery.fn.sticky ){
-            $(window).load(function(){
-                $("#menu-bar").sticky({ topSpacing: 0 });
-            });
-        }
-        /*----------------------------------------------------*/
-        /*	Same Height Div's
+		if ( 'function' === typeof jQuery.fn.sticky ) {
+			$( window ).load( function() {
+				$( '#menu-bar' ).sticky( { topSpacing: 0 } );
+			} );
+		}
+		/*----------------------------------------------------*/
+		/*	Same Height Div's
          /*----------------------------------------------------*/
-        if( 'function' === typeof jQuery.fn.matchHeight ){
-            $('.same-height').matchHeight();
-        }
+		if ( 'function' === typeof jQuery.fn.matchHeight ) {
+			$( '.same-height' ).matchHeight();
+		}
 
-        /*--------------------------------------------------
+		/*--------------------------------------------------
                       Search-Icon
         * ----------------------------------------------------*/
-        $(function(){
-            $(".search-label .search-button").on("click", function(e){
-                e.preventDefault();
-                $("html").addClass("search-exp");
-                $(".search-input").focus();
-            });
-            $(".search-input").blur(function(){
-                // Do not hide input if contains text
-                if($(".search-input").val() === ""){
-                    $("html").removeClass("search-exp");
-                }
-            });
-        });
+		$( function() {
+			$( '.search-label .search-button' ).on( 'click', function( e ) {
+				e.preventDefault();
+				$( 'html' ).addClass( 'search-exp' );
+				$( '.search-input' ).focus();
+			} );
+			$( '.search-input' ).blur( function() {
+				// Do not hide input if contains text
+				if ( '' === $( '.search-input' ).val() ) {
+					$( 'html' ).removeClass( 'search-exp' );
+				}
+			} );
+		} );
 
-        /*----------------------------------------------------*/
-        /*	FlexSlider
+		/*----------------------------------------------------*/
+		/*	FlexSlider
          /*----------------------------------------------------*/
-        if('function' === typeof jQuery.fn.fractionSlider){
-            $('.flexslider.top_slider').flexslider({
-                animation: "fade",
-                controlNav: false,
-                directionNav: true,
-                prevText: "&larr;",
-                nextText: "&rarr;"
-            });
-        }
+		if ( 'function' === typeof jQuery.fn.fractionSlider ) {
+			$( '.flexslider.top_slider' ).flexslider( {
+				animation: 'fade',
+				controlNav: false,
+				directionNav: true,
+				prevText: '&larr;',
+				nextText: '&rarr;',
+			} );
+		}
 
-        /*----------------------------------------------------*/
-        /*	Owl Carousel
+		/*----------------------------------------------------*/
+		/*	Owl Carousel
          /*----------------------------------------------------*/
-        if('function' === typeof jQuery.fn.owlCarousel){
+		if ( 'function' === typeof jQuery.fn.owlCarousel ) {
 
-            // Recent Work Slider
-            $("#recent-work-slider").owlCarousel({
-                navigation : true,
-                pagination : false,
-                items : 4,
-                itemsDesktop:[1199,4],
-                itemsTablet : [768, 3],
-                itemsDesktopSmall : [992, 3],
-                itemsMobile : [480,1],
-                navigationText : ["",""]
-            });
+			// Recent Work Slider
+			$( '#recent-work-slider' ).owlCarousel( {
+				navigation: true,
+				pagination: false,
+				items: 4,
+				itemsDesktop: [ 1199, 4 ],
+				itemsTablet: [ 768, 3 ],
+				itemsDesktopSmall: [ 992, 3 ],
+				itemsMobile: [ 480, 1 ],
+				navigationText: [ '', '' ],
+			} );
 
-            // Post News Slider
-            $("#post-slider").owlCarousel({
-                navigation : true,
-                pagination : false,
-                items : 4,
-                itemsDesktop:[1199,3],
-                itemsDesktopSmall:[980,2],
-                itemsMobile : [479,1],
-                navigationText : ["",""]
-            });
-        }
-        if ('function' === typeof jQuery.fn.tooltip) {     
-            $("body").tooltip({
-                selector: '[data-toggle="tooltip"]'
-            });
-        }
+			// Post News Slider
+			$( '#post-slider' ).owlCarousel( {
+				navigation: true,
+				pagination: false,
+				items: 4,
+				itemsDesktop: [ 1199, 3 ],
+				itemsDesktopSmall: [ 980, 2 ],
+				itemsMobile: [ 479, 1 ],
+				navigationText: [ '', '' ],
+			} );
+		}
+		if ( 'function' === typeof jQuery.fn.tooltip ) {
+			$( 'body' ).tooltip( {
+				selector: '[data-toggle="tooltip"]',
+			} );
+		}
 
+		//  ============================
+		//  = Scroll event function =
+		//  ===========================
+		/**
+		 *
+		 * @param {HTMLElement} elem element on which scrolling functionality implemented.
+		 * @return {boolean} return if scroll.
+		 */
+		const goScrolling = function( elem ) {
+			const docViewTop = $( window ).scrollTop();
+			const docViewBottom = docViewTop + $( window ).height();
+			const elemTop = elem.offset().top;
+			const elemBottom = elemTop + elem.height();
+			return ( ( elemBottom <= docViewBottom ) && ( elemTop >= docViewTop ) );
+		};
 
-        //  ============================
-        //  = Scroll event function =
-        //  ===========================
-        var goScrolling = function(elem) {
-            var docViewTop = $(window).scrollTop();
-            var docViewBottom = docViewTop + $(window).height();
-            var elemTop = elem.offset().top;
-            var elemBottom = elemTop + elem.height();
-            return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
-        };
+		//  =======================
+		//  = Progress bars =
+		//  =======================
+		$( '.progress_skill .bar' ).data( 'width', $( this ).width() ).css( {
+			width: 0,
+			height: 0,
+		} );
+		$( window ).scroll( function() {
+			$( '.progress_skill .bar' ).each( function() {
+				if ( goScrolling( $( this ) ) ) {
+					$( this ).css( {
+						width: $( this ).attr( 'data-value' ) + '%',
+						height: $( this ).attr( 'data-height' ) + '%',
+					} );
+				}
+			} );
+		} );
 
+		//  ===================
+		//  = Flickr Gallery =
+		//  ===================
+		$( '#flickrFeed' ).jflickrfeed( {
+			limit: 9,
+			qstrings: {
+				//id: '124787947@N07' our id //
+				id: '124787947@N07',
+			},
+			itemTemplate: '<li><a class="mfp-gallery" title="{{title}}" href="{{image_b}}"><i class="fa fa-search"></i><div class="hover"></div></a><img src="{{image_s}}" alt="{{title}}" /></li>',
+		} );
 
-        //  =======================
-        //  = Progress bars =
-        //  =======================
-        $('.progress_skill .bar').data('width', $(this).width()).css({
-            width : 0,
-            height:0
-        });
-        $(window).scroll(function() {
-            $('.progress_skill .bar').each(function() {
-                if (goScrolling($(this))) {
-                    $(this).css({
-                        width : $(this).attr('data-value') + '%',
-                        height : $(this).attr('data-height') + '%'
-                    });
-                }
-            });
-        });
-
-
-        //  ===================
-        //  = Flickr Gallery =
-        //  ===================
-        $('#flickrFeed').jflickrfeed({
-            limit: 9,
-            qstrings: {
-                //id: '124787947@N07' our id //
-                id: '124787947@N07'
-            },
-            itemTemplate: '<li><a class="mfp-gallery" title="{{title}}" href="{{image_b}}"><i class="fa fa-search"></i><div class="hover"></div></a><img src="{{image_s}}" alt="{{title}}" /></li>'
-        });
-
-        /*===========================================================*/
-        /*	Isotope Posrtfolio
+		/*===========================================================*/
+		/*	Isotope Posrtfolio
          /*===========================================================*/
-        if('function' === typeof jQuery.fn.isotope){
-            jQuery('.portfolio_list').isotope({
-                itemSelector : '.list_item',
-                layoutMode : 'fitRows',
-                animationEngine : 'jquery'
-            });
+		if ( 'function' === typeof jQuery.fn.isotope ) {
+			jQuery( '.portfolio_list' ).isotope( {
+				itemSelector: '.list_item',
+				layoutMode: 'fitRows',
+				animationEngine: 'jquery',
+			} );
 
-            /* ---- Filtering ----- */
-            jQuery('#filter li').on('click',function(){
-                var $this = jQuery(this);
-                if ( $this.hasClass('selected') ) {
-                    return false;
-                } else {
-                    jQuery('#filter .selected').removeClass('selected');
-                    var selector = $this.attr('data-filter');
-                    $this.parent().next().isotope({ filter: selector });
-                    $this.addClass('selected');
-                    return false;
-                }
-            });
-        }
+			/* ---- Filtering ----- */
+			jQuery( '#filter li' ).on( 'click', function() {
+				const $this = jQuery( this );
+				if ( $this.hasClass( 'selected' ) ) {
+					return false;
+				} else {
+					jQuery( '#filter .selected' ).removeClass( 'selected' );
+					const selector = $this.attr( 'data-filter' );
+					$this.parent().next().isotope( { filter: selector } );
+					$this.addClass( 'selected' );
+					return false;
+				}
+			} );
+		}
 
-        /*----------------------------------------------------*/
-        /*	Accordians
+		/*----------------------------------------------------*/
+		/*	Accordians
          /*----------------------------------------------------*/
-        $('.accordion').on('shown.bs.collapse', function (e) {
-            $(e.target).parent().addClass('active_acc');
-            $(e.target).prev().find('.switch').removeClass('fa-plus');
-            $(e.target).prev().find('.switch').addClass('fa-minus');
-        });
-        $('.accordion').on('hidden.bs.collapse', function (e) {
-            $(e.target).parent().removeClass('active_acc');
-            $(e.target).prev().find('.switch').addClass('fa-plus');
-            $(e.target).prev().find('.switch').removeClass('fa-minus');
-        });
+		$( '.accordion' ).on( 'shown.bs.collapse', function ( e ) {
+			$( e.target ).parent().addClass( 'active_acc' );
+			$( e.target ).prev().find( '.switch' ).removeClass( 'fa-plus' );
+			$( e.target ).prev().find( '.switch' ).addClass( 'fa-minus' );
+		} );
+		$( '.accordion' ).on( 'hidden.bs.collapse', function ( e ) {
+			$( e.target ).parent().removeClass( 'active_acc' );
+			$( e.target ).prev().find( '.switch' ).addClass( 'fa-plus' );
+			$( e.target ).prev().find( '.switch' ).removeClass( 'fa-minus' );
+		} );
 
-
-        /*----------------------------------------------------*/
-        /*	Toggles
+		/*----------------------------------------------------*/
+		/*	Toggles
          /*----------------------------------------------------*/
-        $('.toggle').on('shown.bs.collapse', function (e) {
-            $(e.target).parent().addClass('active_acc');
-            $(e.target).prev().find('.switch').removeClass('fa-plus');
-            $(e.target).prev().find('.switch').addClass('fa-minus');
-        });
-        $('.toggle').on('hidden.bs.collapse', function (e) {
-            $(e.target).parent().removeClass('active_acc');
-            $(e.target).prev().find('.switch').addClass('fa-plus');
-            $(e.target).prev().find('.switch').removeClass('fa-minus');
-        });
+		$( '.toggle' ).on( 'shown.bs.collapse', function ( e ) {
+			$( e.target ).parent().addClass( 'active_acc' );
+			$( e.target ).prev().find( '.switch' ).removeClass( 'fa-plus' );
+			$( e.target ).prev().find( '.switch' ).addClass( 'fa-minus' );
+		} );
+		$( '.toggle' ).on( 'hidden.bs.collapse', function ( e ) {
+			$( e.target ).parent().removeClass( 'active_acc' );
+			$( e.target ).prev().find( '.switch' ).addClass( 'fa-plus' );
+			$( e.target ).prev().find( '.switch' ).removeClass( 'fa-minus' );
+		} );
 
-        /* ------------------ End Document ------------------ */
-    });
-})(this.jQuery);
+		/* ------------------ End Document ------------------ */
+	} );
+}( this.jQuery ) );
 
-
+(
 /**
  * jQuery Plugin to obtain touch gestures from iPhone, iPod Touch, iPad, and Android mobile phones
  * Common usage: wipe images (left and right to show the previous or next image)
  *
+ * @param {Object} $ jQuery instance
  * @author Andreas Waltl, netCU Internetagentur (http://www.netcu.de)
  */
-(function($){$.fn.touchwipe=function(settings){var config={min_move_x:20,min_move_y:20,wipeLeft:function(){},wipeRight:function(){},wipeUp:function(){},wipeDown:function(){},preventDefaultEvents:true};if(settings)$.extend(config,settings);this.each(function(){var startX;var startY;var isMoving=false;function cancelTouch(){this.removeEventListener('touchmove',onTouchMove);startX=null;isMoving=false}function onTouchMove(e){if(config.preventDefaultEvents){e.preventDefault()}if(isMoving){var x=e.touches[0].pageX;var y=e.touches[0].pageY;var dx=startX-x;var dy=startY-y;if(Math.abs(dx)>=config.min_move_x){cancelTouch();if(dx>0){config.wipeLeft()}else{config.wipeRight()}}else if(Math.abs(dy)>=config.min_move_y){cancelTouch();if(dy>0){config.wipeDown()}else{config.wipeUp()}}}}function onTouchStart(e){if(e.touches.length==1){startX=e.touches[0].pageX;startY=e.touches[0].pageY;isMoving=true;this.addEventListener('touchmove',onTouchMove,false)}}if('ontouchstart'in document.documentElement){this.addEventListener('touchstart',onTouchStart,false)}});return this}})(jQuery);
-
-
-
+	function( $ ) {
+		$.fn.touchwipe = function( settings ) {
+			/* eslint-disable */
+			const config = {
+				min_move_x: 20,
+				min_move_y: 20,
+				wipeLeft: function(){},
+				wipeRight: function(){},
+				wipeUp: function(){},
+				wipeDown: function(){},
+				preventDefaultEvents: true,
+			};
+			/* eslint-enable */
+			if ( settings ) {
+				$.extend( config, settings );
+			}
+			this.each( function() {
+				let startX;
+				let startY;
+				let isMoving = false;
+				// eslint-disable-next-line require-jsdoc, jsdoc/require-jsdoc
+				function cancelTouch() {
+					this.removeEventListener( 'touchmove', onTouchMove );
+					startX = null;
+					isMoving = false;
+				}
+				// eslint-disable-next-line require-jsdoc, jsdoc/require-jsdoc
+				function onTouchMove( e ) {
+					if ( config.preventDefaultEvents ) {
+						e.preventDefault();
+					}
+					if ( isMoving ) {
+						const x = e.touches[ 0 ].pageX;
+						const y = e.touches[ 0 ].pageY;
+						const dx = startX - x;
+						const dy = startY - y;
+						if ( Math.abs( dx ) >= config.min_move_x ) {
+							cancelTouch();
+							if ( 0 < dx ) {
+								config.wipeLeft();
+							} else {
+								config.wipeRight();
+							}
+						} else if ( Math.abs( dy ) >= config.min_move_y ) {
+							cancelTouch();
+							if ( 0 < dy ) {
+								config.wipeDown();
+							} else {
+								config.wipeUp();
+							}
+						}
+					}
+				}
+				// eslint-disable-next-line require-jsdoc, jsdoc/require-jsdoc
+				function onTouchStart( e ) {
+					if ( 1 === e.touches.length ) {
+						startX = e.touches[ 0 ].pageX;
+						startY = e.touches[ 0 ].pageY;
+						isMoving = true;
+						this.addEventListener( 'touchmove', onTouchMove, false );
+					}
+				}
+				if ( 'ontouchstart' in document.documentElement ) {
+					this.addEventListener( 'touchstart', onTouchStart, false );
+				}
+			} );
+			return this;
+		};
+	}( jQuery )
+);
 
 
 /***/ }),
 
-/***/ "./src/js/meta-boxes/bordered-post-posts.js":
-/*!**************************************************!*\
-  !*** ./src/js/meta-boxes/bordered-post-posts.js ***!
-  \**************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-function painter () {
-    const feature_imgs = document.querySelectorAll( 'img.border-it' );
-    feature_imgs.forEach( img => {
-        let data = img.getAttribute( 'data' );
-        data = data.split( '?' );
-        img.style.border = data[ 1 ];
-        img.style.padding = data[ 2 ];
-    });
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (painter);
-
-/***/ }),
-
-/***/ "./src/js/meta-boxes/custom-meta-box.js":
-/*!**********************************************!*\
-  !*** ./src/js/meta-boxes/custom-meta-box.js ***!
-  \**********************************************/
+/***/ 961:
 /***/ (function() {
 
 const toggle = document.getElementById( 'cmb-toggle' );
 const runner = document.getElementById( 'cmb-i-r' );
-const hidable = document.getElementById( 'cmb-hidable' )
+const hidable = document.getElementById( 'cmb-hidable' );
 const thickness = document.getElementById( 'cmb-thickness' );
 const color = document.getElementById( 'cmb-color' );
 const padding = document.getElementById( 'cmb-padding' );
-const border_pattern = document.getElementById( 'cmb-pattern' );
+const borderPattern = document.getElementById( 'cmb-pattern' );
 
-let infos = {
-    'bordered?' : false,
-    'thickness' : 5,
-    'color' : '#7a7a7a',
-    'padding' : 10,
-    'border_pattern' : 'none'
-}
-const set_thickness = () => infos[ 'thickness' ] = thickness?.value ?? '' ;
-const set_color = () => infos[ 'color' ] = color?.value ?? '' ;
-const set_padding = () => infos[ 'padding' ] = padding?.value ?? '' ;
-const set_pattern = () => infos[ 'border_pattern' ] = border_pattern?.value ?? '' ;
+const infos = {
+	'bordered?': false,
+	thickness: 5,
+	color: '#7a7a7a',
+	padding: 10,
+	borderPattern: 'none',
+};
 
-const apply_toggle = () => {
-    if( toggle && runner && hidable ){
-        if( toggle.checked ){
-            hidable.classList.remove( 'cmb-hidable' );
-            runner.classList.remove( 'cmb-temp-off' );
-            runner.classList.add( 'cmb-temp-on' );
-            runner.style.animationName = 'cmb-slider-on';
-            infos[ 'bordered?' ] = true;
-        }
-        else{
-            toggle.removeAttribute( 'checked','' )
-            hidable.classList.add( 'cmb-hidable' );      
-            runner.classList.remove( 'cmb-temp-on' );
-            runner.classList.add( 'cmb-temp-off' );
-            runner.style.animationName = 'cmb-slider-off';
-            infos[ 'bordered?' ] = false;  
-        }
-    }
-}
-const apply_border = () => border_pattern ? border_pattern.style.border = '4px ' + infos['border_pattern'] + ' ' + infos['color'] : null;
+/* eslint-disable require-jsdoc */
+const setThickness = () => infos.thickness = thickness?.value ?? '';
+const setColor = () => infos.color = color?.value ?? '';
+const setPadding = () => infos.padding = padding?.value ?? '';
+const setPattern = () => infos.borderPattern = borderPattern?.value ?? '';
+/* eslint-enable */
 
-set_thickness();
-set_color();
-set_padding();
-set_pattern();
-apply_toggle();
-apply_border();
+/**
+ * Custom Meta Box: Border maker.
+ */
+const applyToggle = () => {
+	if ( toggle && runner && hidable ) {
+		if ( toggle.checked ) {
+			hidable.classList.remove( 'cmb-hidable' );
+			runner.classList.remove( 'cmb-temp-off' );
+			runner.classList.add( 'cmb-temp-on' );
+			runner.style.animationName = 'cmb-slider-on';
+			infos[ 'bordered?' ] = true;
+		} else {
+			toggle.removeAttribute( 'checked', '' );
+			hidable.classList.add( 'cmb-hidable' );
+			runner.classList.remove( 'cmb-temp-on' );
+			runner.classList.add( 'cmb-temp-off' );
+			runner.style.animationName = 'cmb-slider-off';
+			infos[ 'bordered?' ] = false;
+		}
+	}
+};
+// eslint-disable-next-line require-jsdoc
+const applyBorder = () => borderPattern ? borderPattern.style.border = '4px ' + infos.borderPattern + ' ' + infos.color : null;
 
+setThickness();
+setColor();
+setPadding();
+setPattern();
+applyToggle();
+applyBorder();
 
-toggle?.addEventListener( 'click', event => {
-    event.stopPropagation();
-    apply_toggle();
-} )
+toggle?.addEventListener( 'click', ( event ) => {
+	event.stopPropagation();
+	applyToggle();
+} );
 
-thickness?.addEventListener( 'keyup', event => {
-    event.stopPropagation();
-    set_thickness();
-} )
+thickness?.addEventListener( 'keyup', ( event ) => {
+	event.stopPropagation();
+	setThickness();
+} );
 
-color?.addEventListener( 'change', event => {
-    event.stopPropagation();
-    set_color();
-    apply_border();
-} )
+color?.addEventListener( 'change', ( event ) => {
+	event.stopPropagation();
+	setColor();
+	applyBorder();
+} );
 
-padding?.addEventListener( 'keyup', event => {
-    event.stopPropagation();
-    set_padding();
-} )
+padding?.addEventListener( 'keyup', ( event ) => {
+	event.stopPropagation();
+	setPadding();
+} );
 
-border_pattern?.addEventListener( 'change', event => {
-    event.stopPropagation();
-    set_pattern();
-    apply_border();
-} )
+borderPattern?.addEventListener( 'change', ( event ) => {
+	event.stopPropagation();
+	setPattern();
+	applyBorder();
+} );
 
 
 
 /***/ }),
 
-/***/ "./src/js/owl.carousel.min.js":
-/*!************************************!*\
-  !*** ./src/js/owl.carousel.min.js ***!
-  \************************************/
+/***/ 306:
 /***/ (function() {
 
 "function"!==typeof Object.create&&(Object.create=function(f){function g(){}g.prototype=f;return new g});
@@ -1029,10 +908,7 @@ responsive:!0,responsiveRefreshRate:200,responsiveBaseWidth:g,baseClass:"owl-car
 
 /***/ }),
 
-/***/ "./src/js/retina-1.1.0.min.js":
-/*!************************************!*\
-  !*** ./src/js/retina-1.1.0.min.js ***!
-  \************************************/
+/***/ 194:
 /***/ (function(__unused_webpack_module, exports) {
 
 /*!
@@ -1048,10 +924,7 @@ responsive:!0,responsiveRefreshRate:200,responsiveBaseWidth:g,baseClass:"owl-car
 
 /***/ }),
 
-/***/ "./src/js/swipe.js":
-/*!*************************!*\
-  !*** ./src/js/swipe.js ***!
-  \*************************/
+/***/ 500:
 /***/ (function() {
 
 /*
@@ -1622,10 +1495,7 @@ if ( window.jQuery || window.Zepto ) {
 
 /***/ }),
 
-/***/ "jquery":
-/*!*************************!*\
-  !*** external "jQuery" ***!
-  \*************************/
+/***/ 311:
 /***/ (function(module) {
 
 "use strict";
@@ -1660,82 +1530,187 @@ module.exports = jQuery;
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	!function() {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = function(module) {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				function() { return module['default']; } :
-/******/ 				function() { return module; };
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	!function() {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = function(exports, definition) {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	!function() {
-/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	!function() {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = function(exports) {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 !function() {
 "use strict";
-/*!**************************************!*\
-  !*** ./src/js/load/generic/index.js ***!
-  \**************************************/
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _add_on__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../add-on */ "./src/js/add-on.js");
-/* harmony import */ var _infinite_scroll__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../infinite-scroll */ "./src/js/infinite-scroll.js");
-/* harmony import */ var _meta_boxes_bordered_post_posts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../meta-boxes/bordered-post-posts */ "./src/js/meta-boxes/bordered-post-posts.js");
-/* harmony import */ var _bootstrap_min_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../bootstrap.min.js */ "./src/js/bootstrap.min.js");
-/* harmony import */ var _bootstrap_min_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_bootstrap_min_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _jflickrfeed_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../jflickrfeed.js */ "./src/js/jflickrfeed.js");
-/* harmony import */ var _jflickrfeed_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_jflickrfeed_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _jquery_cookie_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../jquery.cookie.js */ "./src/js/jquery.cookie.js");
-/* harmony import */ var _jquery_cookie_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_jquery_cookie_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _jquery_easing_1_3_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../jquery.easing.1.3.js */ "./src/js/jquery.easing.1.3.js");
-/* harmony import */ var _jquery_easing_1_3_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_jquery_easing_1_3_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _jquery_isotope_min_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../jquery.isotope.min.js */ "./src/js/jquery.isotope.min.js");
-/* harmony import */ var _jquery_isotope_min_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_jquery_isotope_min_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _jquery_smartmenus_min_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../jquery.smartmenus.min.js */ "./src/js/jquery.smartmenus.min.js");
-/* harmony import */ var _jquery_smartmenus_min_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_jquery_smartmenus_min_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _jquery_smartmenus_bootstrap_min_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../jquery.smartmenus.bootstrap.min.js */ "./src/js/jquery.smartmenus.bootstrap.min.js");
-/* harmony import */ var _jquery_smartmenus_bootstrap_min_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_jquery_smartmenus_bootstrap_min_js__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _owl_carousel_min_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../owl.carousel.min.js */ "./src/js/owl.carousel.min.js");
-/* harmony import */ var _owl_carousel_min_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_owl_carousel_min_js__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _retina_1_1_0_min_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../retina-1.1.0.min.js */ "./src/js/retina-1.1.0.min.js");
-/* harmony import */ var _retina_1_1_0_min_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_retina_1_1_0_min_js__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _swipe_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../swipe.js */ "./src/js/swipe.js");
-/* harmony import */ var _swipe_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_swipe_js__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../main */ "./src/js/main.js");
-/* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_main__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _meta_boxes_custom_meta_box__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../meta-boxes/custom-meta-box */ "./src/js/meta-boxes/custom-meta-box.js");
-/* harmony import */ var _meta_boxes_custom_meta_box__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_meta_boxes_custom_meta_box__WEBPACK_IMPORTED_MODULE_14__);
+
+;// CONCATENATED MODULE: ./src/js/meta-boxes/bordered-post-posts.js
+/**
+ * Pulls out the border data and apply it to the element.
+ */
+function painter () {
+	const featureImgs = document.querySelectorAll( 'img.border-it' );
+	featureImgs.forEach( ( img ) => {
+		let data = img.getAttribute( 'data' );
+		data = data.split( '?' );
+		img.style.border = data[ 1 ];
+		img.style.padding = data[ 2 ];
+	} );
+}
+
+/* harmony default export */ var bordered_post_posts = (painter);
+
+;// CONCATENATED MODULE: ./src/js/add-on.js
+
+(
+	function() {
+		/**
+		 * Set text into the clipboard.
+		 *
+		 * @param {String}      text    Text to be copied.
+		 * @param {HTMLElement} element element which is used for representation at front end as a copy button.
+		 */
+		function setClipboard ( text, element ) {
+			const type = 'text/plain';
+			const blob = new Blob( [ text ], { type } );
+			const data = [ new ClipboardItem( { [ type ]: blob } ) ];
+			const originalBg = element.style.backgroundColor;
+
+			navigator.clipboard.write( data ).then(
+				() => {
+					if ( null !== originalBg || '' !== originalBg ) {
+						element.style.backgroundColor = '#82AF53';
+						setTimeout( () => {
+							element.style.backgroundColor = originalBg;
+						}, 2500 );
+					}
+					return 'Copied';
+				},
+				() => {
+
+					if ( null !== originalBg || '' !== originalBg ) {
+						element.style.backgroundColor = '#fc1e1e';
+						setTimeout( () => {
+							element.style.backgroundColor = originalBg;
+						}, 2500 );
+					}
+					return 'Unable to copy';
+				}
+			);
+		}
+		bordered_post_posts();
+		const copyElement = document.getElementById( 'copy-it' );
+		if ( copyElement ) {
+			copyElement.addEventListener( 'click', ( event ) => {
+				event.preventDefault();
+				const copyString = copyElement.getAttribute( 'copy' );
+				setClipboard( copyString, event.target );
+			} );
+		}
+	}()
+);
+
+;// CONCATENATED MODULE: ./src/js/infinite-scroll.js
+
+(
+	function infiniteScroll() {
+		let safetyLock = false;
+		let currentReadingPage = 1;
+		document.addEventListener( 'scroll', () => {
+			const trigger = document.getElementById( 'load-trigger' );
+			// eslint-disable-next-line no-unused-expressions
+			checkForTriggerPush( trigger ) && ! safetyLock ? ajaxCaller( trigger ) : '';
+			return '';
+		} );
+
+		/**
+		 * check if user scroll reached to the point where next posts need to loaded or not.
+		 *
+		 * @param {HTMLElement} trigger is an HTML Element at which this function keeps eye on.
+		 * @return {boolean} if given element has reached inside the viewport or not?
+		 */
+		function checkForTriggerPush( trigger ) {
+			if ( trigger ) {
+				const location = trigger.getBoundingClientRect();
+				const clientHeight = window.innerHeight || document.documentElement.clientHeight;
+				return (
+					0 <= location.top &&
+                    0 <= location.left &&
+                    location.bottom <= 1.5 * parseInt( clientHeight ) &&
+                    location.right <= ( window.innerWidth || document.documentElement.clientWidth )
+				);
+			}
+			return false;
+		}
+
+		/**
+		 * Make an AJAX request for next feed
+		 *
+		 * @param {HTMLElement} trigger is an element which need to be moved from the current end of page to new upcoming end of page.
+		 */
+		function ajaxCaller( trigger ) {
+			safetyLock = true;
+			// eslint-disable-next-line no-undef
+			const url = siteConfig?.ajax_url ?? '';
+			// eslint-disable-next-line no-undef
+			const nonce = siteConfig?.ajax_nonce ?? '';
+
+			if ( url && nonce ) {
+				const ajax = new XMLHttpRequest();
+				ajax.onreadystatechange = function () {
+					if ( 4 === this.readyState && 200 === this.status ) {
+						trigger.remove();
+						safetyLock = false;
+						let response = this.response;
+						const suspect = JSON.parse( response );
+						if ( ! suspect.success ) {
+							location.reload();
+						} else if ( suspect.hasOwnProperty( 'data' ) && suspect.hasOwnProperty( 'page' ) ) {
+							response = suspect.data;
+							currentReadingPage = suspect.page;
+							const accessPoint = document.getElementById( 'append_here' );
+							if ( accessPoint && response ) {
+								response = response.split( '</article>' );
+								response.forEach( ( article ) => {
+									article = article.replace( '<article class="post">', '' );
+									const articleDiv = document.createElement( 'article' );
+									articleDiv.innerHTML = article;
+									articleDiv.classList.add( 'post' );
+									accessPoint.append( articleDiv );
+								} );
+								bordered_post_posts();
+							}
+							if ( suspect.hasOwnProperty( 'isEnd' ) ) {
+								if ( suspect.isEnd ) {
+									safetyLock = true;
+								}
+							}
+						}
+					}
+				};
+				ajax.open( 'POST', url, true );
+				ajax.setRequestHeader( 'Content-type', 'application/x-www-form-urlencoded' );
+				ajax.send( 'action=infiscroll&ajax_nonce=' + nonce + '&page=' + currentReadingPage );
+			}
+		}
+	}() );
+
+// EXTERNAL MODULE: ./src/js/bootstrap.min.js
+var bootstrap_min = __webpack_require__(932);
+// EXTERNAL MODULE: ./src/js/jflickrfeed.js
+var jflickrfeed = __webpack_require__(856);
+// EXTERNAL MODULE: ./src/js/jquery.cookie.js
+var jquery_cookie = __webpack_require__(278);
+// EXTERNAL MODULE: ./src/js/jquery.easing.1.3.js
+var jquery_easing_1_3 = __webpack_require__(423);
+// EXTERNAL MODULE: ./src/js/jquery.isotope.min.js
+var jquery_isotope_min = __webpack_require__(754);
+// EXTERNAL MODULE: ./src/js/jquery.smartmenus.min.js
+var jquery_smartmenus_min = __webpack_require__(666);
+// EXTERNAL MODULE: ./src/js/jquery.smartmenus.bootstrap.min.js
+var jquery_smartmenus_bootstrap_min = __webpack_require__(783);
+// EXTERNAL MODULE: ./src/js/owl.carousel.min.js
+var owl_carousel_min = __webpack_require__(306);
+// EXTERNAL MODULE: ./src/js/retina-1.1.0.min.js
+var retina_1_1_0_min = __webpack_require__(194);
+// EXTERNAL MODULE: ./src/js/swipe.js
+var swipe = __webpack_require__(500);
+// EXTERNAL MODULE: ./src/js/main.js
+var main = __webpack_require__(693);
+// EXTERNAL MODULE: ./src/js/meta-boxes/custom-meta-box.js
+var custom_meta_box = __webpack_require__(961);
+;// CONCATENATED MODULE: ./src/js/load/generic/index.js
 
 
 

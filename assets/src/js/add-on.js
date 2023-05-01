@@ -1,43 +1,48 @@
-import painter from  './meta-boxes/bordered-post-posts';
+import painter from './meta-boxes/bordered-post-posts';
 (
-    function(){
+	function() {
+		/**
+		 * Set text into the clipboard.
+		 *
+		 * @param {String}      text    Text to be copied.
+		 * @param {HTMLElement} element element which is used for representation at front end as a copy button.
+		 */
+		function setClipboard ( text, element ) {
+			const type = 'text/plain';
+			const blob = new Blob( [ text ], { type } );
+			const data = [ new ClipboardItem( { [ type ]: blob } ) ];
+			const originalBg = element.style.backgroundColor;
 
-        function set_clipboard( text, element ) {
-            const type = "text/plain";
-            const blob = new Blob([text], { type });
-            const data = [new ClipboardItem({ [type]: blob })];
-            const original_bg = element.style.backgroundColor; 
-          
-				navigator.clipboard.write(data).then(
+			navigator.clipboard.write( data ).then(
 				() => {
-					if( null !== original_bg || '' !== original_bg ){
+					if ( null !== originalBg || '' !== originalBg ) {
 						element.style.backgroundColor = '#82AF53';
-						setTimeout(() => {
-							element.style.backgroundColor = original_bg;
-						}, 2500);
+						setTimeout( () => {
+							element.style.backgroundColor = originalBg;
+						}, 2500 );
 					}
 					return 'Copied';
 				},
 				() => {
-					
-					if( null !== original_bg || '' !== original_bg ){
+
+					if ( null !== originalBg || '' !== originalBg ) {
 						element.style.backgroundColor = '#fc1e1e';
-						setTimeout(() => {
-							element.style.backgroundColor = original_bg;
-						}, 2500);
+						setTimeout( () => {
+							element.style.backgroundColor = originalBg;
+						}, 2500 );
 					}
 					return 'Unable to copy';
 				}
-				);
-			}
+			);
+		}
 		painter();
-        const copy_element = document.getElementById( 'copy-it' );
-        if( copy_element ){     
-            copy_element.addEventListener( 'click', event => {
-                event.preventDefault();
-                const copy_string = copy_element.getAttribute( 'copy' );
-                set_clipboard( copy_string, event.target );
-            } );
-        }
-    }
-)();
+		const copyElement = document.getElementById( 'copy-it' );
+		if ( copyElement ) {
+			copyElement.addEventListener( 'click', ( event ) => {
+				event.preventDefault();
+				const copyString = copyElement.getAttribute( 'copy' );
+				setClipboard( copyString, event.target );
+			} );
+		}
+	}()
+);

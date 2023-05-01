@@ -71,6 +71,7 @@ if ( have_posts() ) :
 
 					<?php
 						do_action( 'end_of_post', $current_post_id );
+						echo '</div> <!-- .blog_single-->';
 						endwhile;
 						endif;
 						wp_reset_postdata();

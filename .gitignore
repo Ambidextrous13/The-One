@@ -7,4 +7,8 @@ assets/package-lock.json
 assets/package.json
 assets/webpack.config.js
 assets/node_modules
+assets/.babelrc
+assets/.eslintignore
+assets/.eslintrc.json
+assets/.stylelintrc.json
 vendor

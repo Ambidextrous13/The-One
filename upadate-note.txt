@@ -1,4 +1,4 @@
-Message : 
+Message : fix: header text, infi scroll race around, transition infiscroll, footer admin note, empty comment submission | added: end_of_post hook.
 header text bug fix
 infi scroll race around fix
 added unfi scroll failure refresh
