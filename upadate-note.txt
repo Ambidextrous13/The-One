@@ -1,8 +1,16 @@
 Message : fix: header text, infi scroll race around, transition infiscroll, footer admin note, empty comment submission | added: end_of_post hook.
 header text bug fix
 infi scroll race around fix
-added unfi scroll failure refresh
+added infi scroll failure refresh
 fixed border issue
 fixed footer admin note issue
-comment empty filed submition prevetion
+comment empty filed submission prevention
 added 'end_of_post' custom hook
+
+## #############################################################################################################################################################################
+Message : infinite sub menus; footer admin notes; password protected posts; WIP page; empty infi div 
+1. infinite sub menu support for main menu
+2. Footer-social media admin note added 
+3. comments visibility and comment form visibility issue solve
+4. Empty page fix
+5. fixed infinite scroll empty div.

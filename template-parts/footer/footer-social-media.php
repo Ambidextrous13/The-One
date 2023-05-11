@@ -31,4 +31,3 @@ foreach ( $metas as $_ => $meta ) {
 		true
 	);
 }
-$social_media_counts = count( $metas );

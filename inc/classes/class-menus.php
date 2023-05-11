@@ -70,7 +70,7 @@ class Menus {
 	}
 
 	/**
-	 * Gives the one step minimised menu of given meu location.
+	 * Gives the one step minimized menu of given meu location.
 	 *
 	 * @param string $menu_location .
 	 * @return string|false
@@ -79,30 +79,39 @@ class Menus {
 
 		$menu_id = $this->menu_id( $menu_location );
 		$menu    = wp_get_nav_menu_items( $menu_id );
-
+		$hashmap = [];
 		if ( ! empty( $menu ) && is_array( $menu ) ) {
 			$reduced_menu = [];
 			foreach ( $menu as $_ => $element ) {
-				$key   = $element->ID;
-				$value = [
-					'has_child' => isset( $reduced_menu[ $key ]['has_child'] ) ? true : false,
-					'title'     => $element->title,
-					'url'       => $element->url,
+				$key        = $element->ID;
+				$parent_key = intval( $element->menu_item_parent );
+				$value      = [
+					'title'      => $element->title,
+					'url'        => $element->url,
+					'has_parent' => $parent_key ? $parent_key : false,
+					'children'   => [],
 				];
 
-				$parent_key = intval( $element->menu_item_parent );
-
 				if ( 0 !== $parent_key ) {
-					$reduced_menu[ $parent_key ]['has_child']        = true;
-					$reduced_menu[ $parent_key ]['children'][ $key ] = $value;
+					$parent_address = $hashmap[ $parent_key ];
+					$own_address    = $hashmap[ $parent_key ];
+					array_push( $own_address, $key );
+					$hashmap[ $key ] = $own_address;
 
+					$children = & $reduced_menu;
+					$depth    = count( $parent_address );
+					for ( $pointer = 0; $pointer < $depth; $pointer++ ) {
+						$children = & $children[ $parent_address[ $pointer ] ]['children'];
+					}
+					$children[ $key ] = $value;
 				} else {
+					$hashmap              = [];
+					$hashmap[ $key ]      = [ $key ];
 					$reduced_menu[ $key ] = $value;
-				}
-			}
+				} // if parents exist check.
+			} // foreach menu end.
 			return $reduced_menu;
 		}
 		return false;
 	}
 }
-

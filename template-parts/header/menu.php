@@ -19,35 +19,8 @@ if ( is_array( $menus ) && ! empty( $menus ) ) {
 <div class="col-lg-9 col-sm-9 navbar navbar-default navbar-static-top container" role="navigation">
 	<div class="navbar-collapse collapse">
 		<ul class="nav navbar-nav">
-
 	<?php
-	foreach ( $menus as $id_ => $element ) {
-		?>
-
-			<li><a href="<?php echo esc_url( $element['url'] ); ?>"><span class="data-hover"data-hover="<?php echo esc_html( $element['title'] ); ?>"><?php echo esc_html( $element['title'] ); ?></span></a>	
-		<?php
-		if ( $element['has_child'] ) {
-			?>
-
-				<ul class="dropdown-menu">
-
-			<?php
-			foreach ( $element['children'] as $id_ => $child ) {
-				?>
-				<li><a href="<?php echo esc_url( $child['url'] ); ?>"><?php echo esc_html( $child['title'] ); ?></a></li>
-	   
-				<?php
-			}
-			?>
-				</ul>
-
-			<?php
-		}
-		?>
-			</li>
-
-		<?php
-	}
+	print_menu( $menus );
 } else {
 		admin_note( 'Here goes your Nav Menu', 'nav-menu', '#nav-menus-frame' );
 }
@@ -55,3 +28,4 @@ if ( is_array( $menus ) && ! empty( $menus ) ) {
 		</ul>
 	</div>
 </div>
+

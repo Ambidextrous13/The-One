@@ -33,6 +33,27 @@ if ( is_home() ) {
 	echo '</div>';
 	get_sidebar();
 	get_template_part( 'template-parts/posts/html', 'lower' );
+} else {
+	?>
+	<section class="wrapper">
+	<section class="content not_found">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-lg-12 col-md-12">
+					<div style="line-height: 50px; padding: 30px 0px;">
+						<h1><?php esc_html_e( 'Maybe it is not fully developed.', 'the-one' ); ?></h1>
+						<p><?php esc_html_e( 'Click the below button to go back to home.', 'the-one' ); ?></p>
+						<a href="<?php echo esc_url( get_home_url() ); ?>" class="btn btn-default btn-lg back_home">
+							<i class="fa fa-arrow-circle-o-left"></i>
+							<?php esc_html_e( 'Home', 'the-one' ); ?>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</section>
+	<?php
 }
 
 get_footer();

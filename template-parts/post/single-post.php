@@ -6,22 +6,22 @@
  * @author Janak Patel <pateljanak830@gmail.com>
  */
 
-global $post;
-
-$author_id       = $post->post_author;
-$current_post_id = $post->id;
-
-if ( have_posts() ) :
-	while ( have_posts() ) :
-		the_post();
-		?>
-
+?>
 <!--start wrapper-->
 <section class="wrapper">
 	<section class="content blog">
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+<?php
+global $post;
+$author_id       = $post->post_author;
+$current_post_id = $post->id;
+if ( have_posts() ) :
+	while ( have_posts() ) :
+		if ( ! post_password_required( $current_post_id ) ) {
+			the_post();
+			?>
 					<div class="blog_single">
 						<article class="post">
 							<div class="post_date">
@@ -29,7 +29,7 @@ if ( have_posts() ) :
 								<span class="month"><?php the_time( 'M' ); ?></span>
 							</div>
 							<div class="post_content">
-								<div class="post_meta">
+								<div class="post_meta" style="-ms-word-wrap: break-word; word-wrap: break-word;">
 									<h2>
 										<a><?php the_title(); ?></a>
 									</h2>
@@ -61,21 +61,28 @@ if ( have_posts() ) :
 									}
 								}
 								if ( 0 === $button_count ) {
-									admin_note( 'Configure Share buttons', 'theme-setting', 'set-id' );
+									admin_note( 'Configure Share buttons', 'theme-settings', 'set-id', false, '<span style="color:black">' );
 								}
 
 								?>
 							</ul>
 
 						</article>
-
-					<?php
-						do_action( 'end_of_post', $current_post_id );
-						echo '</div> <!-- .blog_single-->';
-						endwhile;
-						endif;
-						wp_reset_postdata();
-						comments_template( '/comments.php' );
+			<?php
+				do_action( 'end_of_post', $current_post_id );
+				echo '</div> <!-- .blog_single-->';
+			if ( get_comments_number( $current_post_id ) ) {
+				comments_template( '/comments.php' );
+			}
+		} else {
+			// phpcs:ignore
+			echo get_the_password_form( $current_post_id );
+			echo '<p>THIS POST IS PASSWORD PROTECTED: PLEASE ENTER IT!</p>';
+		}
+		break;
+	endwhile;
+endif;
+wp_reset_postdata();
 ?>
 				</div>
 				<!--Sidebar Widget-->

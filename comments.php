@@ -62,24 +62,33 @@ function comment_styler( $comment, $args, $depth ) {
 ?>
 </div>
 
-<div class="dividerHeading">
-<h4><span><?php esc_html_e( 'Leave a comment', 'the-one' ); ?></span></h4>
-</div>
 <?php
+$current_post_id = $post->ID;
+if ( comments_open( $current_post_id ) ) {
+	?>
+<div class="dividerHeading">
+	<h4>
+		<span><?php esc_html_e( 'Leave a comment', 'the-one' ); ?></span>
+	</h4>
+</div>
+	<?php
 
-$commenter = wp_get_current_commenter();
-$args      = [
-	'fields'        => [
-		'author' => sprintf( '<div class="col-sm-4"><input class="col-lg-4 col-md-4 form-control" placeholder="Name *" id="author" name="author" type="text" value="%s" size="30" maxlength="245" autocomplete="name"%s /></div>', esc_attr( $commenter['comment_author'] ), ( $req ? '*' : '' ) ),
-		'email'  => sprintf( '<div class="col-sm-4"><input class="col-lg-4 col-md-4 form-control" placeholder="E-mail *" id="email" name="email" type="email" value="%s" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email"%s /></div>', esc_attr( $commenter['comment_author_email'] ), ( $req ? '*' : '' ) ),
-		'url'    => sprintf( '<div class="col-sm-4"><input class="col-lg-4 col-md-4 form-control" placeholder="Link to you" id="url" name="url" type="url" value="%s" size="30" maxlength="200" autocomplete="url" /></div>', esc_attr( $commenter['comment_author_url'] ) ),
-		'</div>',
-	],
-	'comment_field' => sprintf( '</div><div class="comment-box row"><div class="col-sm-12"><p><textarea name="comment" class="form-control" rows="6" cols="40" id="comment" placeholder="Message" %s></textarea></p></div></div>', ( $req ? '*' : '' ) ),
-	'title_reply'   => '',
-	'class_form'    => 'comment_form',
-	'class_submit'  => 'btn btn-lg btn-default',
+	$commenter = wp_get_current_commenter();
+	$args      = [
+		'fields'        => [
+			'author' => sprintf( '<div class="col-sm-4"><input class="col-lg-4 col-md-4 form-control" placeholder="Name *" id="author" name="author" type="text" value="%s" size="30" maxlength="245" autocomplete="name"%s /></div>', esc_attr( $commenter['comment_author'] ), ( $req ? '*' : '' ) ),
+			'email'  => sprintf( '<div class="col-sm-4"><input class="col-lg-4 col-md-4 form-control" placeholder="E-mail *" id="email" name="email" type="email" value="%s" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email"%s /></div>', esc_attr( $commenter['comment_author_email'] ), ( $req ? '*' : '' ) ),
+			'url'    => sprintf( '<div class="col-sm-4"><input class="col-lg-4 col-md-4 form-control" placeholder="Link to you" id="url" name="url" type="url" value="%s" size="30" maxlength="200" autocomplete="url" /></div>', esc_attr( $commenter['comment_author_url'] ) ),
+			'</div>',
+		],
+		'comment_field' => sprintf( '</div><div class="comment-box row"><div class="col-sm-12"><p><textarea name="comment" class="form-control" rows="6" cols="40" id="comment" placeholder="Message" %s></textarea></p></div></div>', ( $req ? '*' : '' ) ),
+		'title_reply'   => '',
+		'class_form'    => 'comment_form',
+		'class_submit'  => 'btn btn-lg btn-default',
 
-];
-comment_form( $args );
+	];
+	comment_form( $args );
+} else {
+	echo '</div>';
+}
 ?>

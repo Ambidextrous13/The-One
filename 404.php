@@ -28,28 +28,6 @@ get_header( null, $args );
 			</div>
 		</div>
 	</section>
-
-	<section class="promo_box">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-9 col-md-9 col-lg-9">
-					<div class="promo_content">
-						<h3><?php esc_html_e( 'This WordPress theme is developed by Janak Patel.', 'the-one' ); ?></h3>
-						<p><?php esc_html_e( 'It is meant to serve learning purpose only', 'the-one' ); ?></p>
-					</div>
-				</div>
-				<div class="col-sm-3 col-md-3 col-lg-3">
-					<div class="pb_action">
-						<a class="btn btn-lg btn-default" href="<?php echo esc_url( wp_get_attachment_url( 195 ) ); ?>">
-							<i class="fa  fa-file-text"></i>
-							<?php esc_html_e( '..Resume..', 'the-one' ); ?>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
 </section>
 <?php
 	get_footer();

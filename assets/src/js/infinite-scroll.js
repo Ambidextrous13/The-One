@@ -58,12 +58,16 @@ import painter from './meta-boxes/bordered-post-posts';
 							const accessPoint = document.getElementById( 'append_here' );
 							if ( accessPoint && response ) {
 								response = response.split( '</article>' );
-								response.forEach( ( article ) => {
-									article = article.replace( '<article class="post">', '' );
-									const articleDiv = document.createElement( 'article' );
-									articleDiv.innerHTML = article;
-									articleDiv.classList.add( 'post' );
-									accessPoint.append( articleDiv );
+								response[ response.length - 2 ] = response[ response.length - 2 ] + response[ response.length - 1 ];
+								response.pop();
+								response.forEach( ( rawArticle ) => {
+									const article = rawArticle.replace( '<article class="post">', '' );
+									if ( ! ( '' === article || null === article || 5 > article.length ) ) {
+										const articleDiv = document.createElement( 'article' );
+										articleDiv.innerHTML = article;
+										articleDiv.classList.add( 'post' );
+										accessPoint.append( articleDiv );
+									}
 								} );
 								painter();
 							}

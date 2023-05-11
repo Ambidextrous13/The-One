@@ -8,12 +8,15 @@
 
 $single_post_link = get_permalink();
 
-$src = '__NEEDS_TO_FILL__';
+$src = DEV_ASSETS_PATH . 'no-priv-image-cover.png';
+
 if ( has_post_thumbnail() ) {
 	$src = get_the_post_thumbnail_url( '', 'indexing-size' );
+} elseif ( current_user_can( 'manage_options' ) ) {
+	$src = DEV_ASSETS_PATH . 'no-image-cover.png';
 }
 
-	$bordered = [];
+	$bordered        = [];
 	$serialized_data = '';
 if ( '' !== get_post_meta( get_the_ID(), 't-o-p-b-checkbox', true ) ) {
 	$bordered = [
@@ -44,7 +47,7 @@ if ( '' !== get_post_meta( get_the_ID(), 't-o-p-b-checkbox', true ) ) {
 	<div class="post_content">
 		<div class="post_meta">
 			<h2>
-				<a href="<?php echo esc_url( $single_post_link ); ?>"><?php the_title(); ?></a>
+				<a href="<?php echo esc_url( $single_post_link ); ?>"><?php echo esc_html( short_text( the_title( null, null, false ), 45, true ) ); ?></a>
 			</h2>
 			<div class="metaInfo">
 				<span><i class="fa fa-calendar"></i> <a><?php the_time( 'M d, Y' ); ?></a> </span>

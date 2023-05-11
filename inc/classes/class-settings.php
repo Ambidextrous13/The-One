@@ -18,6 +18,13 @@ class Settings {
 	use Singleton;
 
 	/**
+	 * Keep track of number of social media actives.
+	 *
+	 * @var integer
+	 */
+	public static $footer_social_media_count = 0;
+
+	/**
 	 * Redirects to the hook-in functionality.
 	 */
 	private function __construct() {
@@ -616,6 +623,7 @@ class Settings {
 				array_push( $returnable, $local_array );
 			}
 		}
+		self::$footer_social_media_count = count( $returnable );
 		return $returnable;
 
 	}

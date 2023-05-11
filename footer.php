@@ -8,7 +8,8 @@
 
 get_sidebar( 'footer' );
 
-$copyright_text = get_option( 'the_one_copyright_text', '' );
+$copyright_enable = get_option( 'the_one_copyright_text_check' );
+$copyright_text   = get_option( 'the_one_copyright_text', '' );
 ?>
 <section class="footer_bottom">
 	<div class="container">
@@ -16,7 +17,7 @@ $copyright_text = get_option( 'the_one_copyright_text', '' );
 			<div class="col-sm-6">
 				<p class="copyright">
 					<?php
-					if ( $copyright_text ) {
+					if ( $copyright_text && $copyright_enable ) {
 						echo esc_html( $copyright_text );
 					} else {
 						admin_note( 'Add copyright Text here', 'theme-settings', '.copyright_text' );
@@ -29,7 +30,8 @@ $copyright_text = get_option( 'the_one_copyright_text', '' );
 					<ul class="footbot_social">
 						<?php
 						get_template_part( 'template-parts/footer/footer', 'social-media' );
-						global $social_media_counts;
+						use THE_ONE\Inc\Classes\Settings as Settings;
+						$social_media_counts = Settings::$footer_social_media_count;
 						if ( 0 === $social_media_counts ) {
 							admin_note( 'Your Social Media goes here', 'theme-settings', '.social_media_facebook' );
 						}

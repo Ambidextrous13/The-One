@@ -11567,6 +11567,7 @@ ul.sm li *,ul.sm li *::before,ul.sm li *::after {
 	-webkit-transition: -webkit-transform 0.3s;
 	-moz-transition: -moz-transform 0.3s;
 	transition: transform 0.3s;
+	white-space:nowrap;
 }
 
 .navbar-default .navbar-nav > li > a > span.data-hover::before {
@@ -11576,6 +11577,7 @@ ul.sm li *,ul.sm li *::before,ul.sm li *::after {
 	margin: -62px 6px;
 	padding: 62px 24px;
 	content: attr(data-hover);
+	white-space:nowrap;
 	-webkit-transform: translate3d(0, 0, 0);
 	-moz-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
@@ -11591,6 +11593,7 @@ ul.sm li *,ul.sm li *::before,ul.sm li *::after {
 	transition: all 0.3s ease-in-out 0s;
 	_webkit-transition: all 0.3s ease-in-out 0s;
 	_moz-transition: all 0.3s ease-in-out 0s;
+	white-space:nowrap;
 }
 
 /* ===================================================== */

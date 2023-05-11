@@ -193,7 +193,7 @@ function wrapper_div() {
 }
 
 /**
- * Puts admin note to the given page. which is only visible with admin logins. Help-full for indication purpose
+ * Puts admin note to the given page. which is only visible with admin logins. Helpful for theme setup.
  *
  * @param string  $note : Note to displayed to admin.
  * @param string  $page : Select page short-name from following list or provide admin url to which admin will redirect on click.
@@ -430,11 +430,57 @@ function get_post_data_for_share( $post_id, $author_id ) {
  *
  * @param string  $text : string which need to be shortened.
  * @param integer $limit : Character counts up to that given string get short.
+ * @param boolean $strict : true for strict limit follow, false for complete word end.
  * @return string shortened string with ellipses.
  */
-function short_text( $text, $limit = 50 ) {
+function short_text( $text, $limit = 45, $strict = false ) {
 	if ( $limit < strlen( $text ) ) {
-		return substr( $text, 0, strpos( $text, ' ', $limit - 5 ) ? strpos( $text, ' ', $limit - 5 ) : -1 ) . '[...]';
+		if ( ! $strict ) {
+			return substr( $text, 0, strpos( $text, ' ', $limit - 5 ) ? strpos( $text, ' ', $limit - 5 ) : -1 ) . '[...]';
+		} else {
+			return substr( $text, 0, $limit ) . '[...]';
+		}
 	}
-	return $text . '[...]';
+	return $text;
+}
+
+/**
+ * Prints the styled main menu.
+ *
+ * @param array $element : array of cascaded menu options. can be derived from class-menus' method `get_one_step_minimized_menu`.
+ * @return void
+ */
+function print_menu( $element ) {
+	global $wp;
+	foreach ( $element as $id => $meta ) {
+		$title      = $meta['title'];
+		$url        = $meta['url'];
+		$has_child  = ! empty( $meta['children'] );
+		$has_parent = $meta['has_parent'];
+		$children   = $meta['children'];
+
+		$is_root   = ! $has_parent;
+		$is_active = add_query_arg( $wp->query_vars, home_url() ) === $url;
+
+		$active_str       = $is_active ? 'active' : '';
+		$has_submenu_str  = $has_child ? 'has-submenu' : '';
+		$data_hover_class = $is_root ? 'data-hover' : '';
+
+		echo '<li class="' . esc_attr( $active_str ) . '">';
+		echo '<a href="' . esc_url( $url ) . '" class="' . esc_attr( $has_submenu_str ) . '" >';
+		if ( $is_root ) {
+			echo '<span class="' . esc_attr( $data_hover_class ) . '" data-hover="' . esc_attr( $title ) . '" >';
+		}
+		echo esc_html( $title );
+		if ( $is_root ) {
+			echo '</span>';
+		}
+		echo '</a>';
+		if ( $has_child ) {
+			echo '<ul class="dropdown-menu sm-nowrap">';
+			print_menu( $children );
+			echo '</ul>';
+		}
+		echo '</li>';
+	}
 }
