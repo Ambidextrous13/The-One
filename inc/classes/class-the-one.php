@@ -90,6 +90,10 @@ class THE_ONE {
 
 		add_theme_support( 'align-wide' );
 
+		add_theme_support( 'responsive-embeds' );
+
+		add_theme_support( 'title-tag' );
+
 	}
 
 	/**

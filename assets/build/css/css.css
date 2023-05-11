@@ -10891,7 +10891,7 @@ a:focus {
 #header {
 	width: 100%;
 	height: 100%;
-	background-image: url(../9673ad174ab08a2b2f92.png);
+	background-image: url(../f1bb46b9bc8016c90fe2.png);
 }
 
 #header-top {
@@ -12603,9 +12603,6 @@ figure:hover .option .fa-shopping-cart {
 	text-align: center;
 	text-transform: uppercase;
 }
-.blog {
-	padding: 50px 0;
-}
 .blog_large .post, .blog_single .post {
 	padding-bottom: 50px;
 	margin-bottom: 50px;
@@ -13463,7 +13460,7 @@ h4.comment-author a {
 ============================= */
 .counter-parallax {
 	color: #fff;
-	background: url(../629181fcb5c9e5964de0.jpg);
+	background: url(../b5cb7d34f5d1c037e276.jpg);
 	background-size: cover;
 	background-attachment: fixed;
 	position: relative;

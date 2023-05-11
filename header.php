@@ -17,13 +17,13 @@ $email = get_option( 'contact_email' );
 	<meta http-equiv="content-type" content="text/html; charset=<?php bloginfo( 'charset' ); ?>">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title><?php wp_title(); ?></title>
 	<meta name="description" content="">
 	<?php
 		wp_head();
 	?>
 </head>
-<body>
+<body <?php body_class(); ?>>
+<?php wp_body_open(); ?>
 <header id="header">
 	<div id="header-top">
 		<div class="container">
@@ -37,7 +37,7 @@ $email = get_option( 'contact_email' );
 					}
 					if ( $email ) {
 						// phpcs:ignore
-						printf( '<span class="hidden-sm"><i class="fa fa-envelope"></i>Email: <a href="mailto:%1$s" style="color: white">%2$s</span>', sanitize_email( $email ), sanitize_email( $email ) );
+						printf( '<span class="hidden-sm"><i class="fa fa-envelope"></i>Email: <a href="mailto:%1$s" style="color: white">%2$s</a></span>', sanitize_email( $email ), sanitize_email( $email ) );
 					} else {
 						admin_note( 'Your Email id', 'theme-settings', '.e_mail' );
 					}

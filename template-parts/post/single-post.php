@@ -23,7 +23,7 @@ if ( have_posts() ) :
 			the_post();
 			?>
 					<div class="blog_single">
-						<article class="post">
+						<article <?php post_class( 'post' ); ?>>
 							<div class="post_date">
 								<span class="day"><?php the_time( 'd' ); ?></span>
 								<span class="month"><?php the_time( 'M' ); ?></span>
@@ -35,7 +35,7 @@ if ( have_posts() ) :
 									</h2>
 									<div class="metaInfo">
 										<span><i class="fa fa-calendar"></i> <a><?php the_time( 'M d, Y' ); ?></a> </span>
-										<span><i class="fa fa-user"></i> <?php esc_attr_e( 'By', 'the-one' ); ?> <a href="<?php echo esc_url( get_author_posts_url( $author_id ) ); ?>"><?php the_author(); ?></a> </span>
+										<span><i class="fa fa-user"></i> <?php esc_html_e( 'By', 'the-one' ); ?> <a href="<?php echo esc_url( get_author_posts_url( $author_id ) ); ?>"><?php the_author(); ?></a> </span>
 										<span><i class="fa fa-tag"></i> <?php the_tags( '', ', ' ); ?> </span>
 										<span><i class="fa fa-comments"></i> <a href="#anchor-comments"><?php echo esc_html( get_comments_number() . __( 'Comments', 'the-one' ) ); ?></a></span>
 									</div>
@@ -48,7 +48,7 @@ if ( have_posts() ) :
 
 
 							<ul class="shares">
-								<li class="shareslabel"><h3><?php esc_attr_e( 'Share This Story', 'the-one' ); ?></h3></li>
+								<li class="shareslabel"><h3><?php esc_html_e( 'Share This Story', 'the-one' ); ?></h3></li>
 								<?php
 								$share_buttons = THE_ONE\Inc\Classes\Settings::give_selected_share_options();
 								$button_count  = 0;
@@ -71,7 +71,7 @@ if ( have_posts() ) :
 			<?php
 				do_action( 'end_of_post', $current_post_id );
 				echo '</div> <!-- .blog_single-->';
-			if ( get_comments_number( $current_post_id ) ) {
+			if ( comments_open( $current_post_id ) ) {
 				comments_template( '/comments.php' );
 			}
 		} else {

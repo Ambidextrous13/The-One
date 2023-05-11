@@ -14,3 +14,10 @@ Message : infinite sub menus; footer admin notes; password protected posts; WIP 
 3. comments visibility and comment form visibility issue solve
 4. Empty page fix
 5. fixed infinite scroll empty div.
+
+## #############################################################################################################################################################################
+Message : data validation; optimized images; dynamic heading support
+1. used appropriate sanitizing functions.
+2. unified newline character.
+3. compressed images
+4. Dynamic heading support

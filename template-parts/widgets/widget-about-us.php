@@ -19,6 +19,6 @@ $phone_string = sprintf( '+(%1$s) %2$s', $cc, substr_replace( $phone, '-', 5, 0 
 	<ul class="contact-details-alt">
 		<li><i class="fa fa-map-marker"></i> <p><strong><?php esc_html_e( 'Address', 'the-one' ); ?></strong> : <?php echo esc_html( $address ); ?></p></li>
 		<li><i class="fa fa-user"></i> <p><strong><?php esc_html_e( 'Phone', 'the-one' ); ?></strong><a href="tel:<?php echo esc_attr( $phone_string ); ?>"> : <?php echo esc_html( $phone_string ); ?></a></p></li>
-		<li><i class="fa fa-envelope"></i> <p><strong><?php esc_html_e( 'Email', 'the-one' ); ?></strong> :<a href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_attr( $email ); ?></a></p></li>
+		<li><i class="fa fa-envelope"></i> <p><strong><?php esc_html_e( 'Email', 'the-one' ); ?></strong> :<a href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_html( $email ); ?></a></p></li>
 	</ul>
 </div>
