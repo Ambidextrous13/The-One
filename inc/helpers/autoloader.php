@@ -41,7 +41,7 @@ function autoloader( $path = '' ) {
 			break;
 	}
 
-	$resource_path = implode( '\\', $loc );
+	$resource_path = implode( '/', $loc );
 	require_once $resource_path . '.php';
 
 }

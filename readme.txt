@@ -26,6 +26,22 @@
 
 	== Changelog ==
 
+	##### [Version 1.0.4](https://github.com/Ambidextrous13/The-One) (2023-05-19)
+
+	- Pre-release updates.
+	
+	##### [Version 1.0.3](https://github.com/Ambidextrous13/The-One) (2023-05-16)
+
+	- Internal updates.
+
+	##### [Version 1.0.2](https://github.com/Ambidextrous13/The-One) (2023-05-16)
+
+	- Changed autoloader path building logic.
+
+	##### [Version 1.0.1](https://github.com/Ambidextrous13/The-One) (2023-05-12)
+
+	- Added theme support for custom background and custom header.
+
 	##### [Version 1.0.0](https://github.com/Ambidextrous13/The-One) (2023-05-11)
 
 	- Initial release

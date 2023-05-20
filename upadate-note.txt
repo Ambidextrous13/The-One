@@ -21,3 +21,9 @@ Message : data validation; optimized images; dynamic heading support
 2. unified newline character.
 3. compressed images
 4. Dynamic heading support
+
+## #############################################################################################################################################################################
+Message : theme support ( custom header & background ); WP classes style added
+1. custom header theme support
+2. custom background theme support
+3. added WP classes CSS  

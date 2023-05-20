@@ -94,6 +94,19 @@ class THE_ONE {
 
 		add_theme_support( 'title-tag' );
 
+		$args = array(
+			'default-color' => 'rgba(255,255,255,0)',
+		);
+		add_theme_support( 'custom-background', $args );
+
+		$defaults = array(
+			'flex-width'  => true,
+			'width'       => 1900,
+			'flex-height' => true,
+			'height'      => 200,
+		);
+		add_theme_support( 'custom-header', $defaults );
+
 	}
 
 	/**
