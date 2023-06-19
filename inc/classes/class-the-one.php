@@ -115,7 +115,7 @@ class THE_ONE {
 	 * @return void
 	 */
 	public function registrar() {
-		add_image_size( 'indexing-size', 630, 320, true );
+		add_image_size( 'the-one-indexing-size', 630, 320, true );
 	}
 
 	/**
