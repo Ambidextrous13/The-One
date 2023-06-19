@@ -12,7 +12,7 @@
 	<section class="content blog">
 		<div class="container">
 			<div class="row">
-				<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+				<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" role="main">
 <?php
 global $post;
 $author_id       = $post->post_author;
@@ -52,16 +52,16 @@ if ( have_posts() ) :
 								<?php
 								$share_buttons = THE_ONE\Inc\Classes\Settings::give_selected_share_options();
 								$button_count  = 0;
-								$post_data     = get_post_data_for_share( $current_post_id, $author_id );
+								$post_data     = the_one_get_post_data_for_share( $current_post_id, $author_id );
 								foreach ( $share_buttons as $button => $is_on ) {
 									if ( $is_on && 10 > $button_count ) {
 										//phpcs:ignore
-										echo get_share_button_html( $button, $post_data ); 
+										echo the_one_get_share_button_html( $button, $post_data ); 
 										$button_count ++;
 									}
 								}
 								if ( 0 === $button_count ) {
-									admin_note( 'Configure Share buttons', 'theme-settings', 'set-id', false, '<span style="color:black">' );
+									the_one_admin_note( 'Configure Share buttons', 'theme-settings', 'set-id', false, '<span style="color:black">' );
 								}
 
 								?>
@@ -69,7 +69,7 @@ if ( have_posts() ) :
 
 						</article>
 			<?php
-				do_action( 'end_of_post', $current_post_id );
+				do_action( 'the_one_end_of_post', $current_post_id );
 				echo '</div> <!-- .blog_single-->';
 			if ( comments_open( $current_post_id ) ) {
 				comments_template( '/comments.php' );

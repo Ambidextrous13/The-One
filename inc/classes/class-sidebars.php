@@ -49,7 +49,7 @@ class Sidebars {
 				'after_widget'   => '</div>',
 				'before_title'   => '<div class="widget_title"><h4><span>',
 				'after_title'    => '</span></h4></div>',
-				'before_sidebar' => '<div class="col-sm-4 col-md-4 col-lg-4"><div class="sidebar">',
+				'before_sidebar' => '<div class="col-sm-4 col-md-4 col-lg-4" role="complementary"><div class="sidebar">',
 				'after_sidebar'  => '</div></div>',
 			]
 		);
@@ -63,7 +63,7 @@ class Sidebars {
 				'after_widget'   => '</div>',
 				'before_title'   => '<div class="widget_title"><h4><span>',
 				'after_title'    => '</span></h4></div>',
-				'before_sidebar' => '<footer class="footer"><div class="container">',
+				'before_sidebar' => '<footer class="footer" role="contentinfo"><div class="container">',
 				'after_sidebar'  => '</div></footer>',
 			]
 		);
