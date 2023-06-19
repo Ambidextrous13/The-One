@@ -17,12 +17,21 @@ if ( is_array( $menus ) && ! empty( $menus ) ) {
 
 
 <div class="col-lg-9 col-sm-9 navbar navbar-default navbar-static-top container" role="navigation">
+	<!--  <div class="container">-->
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only"><?php esc_html_e( 'Toggle navigation', 'the-one' ); ?></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+	</div>
 	<div class="navbar-collapse collapse">
 		<ul class="nav navbar-nav">
 	<?php
-	print_menu( $menus );
+	the_one_print_menu( $menus );
 } else {
-		admin_note( 'Here goes your Nav Menu', 'nav-menu', '#nav-menus-frame' );
+		the_one_admin_note( 'Here goes your Nav Menu', 'nav-menu', '#nav-menus-frame' );
 }
 ?>
 		</ul>
