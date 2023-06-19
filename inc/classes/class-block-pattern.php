@@ -42,28 +42,28 @@ class Block_Pattern {
 			'about-us-pattern'      => [
 				'title'       => __( 'About Us', 'the-one' ),
 				'description' => __( 'Brief about your company or business. Contact information and address', 'the-one' ),
-				'content'     => the_template_part( 'template-parts\block-patterns\about-us' ),
+				'content'     => the_one_template_part( 'template-parts\block-patterns\about-us' ),
 				'categories'  => 'footer-stuff',
 			],
 
 			'recent-posts-pattern'  => [
 				'title'       => __( 'Recent Posts', 'the-one' ),
 				'description' => __( 'Shows recent posts', 'the-one' ),
-				'content'     => the_template_part( 'template-parts\block-patterns\recent-posts' ),
+				'content'     => the_one_template_part( 'template-parts\block-patterns\recent-posts' ),
 				'categories'  => 'footer-stuff',
 			],
 
 			'twitter-feeds-pattern' => [
 				'title'       => __( 'Twitter Feeds', 'the-one' ),
 				'description' => __( 'Your twitter feed', 'the-one' ),
-				'content'     => the_template_part( 'template-parts\block-patterns\twitter-feeds' ),
+				'content'     => the_one_template_part( 'template-parts\block-patterns\twitter-feeds' ),
 				'categories'  => 'footer-stuff',
 			],
 
 			'gallery-pattern'       => [
 				'title'       => __( 'Gallery', 'the-one' ),
 				'description' => __( '3x3 photos gallery', 'the-one' ),
-				'content'     => the_template_part( 'template-parts\block-patterns\gallery' ),
+				'content'     => the_one_template_part( 'template-parts\block-patterns\gallery' ),
 				'categories'  => 'footer-stuff',
 			],
 

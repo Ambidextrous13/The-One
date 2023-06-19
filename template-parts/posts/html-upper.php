@@ -6,7 +6,7 @@
  * @author Janak Patel <pateljanak830@gmail.com>
  */
 
-$arg1 = get_the_value( $args, 'div_1_id', '' );
+$arg1 = the_one_get_the_value( $args, 'div_1_id', '' );
 ?>
 
 <section class="wrapper">

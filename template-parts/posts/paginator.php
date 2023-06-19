@@ -6,7 +6,7 @@
  * @author Janak Patel <pateljanak830@gmail.com>
  */
 
-$retro_reflective_panels_activation = 'on' === get_the_value( $args, 'retro_reflective_panels' ) ? 'hidden' : '';
+$retro_reflective_panels_activation = 'on' === the_one_get_the_value( $args, 'retro_reflective_panels' ) ? 'hidden' : '';
 echo wp_kses(
 	sprintf( '<div class="col-lg-12 col-md-12 col-sm-12 %s">', $retro_reflective_panels_activation ),
 	[

@@ -57,14 +57,14 @@ class Settings {
 	 */
 	public static function page_loader() {
 		// front end.
-		suppress_the_echo();
+		the_one_suppress_the_echo();
 
 		settings_fields( 'settings' ) .
 		do_settings_sections( 'the_one_settings' ) . // append all setting between settings_fields and submit_button.
 
 		submit_button();
 
-		$form_elements = echo_to_returnable();
+		$form_elements = the_one_echo_to_returnable();
 		// phpcs:ignore
 		echo HTML::div_tag(
 			HTML::heading_tag( '1', 'The One Theme Settings', [], false ) .
@@ -613,7 +613,7 @@ class Settings {
 		];
 		$returnable   = [];
 		foreach ( $social_links as $meta => $data ) {
-			if ( get_the_value( $data, 'enable', false ) && get_the_value( $data, 'value', false ) ) {
+			if ( the_one_get_the_value( $data, 'enable', false ) && the_one_get_the_value( $data, 'value', false ) ) {
 				$local_array = [
 					'class' => $meta,
 					'link'  => $data['value'],

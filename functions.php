@@ -9,14 +9,14 @@
 // Absolute locations.
 define( 'THE_BASE', get_template_directory() . '/' );
 define( 'ABS_DEV_ASSETS_PATH', THE_BASE . 'assets/build/' );
-define( 'ABS_THE_ONE_JS', ABS_DEV_ASSETS_PATH . 'js/' );
-define( 'ABS_THE_ONE_CSS', ABS_DEV_ASSETS_PATH . 'css/' );
+define( 'ABS_THE_ONE_JS', ABS_DEV_ASSETS_PATH . 'js/the-one-' );
+define( 'ABS_THE_ONE_CSS', ABS_DEV_ASSETS_PATH . 'css/the-one-' );
 
 // URL locations.
 define( 'THE_ROOT', untrailingslashit( get_template_directory_uri() ) . '/' );
 define( 'DEV_ASSETS_PATH', THE_ROOT . 'assets/build/' );
-define( 'THE_ONE_JS', DEV_ASSETS_PATH . 'js/' );
-define( 'THE_ONE_CSS', DEV_ASSETS_PATH . 'css/' );
+define( 'THE_ONE_JS', DEV_ASSETS_PATH . 'js/the-one-' );
+define( 'THE_ONE_CSS', DEV_ASSETS_PATH . 'css/the-one-' );
 
 require_once THE_BASE . 'inc/helpers/autoloader.php';
 
@@ -25,11 +25,11 @@ require_once THE_BASE . 'inc/helpers/autoloader.php';
  *
  * @return instance of class`THE_ONE`
  */
-function _init_() {
+function the_one_init_() {
 	return THE_ONE\inc\classes\THE_ONE::get_instance();
 }
 
-$theme_instance = _init_();
+$theme_instance = the_one_init_();
 
 /**
  * Displays styled single post pagination.incase of post have page breaks.
@@ -97,8 +97,8 @@ function the_one_post_paginator() {
  * @param string $args : array that will be provided to the template file.
  * @return string Content of given template.
  */
-function the_template_part( $slug, $name = '', $args = '' ) {
-	suppress_the_echo();
+function the_one_template_part( $slug, $name = '', $args = '' ) {
+	the_one_suppress_the_echo();
 	if ( '' === $name && '' === $args && '' !== $slug ) {
 		get_template_part( $slug );
 	} elseif ( '' === $args && '' !== $slug && '' !== $name ) {
@@ -108,25 +108,25 @@ function the_template_part( $slug, $name = '', $args = '' ) {
 	} else {
 		return false;
 	}
-	return echo_to_returnable();
+	return the_one_echo_to_returnable();
 }
 
 /**
- * Stops output till the function `echo_to_returnable` called
+ * Stops output till the function `the_one_echo_to_returnable` called
  *
  * @return void
  */
-function suppress_the_echo() {
+function the_one_suppress_the_echo() {
 	ob_start();
 }
 
 /**
- * Returns the string of what being outputted in case of echoing allowed. Works in the pair of function `suppress_the_echo`
+ * Returns the string of what being outputted in case of echoing allowed. Works in the pair of function `the_one_suppress_the_echo`
  *
- * @see function `suppress_the_echo`
+ * @see function `the_one_suppress_the_echo`
  * @return String
  */
-function echo_to_returnable() {
+function the_one_echo_to_returnable() {
 	$returnable = ob_get_contents();
 	ob_end_clean();
 	return $returnable;
@@ -144,7 +144,7 @@ function echo_to_returnable() {
  * @param boolean $full_last_word : If `char_limit` is provided, does this function returns value with full last word or not?.
  * @return string
  */
-function get_the_value( $array, $key, $default_return = false, $prefix = '', $suffix = '', $char_limit = null, $full_last_word = false ) {
+function the_one_get_the_value( $array, $key, $default_return = false, $prefix = '', $suffix = '', $char_limit = null, $full_last_word = false ) {
 	$value = $default_return;
 	$cut   = false;
 	if ( is_array( $array ) && ! empty( $array ) ) {
@@ -157,8 +157,8 @@ function get_the_value( $array, $key, $default_return = false, $prefix = '', $su
 	return $value;
 }
 
-add_filter( 'comment_form_fields', 'reorder_comment_form' );
-add_action( 'comment_form_before_fields', 'wrapper_div' );
+add_filter( 'comment_form_fields', 'the_one_reorder_comment_form' );
+add_action( 'comment_form_before_fields', 'the_one_wrapper_div' );
 
 /**
  * Hardcoded reordering of comment box to suit theme design
@@ -166,13 +166,13 @@ add_action( 'comment_form_before_fields', 'wrapper_div' );
  * @param array $comment_fields : array of comment form field.
  * @return array new reordered comment_field.
  */
-function reorder_comment_form( $comment_fields ) {
-	$comment_box = get_the_value( $comment_fields, 'comment', false );
+function the_one_reorder_comment_form( $comment_fields ) {
+	$comment_box = the_one_get_the_value( $comment_fields, 'comment', false );
 	if ( $comment_box ) {
 		unset( $comment_fields['comment'] );
 	}
 
-	$cookies = get_the_value( $comment_fields, 'cookies', false );
+	$cookies = the_one_get_the_value( $comment_fields, 'cookies', false );
 	if ( $cookies ) {
 		unset( $comment_fields['cookies'] );
 	}
@@ -188,7 +188,7 @@ function reorder_comment_form( $comment_fields ) {
  *
  * @return void
  */
-function wrapper_div() {
+function the_one_wrapper_div() {
 	echo '<div class="row">';
 }
 
@@ -203,7 +203,7 @@ function wrapper_div() {
  * @param string  $tag_c : html closing tag with angled brackets.
  * @return void
  */
-function admin_note( $note, $page, $highlight_query, $is_link = false, $tag_o = '<span>', $tag_c = '</span>' ) {
+function the_one_admin_note( $note, $page, $highlight_query, $is_link = false, $tag_o = '<span>', $tag_c = '</span>' ) {
 	if ( current_user_can( 'manage_options' ) ) {
 		$redirection_link = null;
 		if ( ! $is_link ) {
@@ -288,7 +288,7 @@ function admin_note( $note, $page, $highlight_query, $is_link = false, $tag_o = 
  *      Required in-case of `Tumblr`, `Wordpress`
  * @return string|false of Sharing API link for given arguments
  */
-function get_share_link_for( $host, $post_data ) {
+function the_one_get_share_link_for( $host, $post_data ) {
 	if ( ! empty( $post_data ) ) {
 		$params = [
 			'sharable_url'   => '',
@@ -356,8 +356,8 @@ function get_share_link_for( $host, $post_data ) {
  * @param Array  $post_data : array containing following details require to create shareable link.
  * @return String|false containing HTML for given button
  */
-function get_share_button_html( $button, $post_data ) {
-	$link = get_share_link_for( $button, $post_data );
+function the_one_get_share_button_html( $button, $post_data ) {
+	$link = the_one_get_share_link_for( $button, $post_data );
 	if ( $link ) {
 		return sprintf(
 			'<li>
@@ -390,12 +390,12 @@ function get_share_button_html( $button, $post_data ) {
  * @param int $author_id : id of the author of the post.
  * @return array|false containing above given data
  */
-function get_post_data_for_share( $post_id, $author_id ) {
+function the_one_get_post_data_for_share( $post_id, $author_id ) {
 	if ( 0 !== $post_id && 0 !== $author_id ) {
 		global $wp;
 		$thumbnail_src = '';
 		if ( has_post_thumbnail() ) {
-			$thumbnail_src = get_the_post_thumbnail_url( '', 'indexing-size' );
+			$thumbnail_src = get_the_post_thumbnail_url( '', 'the-one-indexing-size' );
 		}
 
 		$mime_of_thumbnail = wp_check_filetype( $thumbnail_src )['type'];
@@ -433,7 +433,7 @@ function get_post_data_for_share( $post_id, $author_id ) {
  * @param boolean $strict : true for strict limit follow, false for complete word end.
  * @return string shortened string with ellipses.
  */
-function short_text( $text, $limit = 45, $strict = false ) {
+function the_one_short_text( $text, $limit = 45, $strict = false ) {
 	if ( $limit < strlen( $text ) ) {
 		if ( ! $strict ) {
 			return substr( $text, 0, strpos( $text, ' ', $limit - 5 ) ? strpos( $text, ' ', $limit - 5 ) : -1 ) . '[...]';
@@ -450,7 +450,7 @@ function short_text( $text, $limit = 45, $strict = false ) {
  * @param array $element : array of cascaded menu options. can be derived from class-menus' method `get_one_step_minimized_menu`.
  * @return void
  */
-function print_menu( $element ) {
+function the_one_print_menu( $element ) {
 	global $wp;
 	foreach ( $element as $id => $meta ) {
 		$title      = $meta['title'];
@@ -478,7 +478,7 @@ function print_menu( $element ) {
 		echo '</a>';
 		if ( $has_child ) {
 			echo '<ul class="dropdown-menu sm-nowrap">';
-			print_menu( $children );
+			the_one_print_menu( $children );
 			echo '</ul>';
 		}
 		echo '</li>';

@@ -1,0 +1,14 @@
+.highlighter {
+	animation: blinker 800ms linear 0ms 5;
+	pointer-events: none;
+
+	/* animation-fill-mode: backwards; */
+}
+@keyframes blinker {
+	from {
+		border: none;
+	}
+	to {
+		border: 5px solid rgb(231, 51, 51);
+	}
+}

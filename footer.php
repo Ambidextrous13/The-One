@@ -20,7 +20,7 @@ $copyright_text   = get_option( 'the_one_copyright_text', '' );
 					if ( $copyright_text && $copyright_enable ) {
 						echo esc_html( $copyright_text );
 					} else {
-						admin_note( 'Add copyright Text here', 'theme-settings', '.copyright_text' );
+						the_one_admin_note( 'Add copyright Text here', 'theme-settings', '.copyright_text' );
 					}
 					?>
 				</p>
@@ -33,7 +33,7 @@ $copyright_text   = get_option( 'the_one_copyright_text', '' );
 						use THE_ONE\Inc\Classes\Settings as Settings;
 						$social_media_counts = Settings::$footer_social_media_count;
 						if ( 0 === $social_media_counts ) {
-							admin_note( 'Your Social Media goes here', 'theme-settings', '.social_media_facebook' );
+							the_one_admin_note( 'Your Social Media goes here', 'theme-settings', '.social_media_facebook' );
 						}
 						?>
 					</ul>

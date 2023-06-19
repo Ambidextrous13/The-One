@@ -180,7 +180,7 @@ class Infinite_Scroll {
 		$data  = '';
 		if ( $query->have_posts() ) {
 			if ( ! $echo ) {
-				suppress_the_echo();
+				the_one_suppress_the_echo();
 			}
 			while ( $query->have_posts() ) {
 				$query->the_post();
@@ -191,7 +191,7 @@ class Infinite_Scroll {
 			}
 			wp_reset_postdata();
 			if ( ! $echo ) {
-				$data = echo_to_returnable();
+				$data = the_one_echo_to_returnable();
 				return $data;
 			}
 		}
