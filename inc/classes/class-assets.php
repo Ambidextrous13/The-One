@@ -64,7 +64,9 @@ class Assets {
 		// CSS file enqueuing.
 		wp_register_style( 'the-one-css', THE_ONE_CSS . 'css.css', [], filemtime( ABS_THE_ONE_CSS . 'css.css' ), 'all' );
 		// Enrolling.
-		wp_enqueue_style( 'the-one-css' );
+		if ( isset( $_GET['page'] ) && 'the_one_settings' === $_GET['page'] ) {
+			wp_enqueue_style( 'the-one-css' );
+		}
 	}
 
 	/**
